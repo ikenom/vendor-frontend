@@ -1,0 +1,150 @@
+{
+  "name": "gatsby-starter",
+  "version": "1.0.0",
+  "description": "Gatsby 1.0 starter",
+  "author": "ikenom <robert@ikenom.dev>",
+  "license": "MIT",
+  "scripts": {
+    "develop": "gatsby develop",
+    "develop-container": "gatsby develop -H 0.0.0.0",
+    "production": "gatsby build && gatsby serve",
+    "production-container": "gatsby build && gatsby serve -H 0.0.0.0",
+    "lint": "npm run lint:ts && npm run lint:md && npm run lint:js && npm run lint:css",
+    "lint:ts": "tslint \"./src/**/*.ts\" \"./src/**/*.tsx\"",
+    "lint:md": "remark .",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:scss": "stylelint src/**/*.scss --syntax scss",
+    "test": "npm run lint && jest",
+    "test:watch": "jest --watch",
+    "generate": "plop --plopfile ./generators/plopfile.js",
+    "graphql-types": "graphql-codegen --config ./graphql-config.yml",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o public/docs",
+    "codeclimate": "codeclimate-test-reporter < coverage/lcov.info"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.4.0",
+    "@apollo/client": "^3.3.7",
+    "@artsy/fresnel": "^0.0.1",
+    "@graphql-codegen/add": "^2.0.2",
+    "@graphql-codegen/cli": "^1.20.0",
+    "@graphql-codegen/typescript": "^1.20.0",
+    "@sentry/react": "^6.0.0",
+    "@types/styled-system": "^5.1.10",
+    "antd": "^4.10.3",
+    "babel-eslint": "^10.1.0",
+    "gatsby": "^2.18.4",
+    "gatsby-cli": "2.19.0",
+    "gatsby-link": "^2.1.1",
+    "gatsby-plugin-manifest": "^2.2.30",
+    "gatsby-plugin-offline": "^2.1.1",
+    "gatsby-plugin-typescript": "^2.0.15",
+    "gatsby-source-filesystem": "^2.0.37",
+    "gatsby-transformer-json": "^2.1.11",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
+    "react-scripts": "^3.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "styled-components": "^5.2.1",
+    "styled-system": "^5.1.5",
+    "ts-loader": "^6.0.1"
+  },
+  "devDependencies": {
+    "@babel/types": "7.11.0",
+    "@babel/core": "7.11.0",
+    "@storybook/addon-actions": "^6.1.14",
+    "@storybook/addon-docs": "^6.1.14",
+    "@storybook/addon-knobs": "^6.1.14",
+    "@storybook/addon-links": "^6.1.14",
+    "@storybook/addon-notes": "^5.3.21",
+    "@storybook/addon-options": "^5.3.21",
+    "@storybook/addon-viewport": "^6.1.14",
+    "@storybook/react": "^6.1.14",
+    "@types/enzyme": "^3.9.2",
+    "@types/jest": "^24.0.23",
+    "@types/lodash": "^4.14.130",
+    "@types/node": "^12.0.2",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-helmet": "5.0.8",
+    "@types/react-redux": "^7.0.9",
+    "@types/react-test-renderer": "^16.8.1",
+    "@types/semantic-ui": "^2.2.7",
+    "@types/storybook-readme": "^5.0.4",
+    "@types/styled-components": "^5.1.7",
+    "@types/webpack-env": "^1.13.9",
+    "cypress": "6.2.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.13.1",
+    "eslint": "^5.16.0",
+    "eslint-config-react-app": "^4.0.1",
+    "eslint-plugin-flowtype": "^2.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "flat": "^4.1.0",
+    "husky": "2.3.0",
+    "jest": "^24.8.0",
+    "lint-staged": "8.1.7",
+    "raw-loader": "^2.0.0",
+    "react-test-renderer": "^16.0.0",
+    "storybook-readme": "^5.0.9",
+    "stylelint": "^10.0.1",
+    "stylelint-config-standard": "^18.3.0",
+    "ts-jest": "^24.0.2",
+    "ts-lint": "4.5.1",
+    "typescript": "^3.5.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "keywords": [
+    "gatsby",
+    "starter"
+  ],
+  "jest": {
+    "globals": {
+      "__LINK_PREFIX__": "",
+      "__PREFIX_LINKS__": ""
+    },
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/public/",
+      "/templates/",
+      "/.cache"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "html"
+    ]
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended",
+      "remark-frontmatter"
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

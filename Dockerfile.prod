@@ -1,0 +1,13 @@
+FROM node:14
+
+WORKDIR /fytr-frontend
+
+COPY . .
+
+RUN yarn global add gatsby-cli && yarn install
+
+FROM gcr.io/distroless/nodejs:14
+
+EXPOSE 9000
+
+CMD ["yarn", "production-container"]

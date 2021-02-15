@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
+        "module": "commonjs",
+        "target": "esnext",
+        "jsx": "react",
+        "lib": ["dom", "esnext"],
+        "types": ["cypress"]
+    },
+    "include": [
+        "./src/**/*"
+, "stories/atoms/button.stories.tsx"    ],
+    "typeRoots": ["node_modules/@types"]
+}
