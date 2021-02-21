@@ -2,7 +2,7 @@ import React from 'react';
 import { setOptions } from "@storybook/addon-options";
 import { defaultTheme } from '../src/defaultTheme'
 import { ThemeProvider } from 'styled-components';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 const ThemeDecorator = (Story) => (
   <ThemeProvider theme={defaultTheme}>
@@ -36,14 +36,12 @@ setOptions({
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   viewport: {
-    viewports: {
-      ...INITIAL_VIEWPORTS,
-    },
+    viewports: MINIMAL_VIEWPORTS,
   },
   options: {
     storySort: {
       method: 'alphabetical',
-      order: ['Tokens', 'Layout', 'Icons', 'Atoms', 'Molecules', 'Organisms'],
+      order: ['Tokens', 'Layouts', 'Icons', 'Atoms', 'Molecules', 'Organisms'],
     },
   }
 }

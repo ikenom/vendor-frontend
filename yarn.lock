@@ -2422,7 +2422,7 @@
     escape-string-regexp "^2.0.0"
     lodash.deburr "^4.1.0"
 
-"@storybook/addon-actions@^6.1.14":
+"@storybook/addon-actions@6.1.18", "@storybook/addon-actions@^6.1.14":
   version "6.1.18"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-6.1.18.tgz#9dad0f2be52db778ec4519f130d9e0c46188b504"
   integrity sha512-05p52RWst3jS5txwqplLZFWuZ89PMtsHojxs4rWRQ6mrgPwiTE0MUl+S1wMihabLm9CYUUJ0/41QNb2Uv0+hhw==
@@ -2445,7 +2445,39 @@
     util-deprecate "^1.0.2"
     uuid "^8.0.0"
 
-"@storybook/addon-docs@^6.1.14":
+"@storybook/addon-backgrounds@6.1.18":
+  version "6.1.18"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-backgrounds/-/addon-backgrounds-6.1.18.tgz#1f1b232a76e6c97a5c9e86fc0f51b3fe999f04a8"
+  integrity sha512-8qgA1oKyplJQNtdTsf88zxa/q+YN25C0VCRe8HoL1r5gE7n7qf0bQofq+aMv11upbVNxdFXcoABEyiq/CfTX0g==
+  dependencies:
+    "@storybook/addons" "6.1.18"
+    "@storybook/api" "6.1.18"
+    "@storybook/client-logger" "6.1.18"
+    "@storybook/components" "6.1.18"
+    "@storybook/core-events" "6.1.18"
+    "@storybook/theming" "6.1.18"
+    core-js "^3.0.1"
+    global "^4.3.2"
+    memoizerific "^1.11.3"
+    regenerator-runtime "^0.13.7"
+    ts-dedent "^2.0.0"
+    util-deprecate "^1.0.2"
+
+"@storybook/addon-controls@6.1.18":
+  version "6.1.18"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-controls/-/addon-controls-6.1.18.tgz#aa85d6003854820bc5d4cf87148a7e4cc2ece207"
+  integrity sha512-I3dI6L5up03Uiw1RMVN0HVUgHlfN4CTgI8tex6L49dERUlcDSrfq417DXGvq8ipxHUnb/+0CVYkJ7p6TWzc3yQ==
+  dependencies:
+    "@storybook/addons" "6.1.18"
+    "@storybook/api" "6.1.18"
+    "@storybook/client-api" "6.1.18"
+    "@storybook/components" "6.1.18"
+    "@storybook/node-logger" "6.1.18"
+    "@storybook/theming" "6.1.18"
+    core-js "^3.0.1"
+    ts-dedent "^2.0.0"
+
+"@storybook/addon-docs@6.1.18", "@storybook/addon-docs@^6.1.14":
   version "6.1.18"
   resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-6.1.18.tgz#bda4cbeba5318c8c4651e1b9cc1ff7d0bb770209"
   integrity sha512-7aTKD5+WULiMQ9zBqQ81sHSNBcayhFZWfH19P/ikR3UqBj1gsWjNH8l8vGVbaJiV+z53pmnnGfCYGq1HkL9oCA==
@@ -2490,6 +2522,24 @@
     remark-slug "^6.0.0"
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
+
+"@storybook/addon-essentials@6.1.18":
+  version "6.1.18"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-essentials/-/addon-essentials-6.1.18.tgz#2c545b79393013d50b2fab0d4396b6c32257ea8c"
+  integrity sha512-c+/wM8ZHm2bv1penZJpbpDmdm7HQUxXadLKI/jtyW/87pc3yhFLZZDwPeoMtJDI1pVfWOO2IOP4LiX9cRf53uQ==
+  dependencies:
+    "@storybook/addon-actions" "6.1.18"
+    "@storybook/addon-backgrounds" "6.1.18"
+    "@storybook/addon-controls" "6.1.18"
+    "@storybook/addon-docs" "6.1.18"
+    "@storybook/addon-toolbars" "6.1.18"
+    "@storybook/addon-viewport" "6.1.18"
+    "@storybook/addons" "6.1.18"
+    "@storybook/api" "6.1.18"
+    "@storybook/node-logger" "6.1.18"
+    core-js "^3.0.1"
+    regenerator-runtime "^0.13.7"
+    ts-dedent "^2.0.0"
 
 "@storybook/addon-knobs@^6.1.14":
   version "6.1.18"
@@ -2562,7 +2612,18 @@
     core-js "^3.0.1"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-viewport@^6.1.14":
+"@storybook/addon-toolbars@6.1.18":
+  version "6.1.18"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-toolbars/-/addon-toolbars-6.1.18.tgz#484c26d668b63f481e5c8439c4b7eb800824491d"
+  integrity sha512-+a/H80OJ+2eCymGLlvMUmGh3AVpy5bGsw5b4AROvz1iYyYoMEJz0/Bi+VwU6bjHXn8I4Aqj727Al4XNYZtFU+A==
+  dependencies:
+    "@storybook/addons" "6.1.18"
+    "@storybook/api" "6.1.18"
+    "@storybook/client-api" "6.1.18"
+    "@storybook/components" "6.1.18"
+    core-js "^3.0.1"
+
+"@storybook/addon-viewport@6.1.18", "@storybook/addon-viewport@^6.1.14":
   version "6.1.18"
   resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-6.1.18.tgz#10fdbb0b3ff5ead84f2d4c10f91a80db1cb8de6e"
   integrity sha512-Sf3RhdAekmfkrcU8gFbgJFCEuo4uJmGIPaHIBuBUYxc/IT1Iz7b4k6WwPh+Dd0K6hro/2ZeWSiFTM4af17uNZw==

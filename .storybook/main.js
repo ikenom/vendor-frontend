@@ -3,8 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-knobs',
+    '@storybook/addon-essentials'
   ],
   webpackFinal: async (config) => {
     config.plugins.push(
