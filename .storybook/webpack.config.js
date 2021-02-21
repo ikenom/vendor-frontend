@@ -1,43 +1,49 @@
 const path = require('path');
+const pathToInlineSvg = path.resolve(__dirname, '../src/icons/svg');
 
 module.exports = async ({ config, mode }) => {
-    // `mode` has a value of 'DEVELOPMENT' or 'PRODUCTION'
-    // You can change the configuration based on that.
-    // 'PRODUCTION' is used when building the static version of storybook.
-
-  // Add typescript loader
-  config.module.rules.push({
-    test: /\.(ts|tsx)$/,
-    include: path.resolve(__dirname, "../src"),
-    loader: "ts-loader",
-    options: {
-      configFile: ".storybook/tsconfig.json"
-    }
-  });
-  config.resolve.extensions.push(".ts", ".tsx");
-
-  // Add SVGR Loader
-  // ========================================================
-  // Remove svg rules from existing webpack rule
-  const assetRule = config.module.rules.find(({ test }) => test.test('.svg'));
-
-  const assetLoader = {
-    loader: assetRule.loader,
-    options: assetRule.options || assetRule.query,
-  };
+   // Transpile Gatsby module because Gatsby includes un-transpiled ES6 code.
+   config.module.rules[0].exclude = [/node_modules\/(?!(gatsby)\/)/]
   
-  config.module.rules.unshift({
-    test: /\.svg$/,
-    use: ['@svgr/webpack', assetLoader],
-  });
-  
-  // Add markdown loader
-  config.module.rules.push({
-    test: /\.md$/,
-    include: path.resolve(__dirname, "../src"),
-    loader: "raw-loader"
-  });
-  config.resolve.extensions.push(".md");
+   // use installed babel-loader which is v8.0-beta (which is meant to work with @babel/core@7)
+   config.module.rules[0].use[0].loader = require.resolve("babel-loader")
+ 
+   // use @babel/preset-react for JSX and env (instead of staged presets)
+   config.module.rules[0].use[0].options.presets = [
+     require.resolve("@babel/preset-react"),
+     require.resolve("@babel/preset-env"),
+   ]
+ 
+   // use @babel/plugin-proposal-class-properties for class arrow functions
+   config.module.rules[0].use[0].options.plugins = [
+     require.resolve("@babel/plugin-proposal-class-properties"),
+   ]
+ 
+   // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
+   config.resolve.mainFields = ["browser", "module", "main"]
+   config.module.rules.push({
+       test: /\.(ts|tsx)$/,
+       loader: require.resolve('babel-loader'),
+       options: {
+         presets: [['react-app', { flow: false, typescript: true }]],
+       },
+    });
+     
+    config.resolve.extensions.push('.ts', '.tsx');
+
+    // svg with @svgr
+    const fileLoaderRule = config.module.rules.find(rule => rule.test.test('.svg'));
+    fileLoaderRule.exclude = pathToInlineSvg;
+    config.module.rules.push({
+      test: /\.svg$/,
+      include: pathToInlineSvg,
+      use: [{
+        loader: '@svgr/webpack',
+        options: {
+          icon: true,
+        },
+      }],
+    });
 
   return config;
 };

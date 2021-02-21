@@ -10,14 +10,7 @@ module.exports = {
   },
   plugins: [
 
-    {
-      resolve: "gatsby-plugin-react-svg",
-      options: {
-        rule: {
-          include: /assets/ // See below to configure properly
-        }
-      }
-    }
+    "gatsby-plugin-react-svgr",
     // Add typescript stack into webpack
     `gatsby-plugin-typescript`,
 

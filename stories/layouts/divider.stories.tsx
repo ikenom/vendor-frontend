@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/react";
 import { Divider } from "../../src/components/layouts/divider"
+import React from "react";
 
 export default {
   title: "Layouts/Divider",

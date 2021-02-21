@@ -1,16 +1,16 @@
 import React from "react";
 import { Meta } from "@storybook/react";
-import { ReactComponent as SelectedOrderLogo} from '../../src/icons/orderIcons/selectedOrderIcon.svg'
-import { ReactComponent as UnSelectedOrderLogo} from '../../src/icons/orderIcons/unselectedOrderIcon.svg'
-import { ReactComponent as SelectedProfileLogo} from '../../src/icons/profileIcons/selectedProfileIcon.svg'
-import { ReactComponent as UnSelectedProfileLogo} from '../../src/icons/profileIcons/unselectedProfileIcon.svg'
-import { ReactComponent as SelectedInventoryLogo} from '../../src/icons/inventoryIcons/selectedInventoryIcon.svg'
-import { ReactComponent as UnSelectedInventoryLogo} from '../../src/icons/inventoryIcons/unselectedInventoryIcon.svg'
-import { ReactComponent as SelectedSupportLogo} from '../../src/icons/supportIcons/selectedSupportIcon.svg'
-import { ReactComponent as UnSelectedSupportLogo} from '../../src/icons/supportIcons/unselectedSupportIcon.svg'
-import { ReactComponent as PhoneLogo} from '../../src/icons/phoneIcon.svg'
-import { ReactComponent as MessageLogo} from '../../src/icons/messageIcon.svg'
-import { ReactComponent as ArrowLogo} from '../../src/icons/arrow.svg'
+import SelectedOrderLogo from '../../src/icons/svg/orderIcons/selectedOrderIcon.svg'
+import UnSelectedOrderLogo from '../../src/icons/svg/orderIcons/unselectedOrderIcon.svg'
+import SelectedProfileLogo from '../../src/icons/svg/profileIcons/selectedProfileIcon.svg'
+import UnSelectedProfileLogo from '../../src/icons/svg/profileIcons/unselectedProfileIcon.svg'
+import SelectedInventoryLogo from '../../src/icons/svg/inventoryIcons/selectedInventoryIcon.svg'
+import UnSelectedInventoryLogo from '../../src/icons/svg/inventoryIcons/unselectedInventoryIcon.svg'
+import SelectedSupportLogo from '../../src/icons/svg/supportIcons/selectedSupportIcon.svg'
+import UnSelectedSupportLogo from '../../src/icons/svg/supportIcons/unselectedSupportIcon.svg'
+import PhoneLogo from '../../src/icons/svg/phoneIcon.svg'
+import MessageLogo from '../../src/icons/svg/messageIcon.svg'
+import ArrowLogo from '../../src/icons/svg/arrow.svg'
 import styled from "styled-components";
 
 export default {
