@@ -6,9 +6,7 @@ import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 const ThemeDecorator = (Story) => (
   <ThemeProvider theme={defaultTheme}>
-    <div width="100%" height="100%">
       <Story />
-    </div>
   </ThemeProvider>
 );
 
