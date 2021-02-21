@@ -8,15 +8,15 @@ export type LayoutType = "default" | "largerHeader"
 
 export interface BasicLayoutProps {
   header: JSX.Element,
-  headerStyle: {
+  headerStyle?: {
     color?: string
   }
   content: JSX.Element,
-  contentStyle: {
+  contentStyle?: {
     color?: string
   }
   footer: JSX.Element,
-  footerStyle: {
+  footerStyle?: {
     color?: string
   }
 }
@@ -55,9 +55,9 @@ const ContentLayout = styled(Content)<{ color: string | undefined }>`
 
 const BaseLayout = (props: BasicLayoutProps) => {
   const { header, content, footer, headerStyle, contentStyle, footerStyle } = props;
-  const { color: headerColor } = headerStyle;
-  const { color: contentColor } = contentStyle;
-  const { color: footerColor } = footerStyle;
+  const { color: headerColor } = headerStyle  || {}
+  const { color: contentColor } = contentStyle || {};
+  const { color: footerColor } = footerStyle || {};
   return (
     <StyledLayout>
       <HeaderLayout color={headerColor}>

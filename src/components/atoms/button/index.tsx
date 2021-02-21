@@ -39,14 +39,14 @@ export const buttonTypeVariant = variant({
       borderColor: defaultTheme.colors.blue,
       background: defaultTheme.colors.blue,
       color: defaultTheme.colors.white,
-      fontFamily: defaultTheme.fontFamily.content
+      fontFamily: defaultTheme.fontFamily.dual
     },
 
     default: {
       borderColor: defaultTheme.colors.yellow,
       background: defaultTheme.colors.yellow,
       color: defaultTheme.colors.white,
-      fontFamily: defaultTheme.fontFamily.content
+      fontFamily: defaultTheme.fontFamily.dual
     },
   },
 });

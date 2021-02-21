@@ -10,6 +10,7 @@ import { ReactComponent as SelectedSupportLogo} from '../../src/icons/supportIco
 import { ReactComponent as UnSelectedSupportLogo} from '../../src/icons/supportIcons/unselectedSupportIcon.svg'
 import { ReactComponent as PhoneLogo} from '../../src/icons/phoneIcon.svg'
 import { ReactComponent as MessageLogo} from '../../src/icons/messageIcon.svg'
+import { ReactComponent as ArrowLogo} from '../../src/icons/arrow.svg'
 import styled from "styled-components";
 
 export default {
@@ -87,6 +88,22 @@ const MessageIcon = () => (
   </>
 )
 
+const ArrowIcon = () => (
+  <>
+    <IconContainer>
+      <ArrowLogo style={{width: "100%", height: "100%"}}/>
+    </IconContainer>
+  </>
+)
+
+const IconGroup = () => (
+  <GroupIconContainer>
+    <PhoneIcon/>
+    <MessageIcon/>
+    <ArrowIcon/>
+  </GroupIconContainer>
+)
+
 export const Icons = () => {
   return (
     <>
@@ -94,8 +111,7 @@ export const Icons = () => {
     <ProfileIcon/>
     <InventoryIcon/>
     <SupportIcon/>
-    <PhoneIcon/>
-    <MessageIcon/>
+    <IconGroup/>
     </>
   )
 }

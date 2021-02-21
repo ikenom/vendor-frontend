@@ -13,10 +13,11 @@ export const defaultTheme = {
     white: "#FFFFFF",
   },
   fontFamily: {
-    content: "Dual",
-    default: "Montserrat",
+    dual: "Dual",
+    hmt: "Helvetica Now Text",
   },
   fontSize: {
+    xsm: "10px",
     sm: "14px",
     default: "16px",
     lg: "18px",
