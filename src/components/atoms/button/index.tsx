@@ -43,8 +43,8 @@ export const buttonTypeVariant = variant({
     },
 
     default: {
-      borderColor: defaultTheme.colors.blackGrey,
-      background: defaultTheme.colors.blackGrey,
+      borderColor: defaultTheme.colors.yellow,
+      background: defaultTheme.colors.yellow,
       color: defaultTheme.colors.white,
       fontFamily: defaultTheme.fontFamily.content
     },

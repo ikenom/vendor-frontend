@@ -9,45 +9,15 @@ module.exports = {
     'MarkdownRemark.frontmatter.author': `AuthorJson`
   },
   plugins: [
-    // {
-    //   resolve: `gatsby-plugin-google-analytics`,
-    //   options: {
-    //     trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID',
-    //     // Puts tracking script in the head instead of the body
-    //     head: false,
-    //     // Setting this parameter is optional
-    //     anonymize: true,
-    //     // Setting this parameter is also optional
-    //     respectDNT: true
-    //   }
-    // },
 
-    // // Parse all markdown files (each plugin add/parse some data into graphQL layer)
-    // {
-    //   resolve: `gatsby-transformer-remark`,
-    //   options: {
-    //     plugins: [
-    //       {
-    //         resolve: `gatsby-remark-images`,
-    //         options: {
-    //           maxWidth: 690,
-    //           backgroundColor: `#f7f0eb`
-    //         }
-    //       },
-    //       `gatsby-remark-prismjs`,
-    //       `gatsby-remark-copy-linked-files`,
-    //       `gatsby-remark-autolink-headers`
-    //     ]
-    //   }
-    // },
-
-    // // Parse all images files
-    // `gatsby-transformer-sharp`,
-    // `gatsby-plugin-sharp`,
-
-    // Parse JSON files
-    `gatsby-transformer-json`,
-
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/ // See below to configure properly
+        }
+      }
+    }
     // Add typescript stack into webpack
     `gatsby-plugin-typescript`,
 

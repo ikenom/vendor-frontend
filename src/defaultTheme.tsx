@@ -2,14 +2,14 @@
 
 export const defaultTheme = {
   colors: {
-    black: "#121212",
-    grey: "#BDBDBD",
-    blackGrey: "#464545",
+    black: "#000000",
+    greyOne: "#EEEEEF",
+    greyTwo: "#A0A0A0",
     blue: "#4785FE",
     light: "#1E1E1E",
     green: "#1C953E",
-    red: "#C7544F",
-    yellow: "#DCA35F",
+    red: "#FF2727",
+    yellow: "#F8F078",
     white: "#FFFFFF",
   },
   fontFamily: {
