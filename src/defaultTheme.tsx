@@ -34,6 +34,13 @@ export const defaultTheme = {
     circle: "50%",
     pill: "500px"
   },
+  breakpoints: {
+    xs: '300px',
+    sm: '600px',
+    md: '960px',
+    lg: '1280px',
+    xl: '1920px',
+  },
 };
 
 
