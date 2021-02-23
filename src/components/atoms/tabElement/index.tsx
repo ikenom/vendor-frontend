@@ -1,0 +1,49 @@
+import React from "react";
+import styled from "styled-components";
+import { defaultTheme } from "../../../defaultTheme";
+import { AttentionNeededIcon } from "../../../icons/components";
+
+export interface TabElementProps {
+  showAttentionIcon: boolean;
+  text: string;
+}
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: relative;
+`;
+
+const AttentionIcon = styled(AttentionNeededIcon)`
+  width: 13%;
+  height: 45%;
+  position: relative;
+  right: 10%;
+`;
+
+const Text = styled.p`
+  font-size: ${defaultTheme.fontSize.sm};
+  font-family: ${defaultTheme.fontFamily.hmt};
+  width: 92%;
+  height: 84%;
+  margin-top: 6%;
+`;
+
+export const TabElement = (props: TabElementProps) => {
+  const {showAttentionIcon, text} = props;
+
+  return(
+    <Container>
+      <Text>{text}</Text>
+      {
+        showAttentionIcon && <AttentionIcon />
+      }
+    </Container>
+  )
+}
+/**
+ * Original figma dimensions:
+ * Total: width= 96px, height= 25px
+ * Text: margin-top:4px, width 89px, height 21px
+ * Icon: width 12px, height 12px
+ */
