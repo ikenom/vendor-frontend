@@ -3,7 +3,7 @@
 export const defaultTheme = {
   colors: {
     black: "#000000",
-    greyOne: "#EEEEEF",
+    greyOne: "#F9F9F9",
     greyTwo: "#A0A0A0",
     blue: "#4785FE",
     light: "#1E1E1E",
