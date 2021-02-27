@@ -4,6 +4,8 @@ import { defaultTheme } from "../../../defaultTheme";
 import { ArrowIcon, ProfileIcon } from "../../../icons/components";
 import { TextWithLabel } from "../../atoms/textWithLabel";
 import { Divider } from "../../layouts/divider";
+import { width } from 'styled-system';
+import Skeleton from 'react-loading-skeleton';
 
 
 const Container = styled.div`
@@ -11,6 +13,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const OrderSummaryWithDividerContainer = styled.div`
+  width: 100%;
 `;
 
 const ProfileAndTextContainer = styled.div`
@@ -33,11 +39,11 @@ const Arrow = styled(ArrowIcon)`
 `
 
 const BottomDivider = styled(Divider)`
-  margin-top: 5px;
+  margin-top: 3px;
 `
 
-const TextWithLabels = styled(TextWithLabel)<{widthInPercent: number}>`
-  width: ${({widthInPercent}) => `${widthInPercent}%`}
+const TextWithLabels = styled(TextWithLabel)`
+  ${width}
 `
 
 const Price = styled.p`
@@ -66,6 +72,14 @@ export interface OrderSummaryProps {
   onClick?: () => any
 }
 
+export interface SkeletonWrapperProps {
+  skeletonProps: {
+    isLoading: boolean;
+    showSkeleton: boolean;
+  }
+  orderSummaryProps: OrderSummaryProps;
+}
+
 
 
 const ProfileWithText = (props: Pick<OrderSummaryProps, "numOfItems" | "customerName">) => {
@@ -73,7 +87,7 @@ const ProfileWithText = (props: Pick<OrderSummaryProps, "numOfItems" | "customer
   return(
     <ProfileAndTextContainer>
       <Profile/>
-      <TextWithLabels label= {`${numOfItems} ITEMS`} content={`${customerName}`} widthInPercent={18}/>
+      <TextWithLabels label= {`${numOfItems} ITEMS`} content={`${customerName}`} width={18}/>
     </ProfileAndTextContainer>
   )
 }
@@ -93,7 +107,7 @@ export const OrderSummary = (props: OrderSummaryProps) => {
   return (
     <Container>
       <ProfileWithText numOfItems={numOfItems} customerName={customerName}/>
-      <TextWithLabels label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`} widthInPercent={14}/>
+      <TextWithLabels label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`} width={14}/>
       <PriceWithArrow price={price}/>
     </Container>
   )
@@ -101,10 +115,19 @@ export const OrderSummary = (props: OrderSummaryProps) => {
 
 export const OrderSummaryWithDivider = (props: OrderSummaryProps) => {
   return(
-    <>
+    <OrderSummaryWithDividerContainer>
       <OrderSummary {...props}/>
       <BottomDivider/>
-    </>
+    </OrderSummaryWithDividerContainer>
+  )
+}
+
+export const OrderSummarySkeletonWrapper = (props: SkeletonWrapperProps) => {
+  const { skeletonProps: { isLoading, showSkeleton }, orderSummaryProps } = props;
+  return(
+    showSkeleton 
+    ? isLoading ? (<Skeleton duration={1}/>) : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
+    : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
   )
 }
 
