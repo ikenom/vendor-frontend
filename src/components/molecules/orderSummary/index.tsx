@@ -122,6 +122,7 @@ export const OrderSummaryWithDivider = (props: OrderSummaryProps) => {
   )
 }
 
+// Need to figure out how to get the skeleton to fill the same space as component
 export const OrderSummarySkeletonWrapper = (props: SkeletonWrapperProps) => {
   const { skeletonProps: { isLoading, showSkeleton }, orderSummaryProps } = props;
   return(

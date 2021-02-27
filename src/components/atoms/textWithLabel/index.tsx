@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { defaultTheme } from "../../../defaultTheme"
 
-export interface OrderSummaryProps {
+export interface TextWithLabelProps {
   label: string;
   content: string;
 }
@@ -28,7 +28,7 @@ const Content = styled.p`
 `
 
 
-export const TextWithLabel = (props: OrderSummaryProps) => {
+export const TextWithLabel = (props: TextWithLabelProps) => {
 
   const { label, content } = props
   return(
