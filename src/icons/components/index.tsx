@@ -1,8 +1,16 @@
 import styled, { css } from 'styled-components';
 import ProfileLogo from '../svg/profileIcons/baseProfileIcon.svg';
+import selectedProfileIcon from '../svg/profileIcons/selectedProfileIcon.svg';
+import unselectedProfileIcon from '../svg/profileIcons/unselectedProfileIcon.svg';
 import ArrowLogo from '../svg/arrow.svg';
 import SelectedOrderLogo from '../svg/orderIcons/selectedOrderIcon.svg';
 import UnSelectedOrderLogo from '../svg/orderIcons/unselectedOrderIcon.svg';
+import SelectedInventoryLogo from '../svg/inventoryIcons/selectedInventoryIcon.svg';
+import UnSelectedInventoryLogo from '../svg/inventoryIcons/unselectedInventoryIcon.svg';
+import SelectedSupportLogo from '../svg/supportIcons/selectedSupportIcon.svg';
+import UnSelectedSupportLogo from '../svg/supportIcons/unselectedSupportIcon.svg';
+import React from 'react';
+
 
 const iconCss = css`
   width: 100%;
@@ -17,10 +25,66 @@ export const ArrowIcon = styled(ArrowLogo)`
   ${iconCss}
 `;
 
+
+/**
+ * Selectable Icon types. These are the icons with two svgs (one for selected and one for unselected).
+ */
+export type SelectableIcons = "order" | "inventory" | "support" | "profile";
+
+interface SelectableIcon {
+  isSelected: boolean;
+  type: SelectableIcons
+}
+
+export const SelectableIcon = (props: SelectableIcon) => {
+  const { isSelected, type } = props;
+  switch (type) {
+    case "order": {
+      return(isSelected ? (<SelectedOrderIcon/>) : (<UnSelectedOrderIcon/>))
+    }
+    case "inventory": {
+      return(isSelected ? (<SelectedInventoryIcon/>) : (<UnSelectedInventoryIcon/>))
+    }
+    case "support": {
+      return(isSelected ? (<SelectedSupportIcon/>) : (<UnSelectedSupportIcon/>))
+    }
+    case "profile": {
+      return(isSelected ? (<SelectedProfileIcon/>) : (<UnSelectedProfileIcon/>))
+    }
+    default: {
+      return <p>Whoops</p>;
+    }
+  }
+}
+
 export const SelectedOrderIcon = styled(SelectedOrderLogo)`
   ${iconCss}
 `;
 
 export const UnSelectedOrderIcon = styled(UnSelectedOrderLogo)`
+  ${iconCss}
+`;
+
+export const SelectedInventoryIcon = styled(SelectedInventoryLogo)`
+  ${iconCss}
+`;
+
+export const UnSelectedInventoryIcon = styled(UnSelectedInventoryLogo)`
+  ${iconCss}
+`;
+
+export const SelectedSupportIcon = styled(SelectedSupportLogo)`
+  ${iconCss}
+`;
+
+export const UnSelectedSupportIcon = styled(UnSelectedSupportLogo)`
+  ${iconCss}
+`;
+
+export const SelectedProfileIcon = styled(selectedProfileIcon)`
+  ${iconCss}
+`;
+
+export const UnSelectedProfileIcon = styled(unselectedProfileIcon)`
   ${iconCss}
 `;
