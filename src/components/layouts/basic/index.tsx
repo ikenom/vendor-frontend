@@ -36,7 +36,7 @@ const HeaderLayout = styled(Header)<{ color: string | undefined }>`
 `;
 
 const FooterLayout = styled(Footer)<{ color: string | undefined }>`
-  height: 15%;
+  height: 20%;
   width: 100%;
   margin-bottom: 5px;
   display: flex;
@@ -45,7 +45,7 @@ const FooterLayout = styled(Footer)<{ color: string | undefined }>`
 `;
 
 const ContentLayout = styled(Content)<{ color: string | undefined }>`
-  height: 70%;
+  height: 65%;
   width: 100%;
   margin-bottom: 5px;
   display: flex;

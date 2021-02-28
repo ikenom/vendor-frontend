@@ -12,6 +12,7 @@ import PhoneLogo from '../../src/icons/svg/phoneIcon.svg'
 import MessageLogo from '../../src/icons/svg/messageIcon.svg'
 import ArrowLogo from '../../src/icons/svg/arrow.svg'
 import AttentionNeededLogo from '../../src/icons/svg/attentionNeededIcon.svg'
+import SearchLogo from '../../src/icons/svg/searchIcon.svg'
 import styled from "styled-components";
 
 export default {
@@ -97,6 +98,14 @@ const ArrowIcon = () => (
   </>
 )
 
+const SearchIcon = () => (
+  <>
+    <IconContainer>
+      <SearchLogo style={{width: "100%", height: "100%"}}/>
+    </IconContainer>
+  </>
+)
+
 const AttentionIcon = () => (
   <>
     <IconContainer>
@@ -110,6 +119,7 @@ const IconGroup = () => (
     <PhoneIcon/>
     <MessageIcon/>
     <ArrowIcon/>
+    <SearchIcon/>
     <AttentionIcon/>
   </GroupIconContainer>
 )

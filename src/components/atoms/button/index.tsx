@@ -1,72 +1,37 @@
-import React from "react";
 import { Button as AntButton } from "antd";
 import styled, { css } from "styled-components";
-import { color, variant } from "styled-system";
-import { defaultTheme } from "../../../defaultTheme";
 
-export type ButtonType = "primary" | "default";
 
+// button animation for onPress
 export const buttonCss = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  transition: all 100ms ease-in-out;
+  transition: all .3s;
+  border: none;
+  background: none;
+  box-shadow 0px 5px 10px rgba(darken(dodgerblue, 40%));
 
   &:hover {
     cursor: pointer;
+    box-shadow 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
+    transform scale(1.03)
+  }
+
+  &:active {
+    box-shadow 0px 4px 8px rgba(darken(dodgerblue, 30%));
+    transform scale(.975)
   }
 
   &:disabled {
     opacity: 0.5;
   }
-
 `;
 
-export interface ButtonProps {
-  block?: boolean; // If true then button will fit in parents entire width
-  type: ButtonType;
-  danger?: boolean;
-  disabled?: boolean;
-  icon?: React.ReactNode;
-  loading?: boolean | {delay: number};
-}
 
-export const buttonTypeVariant = variant({
-  prop: "type",
-  variants: {
-    primary: {
-      borderColor: defaultTheme.colors.blue,
-      background: defaultTheme.colors.blue,
-      color: defaultTheme.colors.white,
-      fontFamily: defaultTheme.fontFamily.dual
-    },
-
-    default: {
-      borderColor: defaultTheme.colors.yellow,
-      background: defaultTheme.colors.yellow,
-      color: defaultTheme.colors.white,
-      fontFamily: defaultTheme.fontFamily.dual
-    },
-  },
-});
-
-export const Button = styled(AntButton)<ButtonProps>`
-  ${color}
+export const Button = styled(AntButton)`
   ${buttonCss}
-  ${buttonTypeVariant}
   width: 100%
 `;
 
 export default Button;
 
-Button.defaultProps = {
-  color: defaultTheme.colors.white,
-}
 
-//TODO
-/**
- * 1) Add themes for breakpoints
- * 2) Add container wrapper
- */
 

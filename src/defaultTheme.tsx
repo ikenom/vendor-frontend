@@ -3,7 +3,7 @@
 export const defaultTheme = {
   colors: {
     black: "#000000",
-    greyOne: "#EEEEEF",
+    greyOne: "#F9F9F9",
     greyTwo: "#A0A0A0",
     blue: "#4785FE",
     light: "#1E1E1E",
@@ -14,14 +14,14 @@ export const defaultTheme = {
   },
   fontFamily: {
     dual: "Dual",
-    hmt: "Helvetica Now Text",
+    hnt: "Helvetica Now Text",
   },
   fontSize: {
     xsm: "10px",
     sm: "14px",
     default: "16px",
-    lg: "18px",
-    xlg: "22.2px",
+    lg: "24px",
+    xlg: "32px",
   },
   lineHeight: {
     default: "16.14",
