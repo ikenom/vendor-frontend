@@ -1,3 +1,5 @@
+
+import styled from 'styled-components'
 import styled, { css } from 'styled-components';
 import ProfileLogo from '../svg/profileIcons/baseProfileIcon.svg';
 import selectedProfileIcon from '../svg/profileIcons/selectedProfileIcon.svg';
@@ -11,6 +13,7 @@ import SelectedSupportLogo from '../svg/supportIcons/selectedSupportIcon.svg';
 import UnSelectedSupportLogo from '../svg/supportIcons/unselectedSupportIcon.svg';
 import SearchLogo from '../svg/searchIcon.svg';
 import React from 'react';
+import AttentionNeededLogo from '../svg/attentionNeededIcon.svg';
 
 
 const iconCss = css`
@@ -88,6 +91,11 @@ export const UnSelectedSupportIcon = styled(UnSelectedSupportLogo)`
 
 export const SelectedProfileIcon = styled(selectedProfileIcon)`
   ${iconCss}
+`;
+
+export const AttentionNeededIcon = styled(AttentionNeededLogo)`
+  widht: 100%;
+  height: 100%;
 `;
 
 export const UnSelectedProfileIcon = styled(unselectedProfileIcon)`

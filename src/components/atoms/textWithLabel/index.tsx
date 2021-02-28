@@ -30,7 +30,7 @@ const Content = styled.p`
 
 export const TextWithLabel = (props: TextWithLabelProps) => {
 
-  const { label, content } = props
+  const { label, content } = props;
   return(
     <Container>
       <Label>{label}</Label>
