@@ -9,6 +9,7 @@ import SelectedInventoryLogo from '../svg/inventoryIcons/selectedInventoryIcon.s
 import UnSelectedInventoryLogo from '../svg/inventoryIcons/unselectedInventoryIcon.svg';
 import SelectedSupportLogo from '../svg/supportIcons/selectedSupportIcon.svg';
 import UnSelectedSupportLogo from '../svg/supportIcons/unselectedSupportIcon.svg';
+import SearchLogo from '../svg/searchIcon.svg';
 import React from 'react';
 
 
@@ -22,6 +23,10 @@ export const ProfileIcon = styled(ProfileLogo)`
 `
 
 export const ArrowIcon = styled(ArrowLogo)`
+  ${iconCss}
+`;
+
+export const SearchIcon = styled(SearchLogo)`
   ${iconCss}
 `;
 

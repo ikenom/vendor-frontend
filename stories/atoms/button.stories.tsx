@@ -2,8 +2,8 @@ import React from "react";
 import { Button } from "../../src/components/atoms/button";
 import { Meta } from "@storybook/react";
 import styled from "styled-components";
-import { width } from "styled-system";
-import { SelectableIcon, SelectedOrderIcon } from "../../src/icons/components";
+import { width, border } from "styled-system";
+import { SearchIcon, SelectableIcon, SelectedOrderIcon } from "../../src/icons/components";
 
 export default {
   title: "Atoms/Buttons",
@@ -46,6 +46,9 @@ export const IconButtons = () => {
       </Container>
       <Container width={75}>
         <Button type={"ghost"} icon={<SelectableIcon isSelected={false} type={"profile"}/>}/>
+      </Container>
+      <Container width={75} border={'1px solid'}>
+        <Button type={"ghost"} shape={"circle"} icon={<SearchIcon/>}/>
       </Container>
     </>
   );

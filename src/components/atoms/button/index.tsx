@@ -4,12 +4,20 @@ import styled, { css } from "styled-components";
 
 // button animation for onPress
 export const buttonCss = css`
-  transition: all 100ms ease-in-out;
+  transition: all .3s;
   border: none;
   background: none;
+  box-shadow 0px 5px 10px rgba(darken(dodgerblue, 40%));
 
   &:hover {
     cursor: pointer;
+    box-shadow 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
+    transform scale(1.03)
+  }
+
+  &:active {
+    box-shadow 0px 4px 8px rgba(darken(dodgerblue, 30%));
+    transform scale(.975)
   }
 
   &:disabled {

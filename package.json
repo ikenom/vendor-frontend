@@ -44,6 +44,7 @@
     "gatsby-plugin-typescript": "^2.0.15",
     "gatsby-source-filesystem": "^2.0.37",
     "gatsby-transformer-json": "^2.1.11",
+    "graphql-ruby-client": "^1.9.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-loading-skeleton": "^2.2.0",
