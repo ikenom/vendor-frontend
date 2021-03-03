@@ -1,5 +1,3 @@
-
-import styled from 'styled-components'
 import styled, { css } from 'styled-components';
 import ProfileLogo from '../svg/profileIcons/baseProfileIcon.svg';
 import selectedProfileIcon from '../svg/profileIcons/selectedProfileIcon.svg';

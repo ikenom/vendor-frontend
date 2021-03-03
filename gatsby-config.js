@@ -9,10 +9,16 @@ module.exports = {
     'MarkdownRemark.frontmatter.author': `AuthorJson`
   },
   plugins: [
-
-    "gatsby-plugin-react-svgr",
     // Add typescript stack into webpack
     `gatsby-plugin-typescript`,
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /svg/ // See below to configure properly
+        }
+      }
+    },
 
     // minify html
     // `gatsby-plugin-minify`,

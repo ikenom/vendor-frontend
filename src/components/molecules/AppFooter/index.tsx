@@ -6,13 +6,13 @@ import Button from "../../atoms/button";
 
 export interface AppFooterProps {
   selectedIcon: SelectableIcons;
-  onClicks: FooterOnClicks;
+  onClicks?: FooterOnClicks;
 }
 
 export interface FooterOnClicks {
   ordersOnClick: () => any;
   inventoryOnClick: () => any;
-  supportClick: () => any;
+  supportOnClick: () => any;
   profileOnClick: () => any;
 }
 
@@ -21,12 +21,13 @@ const AppFooterContainer= styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 100%
 `
 
 
 
 const DarkBar= styled.div`
-  border-top: 4.5px solid ${defaultTheme.colors.black};
+  border-top: 5px solid ${defaultTheme.colors.black};
   height: 7%;
   width: 40%;
   margin-left: 30%;
@@ -57,23 +58,24 @@ const FooterIconsContainer = styled.div`
 `
 const FooterIconContainer= styled.div`
   width: 15%;
+  margin-top: 9px;
 `;
 
 export const FooterIcons = (props: AppFooterProps) => {
-  const { selectedIcon, onClicks: { ordersOnClick, inventoryOnClick, supportClick, profileOnClick } } = props;
+  const { selectedIcon, onClicks } = props;
   return(
     <FooterIconsContainer>
       <FooterIconContainer>
-        <Button type={"ghost"} onClick={ordersOnClick} icon={<SelectableIcon isSelected={true} type={"order"}/>}/>
+        <Button type={"ghost"} onClick={onClicks ? onClicks.ordersOnClick : undefined} icon={<SelectableIcon isSelected={true} type={"order"}/>}/>
       </FooterIconContainer>
       <FooterIconContainer>
-        <Button type={"ghost"} onClick={inventoryOnClick} icon={<SelectableIcon isSelected={selectedIcon === "inventory"} type={"inventory"}/>}/>
+        <Button type={"ghost"} onClick={onClicks ? onClicks.inventoryOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "inventory"} type={"inventory"}/>}/>
       </FooterIconContainer>
       <FooterIconContainer>
-        <Button type={"ghost"} onClick={supportClick} icon={<SelectableIcon isSelected={selectedIcon === "support"} type={"support"}/>}/>
+        <Button type={"ghost"} onClick={onClicks ? onClicks.supportOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "support"} type={"support"}/>}/>
       </FooterIconContainer>
       <FooterIconContainer>
-        <Button type={"ghost"} onClick={profileOnClick} icon={<SelectableIcon isSelected={selectedIcon === "profile"} type={"profile"}/>}/>
+        <Button type={"ghost"} onClick={onClicks ? onClicks.profileOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "profile"} type={"profile"}/>}/>
       </FooterIconContainer>
     </FooterIconsContainer>
   )

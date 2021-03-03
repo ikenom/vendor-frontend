@@ -7,7 +7,6 @@ export const buttonCss = css`
   transition: all .3s;
   border: none;
   background: none;
-  box-shadow 0px 5px 10px rgba(darken(dodgerblue, 40%));
 
   &:hover {
     cursor: pointer;

@@ -18,13 +18,14 @@ const OrdersHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
+  margin-bottom: 10px;
 `;
 const SearchButton = styled(Button)`
-  width: 8%;
+  width: 10%;
   height: 55%;
   position: relative;
   right: 5%;
-  margin-top: 1.5%;
+  margin-top: 2%;
 `;
 
 const TextContainer = styled.p`
@@ -33,12 +34,12 @@ const TextContainer = styled.p`
   font-family: ${defaultTheme.fontFamily.hnt};
   font-style: normal;
   font-weight: 800;
-  font-size: ${defaultTheme.fontSize.lg};
+  font-size: ${defaultTheme.fontSize.xlg};
   line-height: 100%;
-  margin-right: 53%;
-  display: flex;
+  margin-right: 48%;
   margin-top: 1.5%;
   margin-bottom: 0px;
+  white-space: nowrap;
 `;
 
 export const OrdersHeader = (props: OrdersHeaderProps) => {

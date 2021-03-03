@@ -3,6 +3,5 @@
  *
  * See: https://www.gatsbyjs.org/docs/ssr-apis/
  */
-import { setMockProvider } from './src/apollo/client'
+// export { wrapRootElement } from './src/apollo/wrap-root-element';
 
-export const wrapRootElement = setMockProvider;

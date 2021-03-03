@@ -27,29 +27,20 @@ const StyledLayout = styled(Layout)`
 `;
 
 const HeaderLayout = styled(Header)<{ color: string | undefined }>`
-  height: 15%;
+  height: 5%;
   width: 100%;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: center;
   ${({ color }) => color !== undefined ? `background-color: ${color}` : ''}
 `;
 
 const FooterLayout = styled(Footer)<{ color: string | undefined }>`
-  height: 20%;
+  height: 15%;
   width: 100%;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: center;
   ${({ color }) => color !== undefined ? `background-color: ${color}` : ''}
 `;
 
 const ContentLayout = styled(Content)<{ color: string | undefined }>`
-  height: 65%;
+  height: 80%;
   width: 100%;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: center;
   ${({ color }) => color !== undefined ? `background-color: ${color}` : ''}
 `;
 
@@ -78,7 +69,6 @@ export const BasicLayout = styled(BaseLayout)<BasicLayoutProps>`
   width: 100%;
   minHeight: 100vh;
   max-width: 700px;
-  max-height: 1000px;
 `;
 
 export default BasicLayout

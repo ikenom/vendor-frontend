@@ -5,7 +5,7 @@ import { ArrowIcon, ProfileIcon } from "../../../icons/components";
 import { TextWithLabel } from "../../atoms/textWithLabel";
 import { Divider } from "../../layouts/divider";
 import { width } from 'styled-system';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 
 const Container = styled.div`
@@ -48,7 +48,7 @@ const TextWithLabels = styled(TextWithLabel)`
 
 const Price = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hmt};
+  font-family: ${defaultTheme.fontFamily.hnt};
   width: 67%;
   height: 100%;
   margin-top: 0px;
@@ -62,6 +62,10 @@ const PriceWithArrowContainer = styled.div`
   justify-context: space-between;
   margin-top: 18px;
 `;
+
+const SkeletonWrapper = styled(Skeleton)`
+  height: 100%;
+`
 
 export interface OrderSummaryProps {
   numOfItems: number;
@@ -127,7 +131,7 @@ export const OrderSummarySkeletonWrapper = (props: SkeletonWrapperProps) => {
   const { skeletonProps: { isLoading, showSkeleton }, orderSummaryProps } = props;
   return(
     showSkeleton 
-    ? isLoading ? (<Skeleton duration={1}/>) : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
+    ? isLoading ? (<SkeletonWrapper duration={1.3} />) : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
     : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
   )
 }

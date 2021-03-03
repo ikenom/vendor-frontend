@@ -141,15 +141,6 @@
       "html"
     ]
   },
-  "remarkConfig": {
-    "plugins": [
-      "remark-preset-lint-recommended",
-      "remark-frontmatter"
-    ]
-  },
-  "stylelint": {
-    "extends": "stylelint-config-standard"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",

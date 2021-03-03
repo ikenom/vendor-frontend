@@ -4,7 +4,4 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-import {App} from './src/App';
-import { setMockProvider } from './src/apollo/client'
-
-export const wrapRootElement = setMockProvider;
+// export { wrapRootElement } from './src/apollo/wrap-root-element';
