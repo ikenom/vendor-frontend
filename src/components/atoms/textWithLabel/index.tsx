@@ -21,10 +21,11 @@ const Label = styled.p`
 
 const Content = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hmt};
+  font-family: ${defaultTheme.fontFamily.hnt};
   line-height: 21px;
   weight: 400px;
   margin-top: 0px;
+  white-space: nowrap;
 `
 
 

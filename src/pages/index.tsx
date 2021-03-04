@@ -4,6 +4,9 @@ import { AppFooter } from "../components/molecules/AppFooter";
 import { OrdersHeader } from "../components/molecules/headers/OrdersHeader";
 import { OrderSummaryProps } from "../components/molecules/orderSummary";
 import { OrderSummaryList } from "../components/molecules/orderSummaryList";
+import { Order } from "../models/orders";
+import { DateTime } from 'luxon';
+import { NewOrders } from "../components/organisms/newOrders";
 
 
 const IndexPage = () => {
@@ -23,35 +26,135 @@ export default IndexPage;
  * -- https://www.youtube.com/watch?v=BrBK4yxodXA&ab_channel=Gatsby
  */
 
-const ORDER_SUMMARIES: OrderSummaryProps[] = [
+
+const ORDERS: Order[] = [
   {
-    numOfItems: 6,
-    customerName: "Bubba B.",
-    orderType: "TAKE OUT",
-    timeSinceOrderCreated: "34 min",
-    price: "43.49"
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bubba",
+      lastName: "Bud"
+    },
+    createdAt: DateTime.now().minus({seconds: 400}).toISO(),
+    price: "63.42",
+    type: "TAKE OUT"
   },
   {
-    numOfItems: 4,
-    customerName: "Jack F.",
-    orderType: "TAKE OUT",
-    timeSinceOrderCreated: "41 min",
-    price: "51.32"
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 450}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
   },
   {
-    numOfItems: 1,
-    customerName: "Cindy P..",
-    orderType: "TAKE OUT",
-    timeSinceOrderCreated: "12 min",
-    price: "20.32"
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bobby",
+      lastName: "Larson"
+    },
+    createdAt: DateTime.now().minus({seconds: 700}).toISO(),
+    price: "45.42",
+    type: "TAKE OUT"
   },
-]; 
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 1000}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bubba",
+      lastName: "Bud"
+    },
+    createdAt: DateTime.now().minus({seconds: 400}).toISO(),
+    price: "63.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 450}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bobby",
+      lastName: "Larson"
+    },
+    createdAt: DateTime.now().minus({seconds: 700}).toISO(),
+    price: "45.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 1000}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bubba",
+      lastName: "Bud"
+    },
+    createdAt: DateTime.now().minus({seconds: 400}).toISO(),
+    price: "63.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 450}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bobby",
+      lastName: "Larson"
+    },
+    createdAt: DateTime.now().minus({seconds: 700}).toISO(),
+    price: "45.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 1000}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
+  }
+]
 
 const App = () => {
   return (
     <BasicLayout
       header={<OrdersHeader text="New Orders"/>}
-      content={<OrderSummaryList orderSummaries={ORDER_SUMMARIES} onClick={() => {}}/>}
+      content={<NewOrders orders={ORDERS} onClick={() => {}}/>}
       footer={<AppFooter selectedIcon="order"/>}
     />
   )

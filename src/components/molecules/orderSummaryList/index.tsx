@@ -4,6 +4,7 @@ import React from "react";
 
 const OrderSummaryContainer = styled.div`
   margin-bottom: 12px;
+  max-height: 100%;
 `;
 
 
@@ -20,7 +21,7 @@ export const OrderSummaryList = (props: OrderSummaryListProps) => {
     {orderSummaries.map(orderSummary => {
       return (
         <OrderSummaryContainer>
-          <OrderSummaryWithDivider {...orderSummary} onClick={onClick}/>
+          <OrderSummaryWithDivider {...orderSummary} onClick={onClick} key={orderSummary.timeSinceOrderCreated}/>
         </OrderSummaryContainer>)
     })}
     </>
