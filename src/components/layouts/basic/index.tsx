@@ -41,6 +41,7 @@ const FooterLayout = styled(Footer)<{ color: string | undefined }>`
 const ContentLayout = styled(Content)<{ color: string | undefined }>`
   height: 80%;
   width: 100%;
+  overflow: scroll
   ${({ color }) => color !== undefined ? `background-color: ${color}` : ''}
 `;
 
