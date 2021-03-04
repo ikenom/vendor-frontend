@@ -6,7 +6,6 @@ import { OrderSummaryProps } from "../components/molecules/orderSummary";
 import { OrderSummaryList } from "../components/molecules/orderSummaryList";
 
 
-// TODO add react helmet for header wrapper (SEO, viewport, etc.)
 const IndexPage = () => {
   return (
     <App />

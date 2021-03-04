@@ -92,8 +92,7 @@ export const SelectedProfileIcon = styled(selectedProfileIcon)`
 `;
 
 export const AttentionNeededIcon = styled(AttentionNeededLogo)`
-  widht: 100%;
-  height: 100%;
+  ${iconCss}
 `;
 
 export const UnSelectedProfileIcon = styled(unselectedProfileIcon)`

@@ -11,20 +11,22 @@ export interface TabElementProps {
 const Container = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   position: relative;
 `;
 
 const AttentionIcon = styled(AttentionNeededIcon)`
-  width: 13%;
-  height: 45%;
+  width: 12px;
+  height: 20px;
   position: relative;
-  right: 10%;
+  right: 3px;
+  bottom: 3px;
 `;
 
 const Text = styled.p`
-  font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hmt};
-  width: 92%;
+  font-size: ${defaultTheme.fontSize.default};
+  font-family: ${defaultTheme.fontFamily.hnt};
+  width: 88%;
   height: 84%;
   margin-top: 6%;
 `;

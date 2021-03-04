@@ -19,7 +19,7 @@ export const defaultTheme = {
   fontSize: {
     xsm: "10px",
     sm: "16px",
-    default: "16px",
+    default: "14px",
     lg: "24px",
     xlg: "32px",
   },
