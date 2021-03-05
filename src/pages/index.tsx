@@ -7,6 +7,7 @@ import { OrderSummaryList } from "../components/molecules/orderSummaryList";
 import { Order } from "../models/orders";
 import { DateTime } from 'luxon';
 import { NewOrders } from "../components/organisms/newOrders";
+import { AppTab } from "../components/organisms/Tabs";
 
 
 const IndexPage = () => {
@@ -154,7 +155,7 @@ const App = () => {
   return (
     <BasicLayout
       header={<OrdersHeader text="New Orders"/>}
-      content={<NewOrders orders={ORDERS} onClick={() => {}}/>}
+      content={<AppTab orders={ORDERS} />}
       footer={<AppFooter selectedIcon="order"/>}
     />
   )

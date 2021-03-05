@@ -27,6 +27,7 @@ export const buttonCss = css`
 
 export const Button = styled(AntButton)`
   ${buttonCss}
+  padding: 0;
   width: 100%
 `;
 
