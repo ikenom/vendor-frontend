@@ -14,7 +14,7 @@ const Container = styled.div`
 
 export const DefaultHeader = () => {
   return(
-    <Container width={375} height={35}>
+    <Container width={"100%"} height={"4%"}>
       <OrdersHeader text="New Orders"/>
     </Container>
   )

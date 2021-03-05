@@ -15,3 +15,8 @@ p {
 .ant-tabs-nav {
   margin-bottom: 5%;
 }
+
+.ant-btn-icon-only {
+  height: 3.6rem;
+  padding: 0;
+}
