@@ -5,7 +5,7 @@ import { Customer } from "../customer";
 
 // Class to convert order model to props needed by component
 export const orderToOrderSummaryAdapter = (order: Order): Omit<OrderSummaryProps, "onClick"> => {
-  
+
   const {lineItems, customer, type, createdAt, price} = order;
   return {
     numOfItems: lineItems.length,

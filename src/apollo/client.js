@@ -2,12 +2,10 @@ import { ApolloClient, InMemoryCache, createHttpLink, ApolloProvider} from '@apo
 // import { MockedProvider } from "@apollo/client/testing";
 // import React from 'react'
 
-
-
 const cache = new InMemoryCache();
-const link = createHttpLink({ uri: 'https://test-backend:8000/'})
+const link = createHttpLink({ uri: 'http://localhost:5020/graphql'})
 
-export const Client = new ApolloClient( {cache, link});
+export const client = new ApolloClient( {cache, link});
 
 
 // export const setMockProvider = ({ root }) => {

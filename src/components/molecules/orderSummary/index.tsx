@@ -130,7 +130,7 @@ export const OrderSummaryWithDivider = (props: OrderSummaryProps) => {
 export const OrderSummarySkeletonWrapper = (props: SkeletonWrapperProps) => {
   const { skeletonProps: { isLoading, showSkeleton }, orderSummaryProps } = props;
   return(
-    showSkeleton 
+    showSkeleton
     ? isLoading ? (<SkeletonWrapper duration={1.3} />) : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
     : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
   )

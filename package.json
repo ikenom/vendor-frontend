@@ -29,6 +29,7 @@
     "@graphql-codegen/add": "^2.0.2",
     "@graphql-codegen/cli": "^1.20.0",
     "@graphql-codegen/typescript": "^1.20.0",
+    "@hookstate/core": "^3.0.6",
     "@sentry/react": "^6.0.0",
     "@svgr/webpack": "^5.5.0",
     "@types/luxon": "^1.26.1",
