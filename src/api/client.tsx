@@ -1,7 +1,8 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const cache = new InMemoryCache();
-console.log(process.env.BACKEND_URL)
-const link = createHttpLink({ uri: `${process.env.BACKEND_URL}/graphql`})
+const url = process.env.BACKEND_URL === null ? "http://shopify-service/graphql" : process.env.BACKEND_URL
+console.log(url)
+const link = createHttpLink({ uri: `${url}/graphql`})
 
 export const client = new ApolloClient( {cache, link});

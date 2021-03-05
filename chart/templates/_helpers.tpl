@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "gatsby.name" -}}
+{{- define "vendor-frontend.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "gatsby.fullname" -}}
+{{- define "vendor-frontend.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "gatsby.chart" -}}
+{{- define "vendor-frontend.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "gatsby.labels" -}}
-helm.sh/chart: {{ include "gatsby.chart" . }}
-{{ include "gatsby.selectorLabels" . }}
+{{- define "vendor-frontend.labels" -}}
+helm.sh/chart: {{ include "vendor-frontend.chart" . }}
+{{ include "vendor-frontend.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,17 +46,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "gatsby.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "gatsby.name" . }}
+{{- define "vendor-frontend.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "vendor-frontend.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "gatsby.serviceAccountName" -}}
+{{- define "vendor-frontend.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "gatsby.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "vendor-frontend.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

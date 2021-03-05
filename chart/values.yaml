@@ -1,14 +1,14 @@
-# Default values for gatsby.
+# Default values for vendor-frontend.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: ghcr.io/ikenom/gatbsy-dev
+  repository: ghcr.io/ikenom/vendor-frontend
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "e1e77b4-dirty"
 
 imagePullSecrets:
   - name: ikenom-gh-reg
