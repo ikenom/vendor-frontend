@@ -8,6 +8,15 @@ import { useState, State } from '@hookstate/core';
 import { store } from "../store/store";
 import { AppTab } from "../components/organisms/Tabs";
 
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; 
+    text-rendering: optimizeLegibility; 
+  }
+`
 
 const IndexPage = () => {
   return (
@@ -37,6 +46,7 @@ const App = () => {
 
   return (
     <>
+      <GlobalStyle />
       <BasicLayout
       header={<OrdersHeader text="New Orders"/>}
       content={<AppTab orders={order.orders.get()} />}
