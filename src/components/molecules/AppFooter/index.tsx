@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { defaultTheme } from "../../../defaultTheme";
 import { SelectableIcon, SelectableIcons } from "../../../icons/components";
 import Button from "../../atoms/button";
+import "./index.css";
 
 export interface AppFooterProps {
   selectedIcon: SelectableIcons;
@@ -25,10 +26,10 @@ const AppFooterContainer= styled.div`
 `
 
 
-
+// Need to overylay this on the footer look up z index
 const DarkBar= styled.div`
   border-top: 5px solid ${defaultTheme.colors.black};
-  height: 7%;
+  height: 2%;
   width: 40%;
   margin-left: 30%;
   margin-bottom: 7px;
@@ -40,7 +41,6 @@ export const AppFooter = (props: AppFooterProps) => {
   return(
     <AppFooterContainer>
       <FooterIcons {...props}/>
-      <DarkBar />
     </AppFooterContainer>
   )
 }
@@ -48,17 +48,17 @@ export const AppFooter = (props: AppFooterProps) => {
 
 const FooterIconsContainer = styled.div`
   margin-bottom: 10px;
-  margin-top: 6px;
   border-radius: 10px;
   width: 100%;
+  height: 60%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background: rgba(71, 133, 254, 0.04);
 `
 const FooterIconContainer= styled.div`
   width: 15%;
-  margin-top: 9px;
 `;
 
 export const FooterIcons = (props: AppFooterProps) => {

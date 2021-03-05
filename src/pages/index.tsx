@@ -3,14 +3,10 @@ import { useEffect } from "react";
 import BasicLayout from "../components/layouts/basic";
 import { AppFooter } from "../components/molecules/AppFooter";
 import { OrdersHeader } from "../components/molecules/headers/OrdersHeader";
-import { OrderSummaryProps } from "../components/molecules/orderSummary";
-import { OrderSummaryList } from "../components/molecules/orderSummaryList";
-import { Order } from "../models/orders";
-import { DateTime } from 'luxon';
-import { NewOrders } from "../components/organisms/newOrders";
 import { getOrdersAsync, orders } from "../store/orderStore";
 import { useState, State } from '@hookstate/core';
 import { store } from "../store/store";
+import { AppTab } from "../components/organisms/Tabs";
 
 
 const IndexPage = () => {
@@ -43,7 +39,7 @@ const App = () => {
     <>
       <BasicLayout
       header={<OrdersHeader text="New Orders"/>}
-      content={<NewOrders orders={order.orders.get()} onClick={() => {}}/>}
+      content={<AppTab orders={order.orders.get()} />}
       footer={<AppFooter selectedIcon="order"/>}
     />
     </>

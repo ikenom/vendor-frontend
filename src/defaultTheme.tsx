@@ -21,7 +21,7 @@ export const defaultTheme = {
     sm: "16px",
     default: "14px",
     lg: "24px",
-    xlg: "32px",
+    xlg: "30px",
   },
   lineHeight: {
     default: "16.14",

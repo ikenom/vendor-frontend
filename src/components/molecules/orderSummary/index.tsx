@@ -6,6 +6,7 @@ import { TextWithLabel } from "../../atoms/textWithLabel";
 import { Divider } from "../../layouts/divider";
 import { width } from 'styled-system';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { Button } from "../../atoms/button";
 
 
 const Container = styled.div`
@@ -28,14 +29,15 @@ const ProfileAndTextContainer = styled.div`
 
 const Profile = styled(ProfileIcon)`
   height: 65%;
-  width: 23%;
-  margin-top: 6px;
+  width: 26%;
+  margin-top: 3px;
   margin-right: 14px;
 `
 
-const Arrow = styled(ArrowIcon)`
+const Arrow = styled(Button)`
   width: 20%;
-  height: 57%
+  height: 57%;
+  margin-top: 2%;
 `
 
 const BottomDivider = styled(Divider)`
@@ -44,6 +46,7 @@ const BottomDivider = styled(Divider)`
 
 const TextWithLabels = styled(TextWithLabel)`
   ${width}
+  margin-left: 14%;
 `
 
 const Price = styled.p`
@@ -52,15 +55,18 @@ const Price = styled.p`
   width: 67%;
   height: 100%;
   margin-top: 0px;
+  margin-right: 10%;
+  margin-left: 10%;
+  white-space: nowrap;
 `
 
 const PriceWithArrowContainer = styled.div`
-  width: 23%;
+  width: 29%;
   height: 100%;
   display: flex;
   flex-direction: row;
   justify-context: space-between;
-  margin-top: 18px;
+  margin-top: 3.7%;
 `;
 
 const SkeletonWrapper = styled(Skeleton)`
@@ -91,17 +97,18 @@ const ProfileWithText = (props: Pick<OrderSummaryProps, "numOfItems" | "customer
   return(
     <ProfileAndTextContainer>
       <Profile/>
-      <TextWithLabels label= {`${numOfItems} ITEMS`} content={`${customerName}`} width={18}/>
+      <TextWithLabels label= {`${numOfItems} ITEMS`} content={`${customerName}`} width={"70%"}/>
     </ProfileAndTextContainer>
   )
 }
+
 
 const PriceWithArrow = (props: Pick<OrderSummaryProps, "price">) => {
   const { price } = props;
   return(
     <PriceWithArrowContainer>
       <Price>{`$ ${price}`}</Price>
-      <Arrow/>
+      <Arrow type={"ghost"} shape={"circle"} icon={<ArrowIcon/>}/>
     </PriceWithArrowContainer>
   )
 }
@@ -111,7 +118,7 @@ export const OrderSummary = (props: OrderSummaryProps) => {
   return (
     <Container>
       <ProfileWithText numOfItems={numOfItems} customerName={customerName}/>
-      <TextWithLabels label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`} width={14}/>
+      <TextWithLabels label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`} width={"14%"}/>
       <PriceWithArrow price={price}/>
     </Container>
   )

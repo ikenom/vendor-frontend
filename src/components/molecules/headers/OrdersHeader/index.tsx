@@ -13,19 +13,14 @@ interface OrdersHeaderProps {
 const OrdersHeaderContainer = styled.div`
   width: 100%;
   max-height: 100%;
-  margin-left: 16px;
-  margin-right: 16px;
+  margin-left: 3%;
   display: flex;
   flex-direction: row;
   position: relative;
   margin-bottom: 10px;
 `;
 const SearchButton = styled(Button)`
-  width: 10%;
-  height: 55%;
-  position: relative;
-  right: 5%;
-  margin-top: 2%;
+  width: 3%;
 `;
 
 const TextContainer = styled.p`
@@ -36,8 +31,7 @@ const TextContainer = styled.p`
   font-weight: 800;
   font-size: ${defaultTheme.fontSize.xlg};
   line-height: 100%;
-  margin-right: 48%;
-  margin-top: 1.5%;
+  margin-right: 46%;
   margin-bottom: 0px;
   white-space: nowrap;
 `;
