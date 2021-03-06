@@ -4,4 +4,4 @@ metadata:
   name: {{ .Release.Name }}-configmap
 data:
   RELEASE_NAME: {{ .Release.Name }}
-  BACKEND_URL: http://shopify-service
+  BACKEND_URL: http://fytr-shopify-service
