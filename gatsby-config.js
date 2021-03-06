@@ -17,7 +17,11 @@ module.exports = {
         rule: {
           include: /svg/ // See below to configure properly
         }
-      }
+      },
+      resolve: `gatsby-plugin-env-variables`,
+      options: {
+        allowList: ["RELEASE_NAME"]
+      },
     },
 
     // minify html

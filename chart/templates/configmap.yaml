@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-configmap
 data:
-  BACKEND_URL: http://shopify-service/graphql
+  RELEASE_NAME: {{ .Release.Name }}
+  BACKEND_URL: http://shopify-service
