@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import ProfileLogo from '../svg/profileIcons/baseProfileIcon.svg';
-import selectedProfileIcon from '../svg/profileIcons/selectedProfileIcon.svg';
-import unselectedProfileIcon from '../svg/profileIcons/unselectedProfileIcon.svg';
+import SelectedProfileIconRaw from '../svg/profileIcons/selectedProfileIcon.svg';
+import UnselectedProfileIconRaw from '../svg/profileIcons/unselectedProfileIcon.svg';
 import ArrowLogo from '../svg/arrow.svg';
 import SelectedOrderLogo from '../svg/orderIcons/selectedOrderIcon.svg';
 import UnSelectedOrderLogo from '../svg/orderIcons/unselectedOrderIcon.svg';
@@ -87,7 +87,7 @@ export const UnSelectedSupportIcon = styled(UnSelectedSupportLogo)`
   ${iconCss}
 `;
 
-export const SelectedProfileIcon = styled(selectedProfileIcon)`
+export const SelectedProfileIcon = styled(SelectedProfileIconRaw)`
   ${iconCss}
 `;
 
@@ -95,6 +95,6 @@ export const AttentionNeededIcon = styled(AttentionNeededLogo)`
   ${iconCss}
 `;
 
-export const UnSelectedProfileIcon = styled(unselectedProfileIcon)`
+export const UnSelectedProfileIcon = styled(UnselectedProfileIconRaw)`
   ${iconCss}
 `;
