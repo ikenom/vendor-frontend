@@ -22,7 +22,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-env-variables`,
       options: {
-        allowList: ["MY_VAR", "MY_OTHER_VAR"]
+        allowList: ["BACKEND_URL"]
       },
     },
 
