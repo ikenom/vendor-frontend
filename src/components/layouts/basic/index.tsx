@@ -45,8 +45,8 @@ const FooterLayout = styled(Footer)<{ color: string | undefined }>`
 
 const ContentLayout = styled(Content)<{ color: string | undefined }>`
   height: 80%;
-  width: 91%;
-  overflow: scroll;
+  width: 100%;
+  overflow-y: scroll;
   margin-left: 3%;
   margin-right: 3%;
   margin-top: 1%;
@@ -78,6 +78,7 @@ export const BasicLayout = styled(BaseLayout)<BasicLayoutProps>`
   width: 100%;
   minHeight: 100vh;
   max-width: 700px;
+  overflow: hidden;
 `;
 
 export default BasicLayout
