@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import BasicLayout from "../components/layouts/basic";
 import { AppFooter } from "../components/molecules/AppFooter";
 import { OrdersHeader } from "../components/molecules/headers/OrdersHeader";
-import { getOrdersAsync, orders } from "../store/orderStore";
+import { getOrdersAsync } from "../store/orderStore";
 import { useState, State } from '@hookstate/core';
 import { store } from "../store/store";
 import { AppTab } from "../components/organisms/Tabs";
+import { disableBodyScroll } from "body-scroll-lock";
 
 import { createGlobalStyle } from 'styled-components'
 
@@ -15,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale; 
     text-rendering: optimizeLegibility; 
+    padding: 0;
   }
 `
 
@@ -36,6 +38,13 @@ export default IndexPage;
  */
 
 const App = () => {
+  
+  // Disables scrolling of App
+  useEffect(() => {
+    document.getElementsByTagName("html")[0].style.overflow = "hidden";
+    disableBodyScroll(document.body);
+  }, []);
+
   const order = useState(store.order)
 
   useEffect(() => {
