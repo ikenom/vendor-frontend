@@ -14,6 +14,7 @@ import ArrowLogo from '../../src/icons/svg/arrow.svg'
 import AttentionNeededLogo from '../../src/icons/svg/attentionNeededIcon.svg'
 import SearchLogo from '../../src/icons/svg/searchIcon.svg'
 import styled from "styled-components";
+import { MessageIcon, PhoneIcon } from "../../src/icons/components";
 
 export default {
   title: "Icons/All",
@@ -74,18 +75,18 @@ const SupportIcon = () => (
   </GroupIconContainer>
 )
 
-const PhoneIcon = () => (
+const PhoneIconStory = () => (
   <>
     <IconContainer>
-      <PhoneLogo style={{width: "100%", height: "100%"}}/>
+     <PhoneIcon />
     </IconContainer>
   </>
 )
 
-const MessageIcon = () => (
+const MessageIconStory = () => (
   <>
     <IconContainer>
-      <MessageLogo style={{width: "100%", height: "100%"}}/>
+      <MessageIcon/>
     </IconContainer>
   </>
 )
@@ -116,8 +117,8 @@ const AttentionIcon = () => (
 
 const IconGroup = () => (
   <GroupIconContainer>
-    <PhoneIcon/>
-    <MessageIcon/>
+    <PhoneIconStory/>
+    <MessageIconStory/>
     <ArrowIcon/>
     <SearchIcon/>
     <AttentionIcon/>
