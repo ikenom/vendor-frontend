@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import 'cross-fetch/polyfill';
 
 const cache = new InMemoryCache();
 

@@ -1,0 +1,5 @@
+svg:not(:root) {
+  overflow: hidden;
+  width: 85%;
+  height: 70%;
+}

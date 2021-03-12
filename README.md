@@ -16,7 +16,7 @@ $ gatsby new my-website https://github.com/fabien0102/gatsby-starter
 ``` -->
 
 ## Setup
-Run `brew install helm && brew install scaffold`.
+Run `brew install helm && brew install skaffold`.
 
 Create .env file (will show later)
 
@@ -33,10 +33,18 @@ Run gatsby locally in production mode (webpack build, minifiying, etc.) `yarn pr
 
 Run gastby in a docker image in production mode `docker build . -f Dockerfile.prod -t gatsby-prod && docker run -p 8000:9000 gatsby-prod`. Open `http://localhost:8000`.
 
+## Run Storybook
+
+Storybook lets us render our react components in a stand alone way. Checkout the docs for more info: https://storybook.js.org/
+
+Run `yarn storybook`
+
+Open `http://localhost:9001`
+
 ## What's inside?
 
 -   [ ] Gatsby Template
-    -   [x] offline support
+    -   [ ] offline support
     -   [ ] google analytics
     -   [x] manifest
     -   [x] typescript
@@ -45,44 +53,14 @@ Run gastby in a docker image in production mode `docker build . -f Dockerfile.pr
     -   [x] [Storybook](https://storybooks.js.org/)
     -   [x] [Typescript](https://www.typescriptlang.org/) / [tslint](https://palantir.github.io/tslint/)
     -   [x] [Sentry.io](https://sentry.io/welcome/)
+    -   [x] [Cypress](https://www.cypress.io/)
 -   [x] SEO
     -   [x] [Helmet](https://github.com/nfl/react-helmet)
 -   [ ] UI Tools
-    -  [ ] Ant Design
-    -  [ ] Hook State
-    -  [ ] Atomic Design
-
-## Files structure
-
-     .
-     ├── data                          // website data (included into graphQL)
-     │   ├── author.json               // list of blog authors
-     │   ├── avatars                   // authors avatars
-     │   └── blog                      // all blog data (posts, images)
-     ├── gatsby-config.js              // gatsby configuration
-     ├── generators                    // generators (`npm run generate`)
-     │   ├── blog-post-generator.js    // `blog post` generator
-     │   ├── component-generator.js    // `component` generator
-     │   ├── page-generator.js         // `page` generator
-     │   ├── plopfile.js               // generators entry
-     │   ├── templates                 // all templates (handlebar notation)
-     │   └── utils.js                  // utils scripts for generators
-     ├── package.json
-     ├── public                        // output folder (in .gitignore)
-     ├── README.md                     // this file
-     ├── src                           // sources
-     │   ├── components                // all react components
-     │   ├── css                       // styles
-     │   ├── declarations.d.ts         // declarations for no typescript modules/files
-     │   ├── graphql-types.d.ts        // graphql types (`npm run graphql-types`)
-     │   ├── html.tsx                  // main html (required)
-     │   ├── layouts                   // layouts
-     │   │   └── default.tsx           // default layout (required)
-     │   ├── pages                     // all pages
-     │   └── templates                 // all templates (used for procedural page creation, see `gatsby-node.js`)
-     ├── tools                         // miscs tools for dev
-     │   └── update-post-date.js       // update post date hook
-     ├── tsconfig.json                 // typescript configuration
-     ├── tslint.json                   // tslint configuration
-     └── package-lock.json             // npm lock file
+    -  [x] Ant Design (component library https://ant.design/)
+    -  [x] Hook State (state management https://hookstate.js.org/)
+    -  [x] Atomic Design (methodolgy check out the original manifesto https://bradfrost.com/blog/post/atomic-web-design/)
+    -  [x] Styled System (https://styled-system.com/)
+    -  [x] Styled Components
+    -  [x] Storybook (https://storybook.js.org/)
 

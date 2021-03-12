@@ -10,6 +10,91 @@ import { AppTab } from "../components/organisms/Tabs";
 import { disableBodyScroll } from "body-scroll-lock";
 
 import { createGlobalStyle } from 'styled-components'
+import { Order } from "../models/orders";
+import { DateTime } from "luxon";
+
+const ORDERS: Order[] = [
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bubba",
+      lastName: "Bud"
+    },
+    createdAt: DateTime.now().minus({seconds: 400}).toISO(),
+    price: "63.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 450}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bobby",
+      lastName: "Larson"
+    },
+    createdAt: DateTime.now().minus({seconds: 700}).toISO(),
+    price: "45.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 1000}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}],
+    customer: {
+      firstName: "Bubba",
+      lastName: "Bud"
+    },
+    createdAt: DateTime.now().minus({seconds: 1400}).toISO(),
+    price: "63.42",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}, {id: "3"}],
+    customer: {
+      firstName: "Ken",
+      lastName: "Lamar"
+    },
+    createdAt: DateTime.now().minus({seconds: 1540}).toISO(),
+    price: "31.45",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}, {id: "4"}, {id: "2"}, {id: "4"}],
+    customer: {
+      firstName: "Bobby",
+      lastName: "Larson"
+    },
+    createdAt: DateTime.now().minus({seconds: 1700}).toISO(),
+    price: "29.31",
+    type: "TAKE OUT"
+  },
+  {
+    lineItems: [{id: "1"}, {id: "2"}, {id: "2"}, {id: "4"}, {id: "2"}],
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 2000}).toISO(),
+    price: "34.42",
+    type: "TAKE OUT"
+  }
+]
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -51,14 +136,14 @@ const App = () => {
     getOrdersAsync(order, "")
   }, [])
 
-  console.log(order.orders.get())
+  console.log(ORDERS)
 
   return (
     <>
       <GlobalStyle />
       <BasicLayout
       header={<OrdersHeader text="New Orders"/>}
-      content={<AppTab orders={order.orders.get()} />}
+      content={<AppTab orders={ORDERS} />}
       footer={<AppFooter selectedIcon="order"/>}
     />
     </>

@@ -10,9 +10,12 @@ import UnSelectedInventoryLogo from '../svg/inventoryIcons/unselectedInventoryIc
 import SelectedSupportLogo from '../svg/supportIcons/selectedSupportIcon.svg';
 import UnSelectedSupportLogo from '../svg/supportIcons/unselectedSupportIcon.svg';
 import SearchLogo from '../svg/searchIcon.svg';
-import React from 'react';
 import AttentionNeededLogo from '../svg/attentionNeededIcon.svg';
-
+import PhoneLogo from '../svg/phoneIcon.svg';
+import MessageLogo from '../svg/messageIcon.svg';
+import BackArrowLogo from '../svg/backArrowIcon.svg';
+import MoreOptionsLogo from '../svg/moreOptionsIcon.svg';
+import React from 'react';
 
 const iconCss = css`
   width: 100%;
@@ -96,5 +99,21 @@ export const AttentionNeededIcon = styled(AttentionNeededLogo)`
 `;
 
 export const UnSelectedProfileIcon = styled(unselectedProfileIcon)`
+  ${iconCss}
+`;
+
+export const PhoneIcon = styled(PhoneLogo)`
+  ${iconCss}
+`;
+
+export const MessageIcon = styled(MessageLogo)`
+  ${iconCss}
+`;
+
+export const BackArrowIcon = styled(BackArrowLogo)`
+  ${iconCss}
+`;
+
+export const MoreOptionsIcon = styled(MoreOptionsLogo)`
   ${iconCss}
 `;
