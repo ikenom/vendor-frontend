@@ -16,7 +16,7 @@ $ gatsby new my-website https://github.com/fabien0102/gatsby-starter
 ``` -->
 
 ## Setup
-Run `brew install helm && brew install scaffold`.
+Run `brew install helm && brew install skaffold`.
 
 Create .env file (will show later)
 
