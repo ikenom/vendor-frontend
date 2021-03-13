@@ -2,7 +2,10 @@ import { LineItemNotes } from "../../../atoms/lineItem/notes";
 import { Collapse } from 'antd';
 import React from "react";
 import styled from "styled-components";
+import { RightOutlined } from "@ant-design/icons";
 import "./index.css";
+import { Divider } from "../../../layouts/divider";
+import { defaultTheme } from "../../../../defaultTheme";
 
 const { Panel } = Collapse;
 
@@ -16,16 +19,31 @@ const WrappedCollapse = styled(Collapse)`
   padding: 0;
   height: 100%;
   max-height: 100%;
+  position: absolute;
+  top: 30px; 
+  left: 6px;
 `;
 
 const WrappedPanel = styled(Panel)`
   position: relative;
   margin-left: 7%;
-  max-width: 63%;
-  margin-right: 29%;
+  width: 96%;
+  padding-right: 5%;
   height: 100%;
   max-height: 100%;
 `;
+
+const TopDivider = styled(Divider)`
+  border-top: 1px solid ${defaultTheme.colors.greyTwo};
+  max-width: 100%;
+  margin: 5% 0% 0% 0%;
+`;
+
+const NotesContainer = styled.div`
+  padding: 0% 20% 0% 2.5%;
+  margin: 4% 0% 0% 0%;
+`;
+
 
 export const LineItemCollapse = (props: LineItemCollapseProps) => {
   const { lineItemNote } = props;
@@ -34,10 +52,14 @@ export const LineItemCollapse = (props: LineItemCollapseProps) => {
     <WrappedCollapse
       onChange={() => {}}
       expandIconPosition={'right'}
+      expandIcon={({ isActive }) => <RightOutlined rotate={isActive ? 90 : 0} />}
       ghost
     >
       <WrappedPanel header="" key="1">
-        <LineItemNotes lineItemNote= {lineItemNote}/>
+        <TopDivider/>
+        <NotesContainer>
+          <LineItemNotes lineItemNote= {lineItemNote}/>
+        </NotesContainer>
       </WrappedPanel>
     </WrappedCollapse>
   )

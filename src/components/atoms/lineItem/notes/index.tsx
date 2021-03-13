@@ -28,7 +28,7 @@ const Title = styled.p`
   max-height: 32%;
   width: 100%;
   max-width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
 const Details = styled(Paragraph)`
