@@ -52,7 +52,7 @@ const MealLabel = styled.p`
   width: 100%;
   max-width: 100%;
   white-space: nowrap;
-  margin: 0% 0% 7% 0%;
+  margin: 0% 0% 4% 0%;
 `;
 
 const IngredientLabel = styled.p`
