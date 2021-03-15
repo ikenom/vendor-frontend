@@ -6,6 +6,7 @@ import { TabElement } from '../../atoms/tabElement';
 import styled from 'styled-components';
 import { NewActionTabContent, NewActionTabElement } from '../../molecules/needsAction';
 import { Order } from '../../../models/orders';
+import { navigate } from "gatsby";
 
 const { TabPane } = Tabs;
 
@@ -21,7 +22,7 @@ export const AppTab = (props: TabProps) => {
   return(
     <Tabs >
       <TabPaneContainer tab={<NewActionTabElement />} key="1">
-        <NewActionTabContent orders={orders} onClick={() => {}}/>
+        <NewActionTabContent orders={orders} onClick={() => {navigate("/app/order")}}/>
       </TabPaneContainer>
       <TabPane tab={<TabElement text="In Kitchen" showAttentionIcon={false}/>} key="2">
         Content of Tab Pane 2
