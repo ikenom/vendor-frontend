@@ -5,7 +5,7 @@ import { LineItemCollapse } from "../lineItemCollapse";
 import { LineItemSummary } from "../lineItemSummary";
 
 
-interface LineItemContentProps {
+export interface LineItemContentProps {
   lineItemSummary: LineItemSummary;
   lineItemNote: LineItemNotes;
 }
@@ -16,6 +16,8 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 100%;
+  overflow-y: scroll;
+  margin: 0% 0% 2% 0%;
 `;
 
 const Collapse = styled(LineItemCollapse)`

@@ -103,23 +103,23 @@ const ProfileWithText = (props: Pick<OrderSummaryProps, "numOfItems" | "customer
 }
 
 
-const PriceWithArrow = (props: Pick<OrderSummaryProps, "price">) => {
-  const { price } = props;
+const PriceWithArrow = (props: Pick<OrderSummaryProps, "price" | "onClick">) => {
+  const { price, onClick } = props;
   return(
     <PriceWithArrowContainer>
       <Price>{`$ ${price}`}</Price>
-      <Arrow type={"ghost"} shape={"circle"} icon={<ArrowIcon/>}/>
+      <Arrow type={"ghost"} shape={"circle"} icon={<ArrowIcon/>} onClick={onClick}/>
     </PriceWithArrowContainer>
   )
 }
 
 export const OrderSummary = (props: OrderSummaryProps) => {
-  const { numOfItems , customerName, orderType, timeSinceOrderCreated, price } = props;
+  const { numOfItems , customerName, orderType, timeSinceOrderCreated, price, onClick } = props;
   return (
     <Container>
       <ProfileWithText numOfItems={numOfItems} customerName={customerName}/>
       <TextWithLabels label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`} width={"14%"}/>
-      <PriceWithArrow price={price}/>
+      <PriceWithArrow price={price} onClick={onClick}/>
     </Container>
   )
 }

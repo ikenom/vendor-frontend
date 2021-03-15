@@ -4,7 +4,7 @@ import { defaultTheme } from "../../../../defaultTheme";
 import { Divider } from "../../../layouts/divider";
 
 
-interface LineItemHeaderProps {
+export interface LineItemHeaderProps {
   lineItemHeader: LineItemHeader
 }
 
@@ -16,6 +16,7 @@ interface LineItemHeader {
 const Container = styled.div`
   max-height: 100%;
   max-width: 100%;
+  margin: 0% 0% 2% 0%;
 `;
 
 const TextContainer = styled.div`

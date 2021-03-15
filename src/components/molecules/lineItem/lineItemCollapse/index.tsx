@@ -19,9 +19,9 @@ const WrappedCollapse = styled(Collapse)`
   padding: 0;
   height: 100%;
   max-height: 100%;
-  position: absolute;
-  top: 30px; 
-  left: 6px;
+  position: relative;
+  bottom: 38px; 
+  left: 10px;
 `;
 
 const WrappedPanel = styled(Panel)`

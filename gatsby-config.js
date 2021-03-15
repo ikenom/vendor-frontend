@@ -25,7 +25,10 @@ module.exports = {
         allowList: ["MY_VAR", "MY_OTHER_VAR"]
       },
     },
-
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/app/*`] },
+    },
     // minify html
     // `gatsby-plugin-minify`,
 

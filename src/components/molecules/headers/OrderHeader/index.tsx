@@ -10,7 +10,7 @@ export interface OrderHeaderProps {
 
 const Content = styled(HeaderContent)`
   width: 100%;
-  height: 75%;
+  max-height: 100%;
 `;
 
 const Container = styled.div`

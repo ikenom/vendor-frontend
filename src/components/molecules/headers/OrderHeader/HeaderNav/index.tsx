@@ -5,6 +5,7 @@ import React from "react";
 import { BackArrowIcon } from "../../../../../icons/components";
 import { Divider } from "../../../../layouts/divider";
 import "./index.css"
+import { navigate } from "gatsby";
 
 export interface HeaderNavProps {
   previousPagePath?: string;
@@ -36,9 +37,13 @@ export const HeaderNav = (props: HeaderNavProps) => {
 
   const { text } = props;
 
+  const onClick = () => {
+    navigate("/app")
+  }
+
   return(
     <HeaderNavContainer>
-      <BackArrow type={"ghost"} shape={"circle"} icon={<BackArrowIcon/>}/>
+      <BackArrow type={"ghost"} shape={"circle"} icon={<BackArrowIcon/>} onClick={onClick}/>
       <HeaderText>{ text }</HeaderText>
     </HeaderNavContainer>
   )
@@ -46,6 +51,7 @@ export const HeaderNav = (props: HeaderNavProps) => {
 
 const HeaderNavWithDividerContainer = styled.div`
   margin-bottom: 4%;
+  line-height: 4%;
 `;
 
 const HeaderNavWithDividerWrapper = styled(HeaderNav)`
