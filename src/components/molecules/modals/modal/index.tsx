@@ -1,6 +1,27 @@
 import React, { useState } from "react";
 import { Button } from "../../../atoms/button";
 import Modal from 'react-modal';
+import styled from "styled-components";
+import { defaultTheme } from "../../../../defaultTheme";
+
+const Header = styled.p`
+  max-width: 100%;
+  max-height: 36%;
+  margin: 7% 0% 9% 0%;
+  font-size: ${defaultTheme.fontSize.lg};
+  font-family: ${defaultTheme.fontFamily.hnt};
+`;
+
+const ContentContainer = styled.div`
+  max-width: 100%;
+  margin: 0% 0% 9% 0%;
+`;
+
+const ButtonContainer = styled(Button)`
+  background-color: ${defaultTheme.colors.blue};
+  color: ${defaultTheme.colors.white};
+  max-height: 50px;
+`;
 
 
 const customStyles = {
@@ -27,14 +48,22 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => any; 
   title: string;
+  content: JSX.Element;
+  onSubmit: () => any;
+  buttonLabel: string;
 }
 
 
 export const DefaultModal = (props: ModalProps) => {
-  const { isOpen, onClose, title } = props;
+  const { isOpen, onClose, onSubmit, title, content, buttonLabel } = props;
 
   const onModalClose = () => {
     onClose();
+  }
+
+  const modalOnClick = () => {
+    onSubmit();
+    onModalClose();
   }
 
   return(
@@ -44,7 +73,9 @@ export const DefaultModal = (props: ModalProps) => {
     shouldCloseOnOverlayClick={true}
     onRequestClose={onModalClose}
     contentLabel={title}>
-      {title}
+      <Header>{title}</Header>
+      <ContentContainer>{content}</ContentContainer>
+      <ButtonContainer onClick={modalOnClick}>{buttonLabel}</ButtonContainer>
   </Modal>
   )
 }
