@@ -10,6 +10,7 @@ const Header = styled.p`
   margin: 7% 0% 9% 0%;
   font-size: ${defaultTheme.fontSize.lg};
   font-family: ${defaultTheme.fontFamily.hnt};
+  font-weight: 700;
 `;
 
 const ContentContainer = styled.div`
@@ -21,6 +22,9 @@ const ButtonContainer = styled(Button)`
   background-color: ${defaultTheme.colors.blue};
   color: ${defaultTheme.colors.white};
   max-height: 50px;
+  &:hover {
+    background-color: ${defaultTheme.colors.blue};
+  }
 `;
 
 
@@ -57,6 +61,7 @@ export interface ModalProps {
 export const DefaultModal = (props: ModalProps) => {
   const { isOpen, onClose, onSubmit, title, content, buttonLabel } = props;
 
+  // Placeholder for any custom logic we might need
   const onModalClose = () => {
     onClose();
   }
@@ -79,6 +84,7 @@ export const DefaultModal = (props: ModalProps) => {
   </Modal>
   )
 }
+
 
 /**
  * 1) Modal 1 Needs Action Modal (Pause / Cancel)

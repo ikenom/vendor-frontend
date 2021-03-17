@@ -5,6 +5,7 @@ import { layout } from "styled-system";
 import { Button } from "../../../src/components/atoms/button";
 import { AppFooter } from "../../../src/components/molecules/AppFooter";
 import { DefaultModal as Modal } from "../../../src/components/molecules/modals/modal"
+import { NeedsActionModal } from "../../../src/components/molecules/modals/needsAction"
 import { defaultTheme } from "../../../src/defaultTheme";
 export default {
   title: "Molecules/Modal/Default",
@@ -45,6 +46,28 @@ export const DefaultModal = () => {
       <CustomButton type="primary" onClick={showModal}> Open Modal </CustomButton>
       <p>Some contents...</p>
       <Modal isOpen={isModalVisible} onClose={onClose} title={title} content={modalContent()} onSubmit={() => {}} buttonLabel="Confirm"/>
+    </Container>
+  )
+}
+
+export const NeedsActionModalExample = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const onClose = () => {
+    setIsModalVisible(false);
+  }
+
+  const title = "Test Modal! ~~ <(O.O<) (>O.O)> ~~";
+  
+  return(
+    <Container width={343} height={230}>
+      <CustomButton type="primary" onClick={showModal}> Open Modal </CustomButton>
+      <p>Some contents...</p>
+      <NeedsActionModal isOpen={isModalVisible} onClose={onClose} onSubmit={() => {}}/>
     </Container>
   )
 }
