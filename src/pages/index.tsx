@@ -6,9 +6,11 @@ import { navigate } from "gatsby"
  * Gatsbys entry point is "/". All we do here is navigate to "/app"
  */
 const IndexPage = () => {
+  React.useEffect(() => {
+    navigate("/app")
+  })
   return (
     <>
-    {navigate("/app")}
     </>
   )
 };
