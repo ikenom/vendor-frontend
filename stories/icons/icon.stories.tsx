@@ -11,6 +11,7 @@ import UnSelectedSupportLogo from '../../src/icons/svg/supportIcons/unselectedSu
 import ArrowLogo from '../../src/icons/svg/arrow.svg'
 import AttentionNeededLogo from '../../src/icons/svg/attentionNeededIcon.svg'
 import SearchLogo from '../../src/icons/svg/searchIcon.svg'
+import PauseLogo from '../../src/icons/svg/pauseIcon.svg'
 import styled from "styled-components";
 import { MessageIcon, PhoneIcon, CancelOrderIcon } from "../../src/icons/components";
 
@@ -132,6 +133,12 @@ const IconGroup = () => (
   </GroupIconContainer>
 )
 
+const IconGroupTwo = () => (
+  <GroupIconContainer>
+    <PauseLogo/>
+  </GroupIconContainer>
+)
+
 export const Icons = () => {
   return (
     <>
@@ -140,6 +147,7 @@ export const Icons = () => {
     <InventoryIcon/>
     <SupportIcon/>
     <IconGroup/>
+    <IconGroupTwo/>
     </>
   )
 }
