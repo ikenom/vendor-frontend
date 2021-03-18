@@ -12,6 +12,8 @@ import { disableBodyScroll } from "body-scroll-lock";
 import { createGlobalStyle } from 'styled-components'
 import { Order } from "../models/orders";
 import { DateTime } from "luxon";
+import { getOrders } from "../api/order_client";
+import OrderStore from '../store/orderStore2'
 
 const ORDERS: Order[] = [
   {
@@ -99,8 +101,8 @@ const ORDERS: Order[] = [
 const GlobalStyle = createGlobalStyle`
   body {
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; 
-    text-rendering: optimizeLegibility; 
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     padding: 0;
   }
 `
@@ -123,29 +125,30 @@ export default IndexPage;
  */
 
 const App = () => {
-  
+
+  const orderStore = new OrderStore()
+
   // Disables scrolling of App
   useEffect(() => {
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
     disableBodyScroll(document.body);
+
+    orderStore.connect()
   }, []);
 
-  const order = useState(store.order)
-
-  useEffect(() => {
-    getOrdersAsync(order, "")
-  }, [])
-
-  console.log(ORDERS)
+  const needsAction = orderStore.getNeedsAction()
 
   return (
     <>
-      <GlobalStyle />
-      <BasicLayout
-      header={<OrdersHeader text="New Orders"/>}
-      content={<AppTab orders={ORDERS} />}
-      footer={<AppFooter selectedIcon="order"/>}
-    />
+      {
+        needsAction.get().map(item => {
+          return (
+          <div>
+            <p id={item.id}>{item.price}</p>
+          </div>
+          )
+        })
+      }
     </>
   )
 };

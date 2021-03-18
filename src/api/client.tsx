@@ -1,10 +1,27 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink, ApolloLink } from '@apollo/client';
 import 'cross-fetch/polyfill';
+import { createConsumer } from '@rails/actioncable';
+import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink';
 
-const cache = new InMemoryCache();
+const cable = createConsumer("ws://localhost:5700/cable")
+const httpLink = createHttpLink({
+  uri: '/graphql',
+  credentials: 'include'
+});
 
-const url = process.env.BACKEND_URL
-console.log(process.env.BACKEND_URL)
-const link = createHttpLink({ uri: `${url}/graphql`})
+const hasSubscriptionOperation = ({ query: { definitions } }) => {
+  return definitions.some(
+    ({ kind, operation }) => kind === 'OperationDefinition' && operation === 'subscription'
+  )
+}
 
-export const client = new ApolloClient( {cache, link});
+const link = ApolloLink.split(
+  hasSubscriptionOperation,
+  new ActionCableLink({cable}),
+  httpLink
+);
+
+export const client = new ApolloClient({
+  link: link,
+  cache: new InMemoryCache()
+});

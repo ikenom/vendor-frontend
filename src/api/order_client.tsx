@@ -39,6 +39,24 @@ const getOrdersAsync = async (vendorId: String, after?: String, pageCount: Numbe
   return result.data
 }
 
+export const subscribeToOrderCreated = (callback: (arg0: any) => void) => {
+  client.subscribe({
+    query: gql`
+      subscription OrderSubscription {
+        orderCreated {
+          price
+        }
+      }
+    `
+  }).subscribe({
+    next(result) {
+      callback(result.data)
+    },
+    error(err) { console.error('err', err); },
+  })
+}
+
 export default {
-  getOrdersAsync
+  getOrdersAsync,
+  subscribeToOrderCreated
 }
