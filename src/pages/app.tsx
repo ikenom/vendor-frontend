@@ -23,8 +23,8 @@ import { OrderHeader } from "../components/molecules/headers/OrderHeader";
 const GlobalStyle = createGlobalStyle`
   body {
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; 
-    text-rendering: optimizeLegibility; 
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     padding: 0;
   }
 `
@@ -38,18 +38,12 @@ const IndexPage = () => {
 export default IndexPage;
 
 const App = () => {
-  
+
   // Disables scrolling of App
   useEffect(() => {
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
     disableBodyScroll(document.body);
   }, []);
-
-  const order = useState(store.orderStore)
-
-  useEffect(() => {
-    getOrdersAsync(order, "")
-  }, [])
 
   return (
     <>
@@ -182,12 +176,12 @@ const TestApp = (props: Partial<AppLayoutProps>) => {
         />
         <OrderOrganism
           path="/order"
-          header={<OrderHeader 
+          header={<OrderHeader
             navProps={{text: "New Orders"}}
             contentProps={{ labelProps: { label: "Bubba B.", content: "Order #41" }}}
           />}
-          content={<OrderContent 
-            lineItemContent={LINE_ITEM_CONTENT} 
+          content={<OrderContent
+            lineItemContent={LINE_ITEM_CONTENT}
             lineItemHeader={LINE_ITEM_HEADER}
             button={{ onClick: () => {}, label: "Send To Kitchen"}}
           />}
