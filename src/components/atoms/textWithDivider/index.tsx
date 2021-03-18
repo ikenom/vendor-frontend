@@ -17,7 +17,7 @@ const Text = styled.p`
   white-space: nowrap;
   width: 100%;
   height: 100%;
-  weight: 400;
+  font-weight: 400;
 `;
 
 const BottomDivider = styled(Divider)`

@@ -25,7 +25,10 @@ module.exports = {
         allowList: ["BACKEND_URL"]
       },
     },
-
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/app/*`] },
+    },
     // minify html
     // `gatsby-plugin-minify`,
 

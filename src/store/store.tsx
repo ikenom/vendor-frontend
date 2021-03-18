@@ -3,11 +3,11 @@ import { OrderStore } from './orderStore';
 import { Order } from '../models/orders';
 
 interface AppStore {
-  order: OrderStore
+  orderStore: OrderStore
 }
 
 export const store = createState<AppStore>({
-  order: {
+  orderStore: {
     orders: []
   }
 })

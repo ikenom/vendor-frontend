@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Space = styled.span`
-  width: 42%
+  width: 162%
 `;
 
 const Actions = styled(HeaderActions)`

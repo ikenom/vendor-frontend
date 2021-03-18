@@ -8,13 +8,12 @@ import SelectedInventoryLogo from '../../src/icons/svg/inventoryIcons/selectedIn
 import UnSelectedInventoryLogo from '../../src/icons/svg/inventoryIcons/unselectedInventoryIcon.svg'
 import SelectedSupportLogo from '../../src/icons/svg/supportIcons/selectedSupportIcon.svg'
 import UnSelectedSupportLogo from '../../src/icons/svg/supportIcons/unselectedSupportIcon.svg'
-import PhoneLogo from '../../src/icons/svg/phoneIcon.svg'
-import MessageLogo from '../../src/icons/svg/messageIcon.svg'
 import ArrowLogo from '../../src/icons/svg/arrow.svg'
 import AttentionNeededLogo from '../../src/icons/svg/attentionNeededIcon.svg'
 import SearchLogo from '../../src/icons/svg/searchIcon.svg'
+import PauseLogo from '../../src/icons/svg/pauseIcon.svg'
 import styled from "styled-components";
-import { MessageIcon, PhoneIcon } from "../../src/icons/components";
+import { MessageIcon, PhoneIcon, CancelOrderIcon } from "../../src/icons/components";
 
 export default {
   title: "Icons/All",
@@ -115,6 +114,14 @@ const AttentionIcon = () => (
   </>
 )
 
+const CancelOrderIconStory = () => (
+  <>
+    <IconContainer>
+      <CancelOrderIcon style={{width: "100%", height: "100%"}}/>
+    </IconContainer>
+  </>
+)
+
 const IconGroup = () => (
   <GroupIconContainer>
     <PhoneIconStory/>
@@ -122,6 +129,13 @@ const IconGroup = () => (
     <ArrowIcon/>
     <SearchIcon/>
     <AttentionIcon/>
+    <CancelOrderIconStory/>
+  </GroupIconContainer>
+)
+
+const IconGroupTwo = () => (
+  <GroupIconContainer>
+    <PauseLogo/>
   </GroupIconContainer>
 )
 
@@ -133,6 +147,7 @@ export const Icons = () => {
     <InventoryIcon/>
     <SupportIcon/>
     <IconGroup/>
+    <IconGroupTwo/>
     </>
   )
 }
