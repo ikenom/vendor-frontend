@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { MessageIcon, MoreOptionsIcon, PhoneIcon } from "../../../../../icons/components";
 import { Button } from "../../../../atoms/button";
+import { NeedsActionModal } from "../../../modals/needsAction";
 import "./index.css"
 
 export interface HeaderActionsProps {
@@ -35,11 +36,22 @@ const ModalButton = styled(Button)`
 
 export const HeaderActions = (props: HeaderActionsProps) => {
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const onClose = () => {
+    setIsModalVisible(false);
+  }
+
   return(
     <Container>
       <PhoneButton type={"ghost"} shape={"circle"} icon={<PhoneIcon/>}/>
       <MessageButton type={"ghost"} shape={"circle"} icon={<MessageIcon/>}/>
-      <ModalButton type={"ghost"} shape={"circle"} icon={<MoreOptionsIcon/>}/>
+      <ModalButton type={"ghost"} shape={"circle"} icon={<MoreOptionsIcon/>} onClick={showModal}/>
+      <NeedsActionModal isOpen={isModalVisible} onClose={onClose} onSubmit={() => {}}/>
     </Container>
   )
 }

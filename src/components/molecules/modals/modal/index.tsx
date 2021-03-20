@@ -6,7 +6,7 @@ import { defaultTheme } from "../../../../defaultTheme";
 
 const Header = styled.p`
   max-width: 100%;
-  max-height: 36%;
+  max-height: 30%;
   margin: 7% 0% 9% 0%;
   font-size: ${defaultTheme.fontSize.lg};
   font-family: ${defaultTheme.fontFamily.hnt};
@@ -30,8 +30,8 @@ const ButtonContainer = styled(Button)`
 
 const customStyles = {
   overlay: {
-    backgroundColor: '#777778',
-    opacity: .7
+    backgroundColor: 'rgb(119, 119, 120, .6)',
+    opacity: 1
   },
   content : {
     // Centers modal
@@ -45,6 +45,7 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    backgroundColor: `${defaultTheme.colors.white}`
   }
 };
 
