@@ -22,6 +22,7 @@ const ActionContainer = styled.div<{isSelected: boolean}>`
   display: flex;
   flex-direction: row;
   margin: 0px 0px 30px 0px;
+  cursor: pointer;
   ${({ isSelected }) => isSelected ? `border: 1px solid ${defaultTheme.colors.blue};` : ''}
 `;
 
