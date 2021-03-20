@@ -17,6 +17,7 @@ import BackArrowLogo from '../svg/backArrowIcon.svg';
 import MoreOptionsLogo from '../svg/moreOptionsIcon.svg';
 import CancelOrderLogo from '../svg/cancelOrderIcon.svg';
 import PauseLogo from '../svg/pauseIcon.svg';
+import CancelLogo from '../svg/cancelIcon.svg';
 import React from 'react';
 
 const iconCss = css`
@@ -37,6 +38,10 @@ export const SearchIcon = styled(SearchLogo)`
 `;
 
 export const PauseIcon = styled(PauseLogo)`
+  ${iconCss}
+`;
+
+export const CancelIcon = styled(CancelLogo)`
   ${iconCss}
 `;
 

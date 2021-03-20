@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { defaultTheme } from "../../../../../defaultTheme";
-import { TextWithBar } from "../../../../atoms/textWithDivider";
+import { TextWithBar, TextWithoutBar } from "../../../../atoms/textWithDivider";
 
 export interface HeaderLabelProps {
   label: string;
   content: string;
+  withoutBar?: boolean;
 }
 
 const Container = styled.div`
@@ -24,14 +25,19 @@ const Label = styled.p`
   margin-bottom: 1%;
   margin-block-end: 0px;
   margin-block-start: 0px;
+  font-weight: 700;
 `;
 
 export const HeaderLabel = (props: HeaderLabelProps) => {
-  const { label, content } = props
+  const { label, content, withoutBar } = props
   return(
     <Container>
       <Label>{label}</Label>
-      <TextWithBar text={content}/>
+      {
+        withoutBar ? 
+        <TextWithoutBar text={content}/> :
+        <TextWithBar text={content}/>
+      }
     </Container>
   )
 }
