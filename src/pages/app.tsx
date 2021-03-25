@@ -4,6 +4,7 @@ import BasicLayout from "../components/layouts/basic";
 import { AppFooter } from "../components/molecules/AppFooter";
 import { OrdersHeader } from "../components/molecules/headers/OrdersHeader";
 import { FAKE_ORDERS, getOrdersAsync, LINE_ITEM_CONTENT, LINE_ITEM_HEADER } from "../store/orderStore";
+import OrderStore from "../store/orderStore2";
 import { useState, State } from '@hookstate/core';
 import { Router } from "@reach/router";
 import { store } from "../store/store";
@@ -44,6 +45,10 @@ const App = () => {
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
     disableBodyScroll(document.body);
   }, []);
+
+  useEffect(() => {
+    // getOrdersAsync(order, "")
+  }, [])
 
   return (
     <>
@@ -165,13 +170,15 @@ const OrderOrganism = (props: OrderOrganismLayoutProps) => {
 
 const TestApp = (props: Partial<AppLayoutProps>) => {
   const { footer } = props;
+  const orderStore = OrderStore.getInstance();
+  const needsAction = useState(orderStore.getNeedsAction())
 
   return (
       <Router basepath="/app">
         <OrdersOrganism
           path="/"
           header={<OrdersHeader text="New Orders"/>}
-          content={<AppTab orders={FAKE_ORDERS} />}
+          content={<AppTab orders={needsAction.get()} />}
           footer={footer}
         />
         <OrderOrganism
