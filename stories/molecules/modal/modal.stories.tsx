@@ -7,6 +7,7 @@ import { AppFooter } from "../../../src/components/molecules/AppFooter";
 import { DefaultModal as Modal } from "../../../src/components/molecules/modals/modal"
 import { NeedsActionModal } from "../../../src/components/molecules/modals/needsAction"
 import { TimeUpdateModal, ContentProps } from "../../../src/components/molecules/modals/timeUpdateModal"
+import { CancelModal, CancelModalProps } from "../../../src/components/molecules/modals/cancelModal"
 import { defaultTheme } from "../../../src/defaultTheme";
 export default {
   title: "Molecules/Modal/Default",
@@ -98,6 +99,34 @@ export const SubmitToKitchenModal = () => {
       <CustomButton type="primary" onClick={showModal}> Open Modal </CustomButton>
       <p>Some contents...</p>
       <TimeUpdateModal type={"Send To Kitchen"} isOpen={isModalVisible} onClose={onClose} onSubmit={() => {}} contentProps={contentProps}/>
+    </Container>
+  )
+}
+
+export const CancelModalComponent = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const onClose = () => {
+    setIsModalVisible(false);
+  }
+
+  const lineItemSummary = {
+    price: "9.50",
+    mealName: "Buffalo Chicken Wings",
+    specialIngredient: "Bleu Cheese Dressing",
+    position: 1 
+  }
+
+  
+  return(
+    <Container width={343}>
+      <CustomButton type="primary" onClick={showModal}> Open Modal </CustomButton>
+      <p>Some contents...</p>
+      <CancelModal isOpen={isModalVisible} onClose={onClose} onSubmit={() => {}} lineItemHeader={lineItemSummary}/>
     </Container>
   )
 }
