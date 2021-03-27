@@ -1,7 +1,8 @@
 import { Meta } from "@storybook/react";
 import React from "react";
 import styled from "styled-components";
-import { layout } from "styled-system";import { AppTab } from "../../src/components/organisms/Tabs"
+import { layout } from "styled-system";
+import { AppTabs } from "../../src/components/organisms/Tabs"
 import { Order } from "../../src/models/orders";
 import { DateTime } from 'luxon';
 

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { defaultTheme } from "../../../../defaultTheme";
-import { Button } from "../../../atoms/button";
-import { LineItemHeader, LineItemHeaderProps } from "../../../atoms/lineItem/header";
-import { LineItemContent, LineItemContentProps } from "../../../molecules/lineItem/lineItemContent";
+import { defaultTheme } from "../../../defaultTheme";
+import { Button } from "../../atoms/button";
+import { LineItemHeader, LineItemHeaderProps } from "../../atoms/lineItem/header";
+import { LineItemContent, LineItemContentProps } from "../lineItem/lineItemContent";
 
 interface OrderContentProps {
   lineItemHeader: LineItemHeaderProps;

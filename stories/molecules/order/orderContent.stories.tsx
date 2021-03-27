@@ -4,11 +4,11 @@ import styled from "styled-components";
 import { layout } from "styled-system";
 import { LineItemHeaderProps } from "../../../src/components/atoms/lineItem/header";
 import { LineItemContentProps } from "../../../src/components/molecules/lineItem/lineItemContent";
-import { OrderContent } from "../../../src/components/organisms/order/content"
+import { OrderContent } from "../../../src/components/molecules/order"
 
 
 export default {
-  title: "Organisms/Order/OrderContent",
+  title: "Molecules/Order/OrderContent",
 } as Meta;
 
 const Container = styled.div`

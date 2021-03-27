@@ -1,4 +1,4 @@
-import { OrderSummaryProps } from "../../components/molecules/orderSummary";
+import { OrderSummaryProps } from "../../components/molecules/orders/orderSummary";
 import { Order } from "../orders";
 import { DateTime } from 'luxon';
 import { Customer } from "../customer";

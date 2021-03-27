@@ -3,10 +3,10 @@ import 'antd/dist/antd.css';
 import { TabElement } from '../../atoms/tabElement';
 import { Order } from '../../../models/orders';
 import { orderToOrderSummaryAdapter } from '../../../models/utils';
-import { OrderSummaryList } from '../orderSummaryList';
+import { OrderSummaryList } from '../orders/orderSummaryList';
 
 
-interface NeedActionsProps {
+export interface NeedActionsProps {
   orders: Order[]; 
   onClick: () => any;
 }

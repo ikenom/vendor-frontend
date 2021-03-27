@@ -3,6 +3,7 @@ import { Order } from '../models/orders';
 import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
 import { LineItemContentProps } from '../components/molecules/lineItem/lineItemContent';
 import { LineItemHeaderProps } from '../components/atoms/lineItem/header';
+import { Product } from '../models/product';
 
 export default class OrderStore {
   private static instance: OrderStore;
@@ -181,14 +182,9 @@ export default class OrderStore {
   }
 }
 
-let details = "";
-for (let i = 0; i < 20; i++) {
-  details = details.concat("Lorem ipsum lorem ipsum lorem ipsum Lorem ipsum");
-}
-
 const lineItemNote = {
-  instructions: {title: "Instructions", details},
-  additionalComments: {title: "Additional Comments", details}
+  instructions: {title: "Instructions", details: ""},
+  additionalComments: {title: "Additional Comments", details: ""}
 }
 
 const lineItemSummary = {

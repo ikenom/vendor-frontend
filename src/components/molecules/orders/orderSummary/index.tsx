@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { defaultTheme } from "../../../defaultTheme";
-import { ArrowIcon, ProfileIcon } from "../../../icons/components";
-import { TextWithLabel } from "../../atoms/textWithLabel";
-import { Divider } from "../../layouts/divider";
+import { defaultTheme } from "../../../../defaultTheme";
+import { ArrowIcon, ProfileIcon } from "../../../../icons/components";
+import { TextWithLabel } from "../../../atoms/textWithLabel";
+import { Divider } from "../../../layouts/divider";
 import { width } from 'styled-system';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { Button } from "../../atoms/button";
+import { Button } from "../../../atoms/button";
 
 
 const Container = styled.div`
