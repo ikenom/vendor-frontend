@@ -2,6 +2,7 @@ import { Layout } from "antd";
 import { Content, Footer, Header } from "antd/lib/layout/layout";
 import React from "react";
 import styled from "styled-components";
+import { AppLayout } from "../../../pages/app";
 
 export interface OrganismLayoutProps {
   header: JSX.Element;
@@ -9,11 +10,6 @@ export interface OrganismLayoutProps {
   footer: JSX.Element;
   path: string;
 }
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%
-`;
 
 export const HeaderWithContentLayout = styled(Layout)`
   height: 85%;
@@ -48,7 +44,7 @@ export const OrdersOrganismLayout = (props: OrganismLayoutProps) => {
   const { header, content, footer } = props;
 
   return (
-    <Container>
+    <AppLayout>
       <HeaderWithContentLayout>
         <OrdersHeaderLayout>
           {header}
@@ -60,6 +56,6 @@ export const OrdersOrganismLayout = (props: OrganismLayoutProps) => {
       <FooterLayout>
         {footer}
       </FooterLayout>
-    </Container>
+    </AppLayout>
   )
 }

@@ -19,9 +19,10 @@ export const OrderSummaryList = (props: OrderSummaryListProps) => {
   return(
     <>
     {orderSummaries.map(orderSummary => {
+      const { numOfItems } = orderSummary
       return (
         <OrderSummaryContainer>
-          <OrderSummaryWithDivider {...orderSummary} onClick={onClick} key={orderSummary.timeSinceOrderCreated}/>
+          <OrderSummaryWithDivider {...orderSummary} onClick={onClick} key={Math.floor(Math.random() * numOfItems)}/>
         </OrderSummaryContainer>)
     })}
     </>

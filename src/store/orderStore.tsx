@@ -1,9 +1,7 @@
 import { State, createState } from '@hookstate/core';
 import { Order } from '../models/orders';
 import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
-import { LineItemContentProps } from '../components/molecules/lineItem/lineItemContent';
-import { LineItemHeaderProps } from '../components/atoms/lineItem/header';
-import { Product } from '../models/product';
+
 
 export default class OrderStore {
   private static instance: OrderStore;
@@ -179,29 +177,5 @@ export default class OrderStore {
 
   cancelOrderAsync = async (orderId: String) => {
     await orderClient.cancelOrderAsync(orderId)
-  }
-}
-
-const lineItemNote = {
-  instructions: {title: "Instructions", details: ""},
-  additionalComments: {title: "Additional Comments", details: ""}
-}
-
-const lineItemSummary = {
-  price: "9.50",
-  mealName: "Buffalo Chicken Wings",
-  specialIngredient: "Bleu Cheese Dressing",
-  position: 1
-}
-
-export const LINE_ITEM_CONTENT: LineItemContentProps = {
-  lineItemSummary,
-  lineItemNote
-}
-
-export const LINE_ITEM_HEADER: LineItemHeaderProps = {
-  lineItemHeader: {
-    numOfItems: 1,
-    price: "9.50"
   }
 }

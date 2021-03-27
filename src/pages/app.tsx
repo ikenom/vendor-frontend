@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect } from "react";
 import { AppFooter } from "../components/molecules/AppFooter";
 import { OrdersHeader } from "../components/molecules/headers/OrdersHeader";
-import OrderStore, { LINE_ITEM_CONTENT, LINE_ITEM_HEADER } from "../store/orderStore";
+import OrderStore from "../store/orderStore";
 import { useState } from '@hookstate/core';
 import { Router } from "@reach/router";
 import { AppTabs } from "../components/organisms/Tabs";
@@ -14,6 +14,8 @@ import { OrderContent } from "../components/molecules/order";
 import { OrderHeader } from "../components/molecules/headers/OrderHeader";
 import { OrdersOrganismLayout } from "../components/layouts/orders";
 import { OrderOrganismLayout } from "../components/layouts/order";
+import { AppStore, MockAppStore } from "../store/store";
+import { MOCK_LINE_ITEM_CONTENT, MOCK_LINE_ITEM_HEADER } from "../store/mockUtils/mockOrderUtils";
 
 
 
@@ -26,16 +28,16 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const IndexPage = () => {
+
+const AppPage = () => {
   return (
     <App />
   )
 };
 
-export default IndexPage;
+export default AppPage;
 
 const App = () => {
-
   // Disables scrolling of App
   useEffect(() => {
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
@@ -45,14 +47,13 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <TestApp
-      footer={<AppFooter selectedIcon="order"/>}
+      <TestApp footer={<AppFooter selectedIcon="order"/>}
     />
     </>
   )
 };
 
-const AppLayout = styled(Layout)`
+export const AppLayout = styled(Layout)`
   width: 100%;
   min-height: 100vh;
   max-width: 700px;
@@ -67,7 +68,7 @@ export interface AppLayoutProps {
 }
 
 
-const TestApp = (props: Partial<AppLayoutProps>) => {
+const TestApp = (props: Omit<AppLayoutProps, "content" | "header">) => {
   const { footer } = props;
   const orderStore = OrderStore.getInstance();
   const needsAction = useState(orderStore.getNeedsAction())
@@ -97,8 +98,8 @@ const TestApp = (props: Partial<AppLayoutProps>) => {
               contentProps={{ labelProps: { label: "Bubba B.", content: "Order #41" }}}
             />}
             content={<OrderContent
-              lineItemContent={LINE_ITEM_CONTENT}
-              lineItemHeader={LINE_ITEM_HEADER}
+              lineItemContent={MOCK_LINE_ITEM_CONTENT}
+              lineItemHeader={MOCK_LINE_ITEM_HEADER}
               button={{ onClick: () => {}, label: "Send To Kitchen"}}
             />}
             footer={footer}

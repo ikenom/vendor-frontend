@@ -1,12 +1,9 @@
 import { Content, Header } from "antd/lib/layout/layout";
 import React from "react";
 import styled from "styled-components";
+import { AppLayout } from "../../../pages/app";
 import { FooterLayout, HeaderWithContentLayout, OrganismLayoutProps } from "../orders";
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%
-`;
 
 const OrderHeaderLayout = styled(Header)`
   height: 23%;
@@ -26,7 +23,7 @@ export const OrderOrganismLayout = (props: OrganismLayoutProps) => {
   const { header, content, footer } = props;
 
   return (
-    <Container>
+    <AppLayout>
       <HeaderWithContentLayout>
         <OrderHeaderLayout>
           {header}
@@ -38,6 +35,6 @@ export const OrderOrganismLayout = (props: OrganismLayoutProps) => {
       <FooterLayout>
         {footer}
       </FooterLayout>
-    </Container>
+    </AppLayout>
   )
 }
