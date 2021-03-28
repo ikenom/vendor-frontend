@@ -171,6 +171,14 @@ export default class OrderStore {
   completeOrderAsync = async (orderId: String) => {
     await orderClient.completeOrderAsync(orderId)
   }
+
+  pauseOrderAsync = async (orderId: String) => {
+    await orderClient.pauseOrderAsync(orderId)
+  }
+
+  cancelOrderAsync = async (orderId: String) => {
+    await orderClient.cancelOrderAsync(orderId)
+  }
 }
 
 let details = "";
