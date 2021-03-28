@@ -58,7 +58,7 @@ export interface ModalProps {
   title: string;
   titleComponent?: JSX.Element;
   content: JSX.Element;
-  onSubmit: () => any;
+  onSubmit: (data?: any) => any;
   buttonLabel: string;
 }
 
