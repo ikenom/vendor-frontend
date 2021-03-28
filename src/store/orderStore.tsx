@@ -6,6 +6,7 @@ import { LineItemHeaderProps } from '../components/atoms/lineItem/header';
 
 export default class OrderStore {
   private static instance: OrderStore;
+  orders: State<Array<Order>>
   needsAction: State<Array<Order>>
   inKitchen: State<Array<Order>>
   ready: State<Array<Order>>
@@ -30,6 +31,7 @@ export default class OrderStore {
     this.inKitchen = createState<Array<Order>>([])
     this.ready = createState<Array<Order>>([])
     this.history = createState<Array<Order>>([])
+    this.orders = createState<Array<Order>>([])
   }
 
   connect = () => {
@@ -38,6 +40,7 @@ export default class OrderStore {
 
   getOrdersFromPayload = (payload) => {
     return payload.edges.map(edge => ({
+      id: edge.node.id,
       price: edge.node.price,
       createdAt: edge.node.createdAt,
       type: "TAKE OUT",
@@ -47,6 +50,26 @@ export default class OrderStore {
         lastName: edge.node.customer.lastName,
       }
     }))
+  }
+
+  getOrder = (orderId: String) => {
+    return this.orders.filter(order => order.get().id == orderId)[0]
+  }
+
+  getOrdersAsync = async () => {
+    let cursor: String = null
+    let hasNext = true
+    const orders = []
+
+    while(hasNext) {
+      const result = await orderClient.getOrdersAsync(cursor)
+      orders.push(...this.getOrdersFromPayload(result))
+
+      hasNext = result.pageInfo.hasNextPage
+      cursor = result.pageInfo.endCursor
+    }
+
+    this.orders.set(orders)
   }
 
   getNeedsAction = () : State<Array<Order>> => {
@@ -130,6 +153,7 @@ export default class OrderStore {
   }
 
   updateOrders = async () => {
+    await this.getOrdersAsync()
     await this.getNeedsActionAsync()
     await this.getInKitchenAsync()
     await this.getReadyAsync()

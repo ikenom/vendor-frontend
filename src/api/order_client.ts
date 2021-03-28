@@ -3,6 +3,41 @@ import { client } from './client'
 
 const PAGE_COUNT = 100
 
+const getOrdersAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
+  const result = await client.query({
+    query: gql`
+      query OrderQuery($first: Int!, $after: String) {
+        orders(first: $first, after: $after) {
+          edges {
+            node {
+              id
+              price
+              createdAt
+              lineItems {
+                id
+              }
+              customer {
+                firstName
+                lastName
+              }
+            }
+          },
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    `,
+    variables: {
+      first: pageCount,
+      after: after
+    }
+  })
+
+  return result.data.orders
+}
+
 const getNeedsActionAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
   const result = await client.query({
     query: gql`
@@ -193,6 +228,7 @@ const completeOrderAsync = async (orderId: String) => {
 }
 
 export default {
+  getOrdersAsync,
   getNeedsActionAsync,
   getInKitchenAsync,
   getReadyAsync,

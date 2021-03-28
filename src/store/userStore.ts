@@ -4,7 +4,7 @@ export default class UserStore {
 
   static init = async () => {
     const userStore = new UserStore()
-    await userStore.loginAsync("fake56@fake.com", "password")
+    await userStore.loginAsync("fake57@fake.com", "password")
   }
 
   loginAsync = async (email: String, password: String) => {
