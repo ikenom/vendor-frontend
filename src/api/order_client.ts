@@ -108,6 +108,41 @@ const getReadyAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => 
   return result.data.ready
 }
 
+const getHistoryAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
+  const result = await client.query({
+    query: gql`
+      query OrderQuery($first: Int!, $after: String) {
+        history(first: $first, after: $after) {
+          edges {
+            node {
+              id
+              price
+              createdAt
+              lineItems {
+                id
+              }
+              customer {
+                firstName
+                lastName
+              }
+            }
+          },
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    `,
+    variables: {
+      first: pageCount,
+      after: after
+    }
+  })
+
+  return result.data.history
+}
+
 export const subscribeToOrderUpdated = (callback: (arg0: any) => void) => {
   client.subscribe({
     query: gql`
@@ -129,5 +164,6 @@ export default {
   getNeedsActionAsync,
   getInKitchenAsync,
   getReadyAsync,
+  getHistoryAsync,
   subscribeToOrderUpdated
 }
