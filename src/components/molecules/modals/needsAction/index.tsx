@@ -1,8 +1,7 @@
-import { setWith } from "cypress/types/lodash";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { defaultTheme } from "../../../../defaultTheme";
-import { PauseIcon } from "../../../../icons/components";
+import { PauseIcon, CancelIcon} from "../../../../icons/components";
 import { DefaultModal, ModalProps } from "../modal";
 
 const TITLE = "More Options";
@@ -12,16 +11,19 @@ type actionType = "pause" | "cancel";
 interface OrderAction {
   label: string;
   actionText: string;
-  iconType?: actionType;
+  iconType: actionType;
+  isSelected: boolean;
   onClick?: () => any;
 }
 
-const ActionContainer = styled.div`
+const ActionContainer = styled.div<{isSelected: boolean}>`
   height: 23%;
   max-height: 23%;
   display: flex;
   flex-direction: row;
   margin: 0px 0px 30px 0px;
+  cursor: pointer;
+  ${({ isSelected }) => isSelected ? `border: 1px solid ${defaultTheme.colors.blue};` : ''}
 `;
 
 const ActionTextContainer = styled.div`
@@ -42,7 +44,13 @@ const ActionContent = styled.p`
   weight: 400px;
 `;
 
-const IconContainer = styled(PauseIcon)`
+const PauseContainer = styled(PauseIcon)`
+  height: 30px;
+  width: 30px;
+  margin: 0px 16px 0px 0px;
+`;
+
+const CancelContainer = styled(CancelIcon)`
   height: 30px;
   width: 30px;
   margin: 0px 16px 0px 0px;
@@ -50,11 +58,11 @@ const IconContainer = styled(PauseIcon)`
 
 
 const OrderAction = (props: OrderAction) => {
-  const { label, actionText, iconType } = props;
+  const { label, actionText, iconType, isSelected } = props;
 
   return (
-    <ActionContainer>
-      <IconContainer />
+    <ActionContainer isSelected={isSelected}>
+      { iconType === "pause" ? <PauseContainer /> : <CancelContainer/> }
       <ActionTextContainer>
         <ActionHeader>{label}</ActionHeader>
         <ActionContent>{actionText}</ActionContent>
@@ -70,15 +78,24 @@ const ActionsContainer = styled.div`
 `;
 
 export const NeedsActionContent = () => {
+
+  const [selectedAction, setSelectedAction] = useState<actionType>();
+
   return(
     <ActionsContainer>
       <OrderAction 
         label={"Pause Order"} 
         actionText={"The customer will be notified their order is paused."}
+        iconType={"pause"}
+        onClick={() => setSelectedAction("pause")}
+        isSelected={selectedAction === "pause"}
       />
       <OrderAction 
         label={"Cancel Order"} 
         actionText={"The customer will be notified their order is canceled, and will be refunded."}
+        iconType={"cancel"}
+        onClick={() => setSelectedAction("cancel")}
+        isSelected={selectedAction === "cancel"}
       />
     </ActionsContainer>
   )

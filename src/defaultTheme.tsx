@@ -5,6 +5,7 @@ export const defaultTheme = {
     black: "#000000",
     greyOne: "#F9F9F9",
     greyTwo: "#A0A0A0",
+    greyThree: "#E3E1D3",
     blue: "#4785FE",
     light: "#1E1E1E",
     green: "#1C953E",
@@ -23,6 +24,7 @@ export const defaultTheme = {
     m: "18px",
     lg: "24px",
     xlg: "30px",
+    max: "42px",
   },
   lineHeight: {
     default: "16.14",

@@ -36,3 +36,12 @@ export const TextWithBar =  (props: TextWithBarProps) => {
     </Container>
   )
 }
+
+export const TextWithoutBar =  (props: TextWithBarProps) => {
+  const { text } = props;
+  return(
+    <Container>
+      <Text>{text}</Text>
+    </Container>
+  )
+}

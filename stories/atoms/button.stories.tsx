@@ -4,7 +4,7 @@ import { Meta } from "@storybook/react";
 import styled from "styled-components";
 import { width, border } from "styled-system";
 import { BackArrowIcon, MessageIcon, MoreOptionsIcon, PhoneIcon, SearchIcon, SelectableIcon, SelectedOrderIcon } from "../../src/icons/components";
-
+import { PlusOutlined, MinusOutlined } from "@ant-design/icons"
 export default {
   title: "Atoms/Buttons",
 } as Meta;
@@ -61,6 +61,12 @@ export const IconButtons = () => {
       </Container>
       <Container width={75} >
         <Button type={"ghost"} shape={"circle"} icon={<MoreOptionsIcon/>}/>
+      </Container>
+      <Container width={75} >
+        <Button type={"ghost"} icon={<PlusOutlined/>}/>
+      </Container>
+      <Container width={75} >
+        <Button type={"ghost"} icon={<MinusOutlined/>}/>
       </Container>
     </>
   );
