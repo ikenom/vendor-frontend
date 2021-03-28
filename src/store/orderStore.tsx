@@ -7,10 +7,11 @@ import { LineItemHeaderProps } from '../components/atoms/lineItem/header';
 export default class OrderStore {
   private static instance: OrderStore;
   needsAction: State<Array<Order>>
+  inKitchen: State<Array<Order>>
 
   static init = async () => {
     const orderStore = OrderStore.getInstance()
-    await orderStore.getNeedsActionAsync()
+    await orderStore.updateOrders()
     orderStore.connect()
   }
 
@@ -24,10 +25,24 @@ export default class OrderStore {
 
   private constructor() {
     this.needsAction = createState<Array<Order>>([])
+    this.inKitchen = createState<Array<Order>>([])
   }
 
   connect = () => {
     subscribeToOrderUpdated(this.orderUpdated)
+  }
+
+  getOrdersFromPayload = (payload) => {
+    return payload.edges.map(edge => ({
+      price: edge.node.price,
+      createdAt: edge.node.createdAt,
+      type: "TAKE OUT",
+      lineItems: edge.node.lineItems.map((lineItem: { id: String; }) => ({ id: lineItem.id })),
+      customer: {
+        firstName: edge.node.customer.firstName,
+        lastName: edge.node.customer.lastName,
+      }
+    }))
   }
 
   getNeedsAction = () : State<Array<Order>> => {
@@ -41,27 +56,42 @@ export default class OrderStore {
 
     while(hasNext) {
       const result = await orderClient.getNeedsActionAsync(cursor)
-      const partial_needs_action = result.edges.map(edge => ({
-        price: edge.node.price,
-        createdAt: edge.node.createdAt,
-        type: "TAKE OUT",
-        lineItems: edge.node.lineItems.map((lineItem: { id: String; }) => ({ id: lineItem.id })),
-        customer: {
-          firstName: edge.node.customer.firstName,
-          lastName: edge.node.customer.lastName,
-        }
-      }))
+      needsAction.push(...this.getOrdersFromPayload(result))
 
       hasNext = result.pageInfo.hasNextPage
       cursor = result.pageInfo.endCursor
-      needsAction.push(...partial_needs_action)
     }
 
     this.needsAction.set(needsAction)
   }
 
-  orderUpdated = async () => {
+  getInKitchen = () => {
+    return this.inKitchen
+  }
+
+  getInKitchemAsync = async () => {
+    let cursor: String = null
+    let hasNext = true
+    const inKitchen = []
+
+    while(hasNext) {
+      const result = await orderClient.getInKitchenAsync(cursor)
+      inKitchen.push(...this.getOrdersFromPayload(result))
+
+      hasNext = result.pageInfo.hasNextPage
+      cursor = result.pageInfo.endCursor
+    }
+
+    this.inKitchen.set(inKitchen)
+  }
+
+  updateOrders = async () => {
     await this.getNeedsActionAsync()
+    await this.getInKitchemAsync()
+  }
+
+  orderUpdated = async () => {
+    await this.updateOrders()
   }
 }
 
