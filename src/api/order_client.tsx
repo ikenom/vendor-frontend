@@ -38,12 +38,12 @@ const getNeedsActionAsync = async (after?: String, pageCount: Number = PAGE_COUN
   return result.data.needsActions
 }
 
-export const subscribeToOrderCreated = (callback: (arg0: any) => void) => {
+export const subscribeToOrderUpdated = (callback: (arg0: any) => void) => {
   client.subscribe({
     query: gql`
-      subscription OrderSubscription {
-        orderCreated {
-          price
+      subscription OrderUpdatedSubscription {
+        orderUpdated {
+          id
         }
       }
     `
@@ -57,5 +57,5 @@ export const subscribeToOrderCreated = (callback: (arg0: any) => void) => {
 
 export default {
   getNeedsActionAsync,
-  subscribeToOrderCreated
+  subscribeToOrderUpdated
 }

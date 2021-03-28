@@ -1,5 +1,5 @@
 import { State, createState } from '@hookstate/core';
-import orderClient, { subscribeToOrderCreated } from '../api/order_client';
+import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
 import { Order } from '../models/orders';
 
 export default class OrderStore {
@@ -9,6 +9,7 @@ export default class OrderStore {
   static init = async () => {
     const orderStore = OrderStore.getInstance()
     await orderStore.getNeedsActionAsync()
+    orderStore.connect()
   }
 
   static getInstance(): OrderStore {
@@ -24,7 +25,7 @@ export default class OrderStore {
   }
 
   connect = () => {
-    subscribeToOrderCreated(this.orderCreated)
+    subscribeToOrderUpdated(this.orderUpdated)
   }
 
   getNeedsAction = () : State<Array<Order>> => {
@@ -32,29 +33,33 @@ export default class OrderStore {
   }
 
   getNeedsActionAsync = async () => {
-    const result = await orderClient.getNeedsActionAsync();
+    let cursor: String = null
+    let hasNext = true
+    const needsAction = []
 
-    const needsAction = result.nodes.map(order => ({
-      price: order.price,
-      createdAt: order.createdAt,
-      type: "TAKE OUT",
-      lineItems: order.lineItems.map((lineItem: { id: String; }) => ({ id: lineItem.id })),
-      customer: {
-        firstName: order.customer.firstName,
-        lastName: order.customer.lastName,
-      }
-    }))
+    while(hasNext) {
+      const result = await orderClient.getNeedsActionAsync(cursor)
+      const partial_needs_action = result.edges.map(edge => ({
+        price: edge.node.price,
+        createdAt: edge.node.createdAt,
+        type: "TAKE OUT",
+        lineItems: edge.node.lineItems.map((lineItem: { id: String; }) => ({ id: lineItem.id })),
+        customer: {
+          firstName: edge.node.customer.firstName,
+          lastName: edge.node.customer.lastName,
+        }
+      }))
 
+      hasNext = result.pageInfo.hasNextPage
+      cursor = result.pageInfo.endCursor
+      needsAction.push(...partial_needs_action)
+    }
+
+    console.log(needsAction)
     this.needsAction.set(needsAction)
-    console.log(this.needsAction)
   }
 
-  orderCreated = (data) => {
-    const order = {
-      id: data.orderCreated.id,
-      price: data.orderCreated.price
-    }
-    // console.log(data)
-    this.needsAction.set([order])
+  orderUpdated = async () => {
+    await this.getNeedsActionAsync()
   }
 }

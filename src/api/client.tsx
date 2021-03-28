@@ -1,13 +1,12 @@
-import { ApolloClient, InMemoryCache, createHttpLink, ApolloLink, concat } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink, ApolloLink, concat, DefaultOptions } from '@apollo/client';
 import 'cross-fetch/polyfill';
 import { createConsumer } from '@rails/actioncable';
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink';
 
-const url = process.env.BACKEND_URL
-const cable = createConsumer(`ws://${url}:5700/cable`)
+const url = "http://35.193.167.21"
+const cable = createConsumer(`${url}/cable`)
 const httpLink = createHttpLink({
-  uri: `${url}/graphql`,
-  credentials: 'include'
+  uri: `${url}/graphql`
 });
 
 const hasSubscriptionOperation = ({ query: { definitions } }) => {
@@ -33,7 +32,19 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 })
 
+const defaultOptions: DefaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore',
+  },
+  query: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'all',
+  },
+}
+
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: concat(authMiddleware, link),
+  defaultOptions: defaultOptions
 });
