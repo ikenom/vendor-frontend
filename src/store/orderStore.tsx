@@ -8,6 +8,7 @@ export default class OrderStore {
   private static instance: OrderStore;
   needsAction: State<Array<Order>>
   inKitchen: State<Array<Order>>
+  ready: State<Array<Order>>
 
   static init = async () => {
     const orderStore = OrderStore.getInstance()
@@ -26,6 +27,7 @@ export default class OrderStore {
   private constructor() {
     this.needsAction = createState<Array<Order>>([])
     this.inKitchen = createState<Array<Order>>([])
+    this.ready = createState<Array<Order>>([])
   }
 
   connect = () => {
@@ -69,7 +71,7 @@ export default class OrderStore {
     return this.inKitchen
   }
 
-  getInKitchemAsync = async () => {
+  getInKitchenAsync = async () => {
     let cursor: String = null
     let hasNext = true
     const inKitchen = []
@@ -85,9 +87,30 @@ export default class OrderStore {
     this.inKitchen.set(inKitchen)
   }
 
+  getReady = () => {
+    return this.ready
+  }
+
+  getReadyAsync = async () => {
+    let cursor: String = null
+    let hasNext = true
+    const ready = []
+
+    while(hasNext) {
+      const result = await orderClient.getReadyAsync(cursor)
+      ready.push(...this.getOrdersFromPayload(result))
+
+      hasNext = result.pageInfo.hasNextPage
+      cursor = result.pageInfo.endCursor
+    }
+
+    this.ready.set(ready)
+  }
+
   updateOrders = async () => {
     await this.getNeedsActionAsync()
-    await this.getInKitchemAsync()
+    await this.getInKitchenAsync()
+    await this.getReadyAsync()
   }
 
   orderUpdated = async () => {
