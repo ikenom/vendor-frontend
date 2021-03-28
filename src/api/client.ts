@@ -3,7 +3,7 @@ import 'cross-fetch/polyfill';
 import { createConsumer } from '@rails/actioncable';
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink';
 
-const url = "http://35.193.167.21"
+const url = process.env.BACKEND_URL
 const cable = createConsumer(`${url}/cable`)
 const httpLink = createHttpLink({
   uri: `${url}/graphql`
