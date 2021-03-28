@@ -227,6 +227,38 @@ const completeOrderAsync = async (orderId: String) => {
   return result.data.completeOrder
 }
 
+const cancelOrderAsync = async (orderId: String) => {
+  const result = await client.mutate({
+    mutation: gql`
+      mutation cancelOrder($orderId: ID!) {
+        cancelOrder(input: {orderId: $orderId}) {
+          succeeded
+        }
+      }
+    `,
+    variables: {
+      orderId: orderId
+    }
+  })
+  return result.data.completeOrder
+}
+
+const pauseOrderAsync = async (orderId: String) => {
+  const result = await client.mutate({
+    mutation: gql`
+      mutation pauseOrder($orderId: ID!) {
+        pauseOrder(input: {orderId: $orderId}) {
+          succeeded
+        }
+      }
+    `,
+    variables: {
+      orderId: orderId
+    }
+  })
+  return result.data.completeOrder
+}
+
 export default {
   getOrdersAsync,
   getNeedsActionAsync,
@@ -235,5 +267,7 @@ export default {
   getHistoryAsync,
   sendToKitchenAsync,
   completeOrderAsync,
+  cancelOrderAsync,
+  pauseOrderAsync,
   subscribeToOrderUpdated
 }
