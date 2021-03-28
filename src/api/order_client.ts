@@ -38,6 +38,41 @@ const getNeedsActionAsync = async (after?: String, pageCount: Number = PAGE_COUN
   return result.data.needsActions
 }
 
+const getInKitchenAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
+  const result = await client.query({
+    query: gql`
+      query OrderQuery($first: Int!, $after: String) {
+        inKitchen(first: $first, after: $after) {
+          edges {
+            node {
+              id
+              price
+              createdAt
+              lineItems {
+                id
+              }
+              customer {
+                firstName
+                lastName
+              }
+            }
+          },
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    `,
+    variables: {
+      first: pageCount,
+      after: after
+    }
+  })
+
+  return result.data.inKitchen
+}
+
 export const subscribeToOrderUpdated = (callback: (arg0: any) => void) => {
   client.subscribe({
     query: gql`
@@ -57,5 +92,6 @@ export const subscribeToOrderUpdated = (callback: (arg0: any) => void) => {
 
 export default {
   getNeedsActionAsync,
+  getInKitchenAsync,
   subscribeToOrderUpdated
 }
