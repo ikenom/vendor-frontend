@@ -1,120 +1,69 @@
-import { State } from '@hookstate/core';
+import { State, createState } from '@hookstate/core';
 import { Order } from '../models/orders';
-import orderClient from '../api/order_client'
-import { DateTime } from 'luxon';
+import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
 import { LineItemContentProps } from '../components/molecules/lineItem/lineItemContent';
 import { LineItemHeaderProps } from '../components/atoms/lineItem/header';
 
-export interface OrderStore {
-  orders: Order[];
-}
+export default class OrderStore {
+  private static instance: OrderStore;
+  needsAction: State<Array<Order>>
 
-export const getOrdersAsync = async (order: State<OrderStore>, vendorId: String) => {
-  let cursor: String = null
-  let hasNext = true
+  static init = async () => {
+    const orderStore = OrderStore.getInstance()
+    await orderStore.getNeedsActionAsync()
+    orderStore.connect()
+  }
 
-  while(hasNext) {
-    const result = await orderClient.getOrdersAsync(vendorId, cursor)
-    const orders = result.orders.edges.map(edge => ({
-      price: edge.node.price,
-      createdAt: edge.node.createdAt,
-      type: "TAKE OUT",
-      lineItems: edge.node.lineItems.map((lineItem: { id: String; }) => ({ id: lineItem.id })),
-      customer: {
-        firstName: edge.node.customer.firstName,
-        lastName: edge.node.customer.lastName,
-      }
-    }))
+  static getInstance(): OrderStore {
+    if (!OrderStore.instance) {
+      OrderStore.instance = new OrderStore();
+    }
 
-    hasNext = result.orders.pageInfo.hasNextPage
-    cursor = result.orders.pageInfo.endCursor
-    order.orders.merge(orders)
-    console.log(order.orders.get())
+    return OrderStore.instance;
+  }
+
+  private constructor() {
+    this.needsAction = createState<Array<Order>>([])
+  }
+
+  connect = () => {
+    subscribeToOrderUpdated(this.orderUpdated)
+  }
+
+  getNeedsAction = () : State<Array<Order>> => {
+    return this.needsAction
+  }
+
+  getNeedsActionAsync = async () => {
+    let cursor: String = null
+    let hasNext = true
+    const needsAction = []
+
+    while(hasNext) {
+      const result = await orderClient.getNeedsActionAsync(cursor)
+      const partial_needs_action = result.edges.map(edge => ({
+        price: edge.node.price,
+        createdAt: edge.node.createdAt,
+        type: "TAKE OUT",
+        lineItems: edge.node.lineItems.map((lineItem: { id: String; }) => ({ id: lineItem.id })),
+        customer: {
+          firstName: edge.node.customer.firstName,
+          lastName: edge.node.customer.lastName,
+        }
+      }))
+
+      hasNext = result.pageInfo.hasNextPage
+      cursor = result.pageInfo.endCursor
+      needsAction.push(...partial_needs_action)
+    }
+
+    this.needsAction.set(needsAction)
+  }
+
+  orderUpdated = async () => {
+    await this.getNeedsActionAsync()
   }
 }
-
-export const FAKE_ORDERS: Order[] = [
-  {
-    lineItems: [{id: "1"}, {id: "2"}],
-    customer: {
-      firstName: "Bubba",
-      lastName: "Bud"
-    },
-    createdAt: DateTime.now().minus({seconds: 400}).toISO(),
-    price: "63.42",
-    type: "TAKE OUT"
-  },
-  {
-    lineItems: [{id: "1"}, {id: "2"}],
-    customer: {
-      firstName: "Sammy",
-      lastName: "Smith"
-    },
-    createdAt: DateTime.now().minus({seconds: 450}).toISO(),
-    price: "34.42",
-    type: "TAKE OUT"
-  },
-  {
-    lineItems: [{id: "1"}, {id: "2"}],
-    customer: {
-      firstName: "Bobby",
-      lastName: "Larson"
-    },
-    createdAt: DateTime.now().minus({seconds: 700}).toISO(),
-    price: "45.42",
-    type: "TAKE OUT"
-  },
-  {
-    lineItems: [{id: "1"}, {id: "2"}],
-    customer: {
-      firstName: "Sammy",
-      lastName: "Smith"
-    },
-    createdAt: DateTime.now().minus({seconds: 1000}).toISO(),
-    price: "34.42",
-    type: "TAKE OUT"
-  },
-  {
-    lineItems: [{id: "1"}, {id: "2"}],
-    customer: {
-      firstName: "Bubba",
-      lastName: "Bud"
-    },
-    createdAt: DateTime.now().minus({seconds: 1400}).toISO(),
-    price: "63.42",
-    type: "TAKE OUT"
-  },
-  {
-    lineItems: [{id: "1"}, {id: "2"}, {id: "3"}],
-    customer: {
-      firstName: "Ken",
-      lastName: "Lamar"
-    },
-    createdAt: DateTime.now().minus({seconds: 1540}).toISO(),
-    price: "31.45",
-    type: "TAKE OUT"
-  },
-  {
-    lineItems: [{id: "1"}, {id: "2"}, {id: "4"}, {id: "2"}, {id: "4"}],
-    customer: {
-      firstName: "Bobby",
-      lastName: "Larson"
-    },
-    createdAt: DateTime.now().minus({seconds: 1700}).toISO(),
-    price: "29.31",
-    type: "TAKE OUT"
-  },
-  {
-    lineItems: [{id: "1"}, {id: "2"}, {id: "2"}, {id: "4"}, {id: "2"}],
-    customer: {
-      firstName: "Sammy",
-      lastName: "Smith"
-    },
-    createdAt: DateTime.now().minus({seconds: 2000}).toISO(),
-    price: "34.42",
-    type: "TAKE OUT"
-  }
-]
 
 let details = "";
 for (let i = 0; i < 20; i++) {
@@ -130,7 +79,7 @@ const lineItemSummary = {
   price: "9.50",
   mealName: "Buffalo Chicken Wings",
   specialIngredient: "Bleu Cheese Dressing",
-  position: 1 
+  position: 1
 }
 
 export const LINE_ITEM_CONTENT: LineItemContentProps = {
@@ -140,7 +89,7 @@ export const LINE_ITEM_CONTENT: LineItemContentProps = {
 
 export const LINE_ITEM_HEADER: LineItemHeaderProps = {
   lineItemHeader: {
-    numOfItems: 1, 
+    numOfItems: 1,
     price: "9.50"
   }
 }
