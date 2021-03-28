@@ -240,7 +240,7 @@ const cancelOrderAsync = async (orderId: String) => {
       orderId: orderId
     }
   })
-  return result.data.completeOrder
+  return result.data.cancelOrder
 }
 
 const pauseOrderAsync = async (orderId: String) => {
@@ -256,7 +256,7 @@ const pauseOrderAsync = async (orderId: String) => {
       orderId: orderId
     }
   })
-  return result.data.completeOrder
+  return result.data.pauseOrder
 }
 
 export default {
