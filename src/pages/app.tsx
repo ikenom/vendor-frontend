@@ -169,13 +169,20 @@ const TestApp = (props: Partial<AppLayoutProps>) => {
   const needsAction = useState(orderStore.getNeedsAction())
   const inKitchen = useState(orderStore.getInKitchen())
   const ready = useState(orderStore.getReady())
+  const history = useState(orderStore.getHistory())
 
   return (
       <Router basepath="/app">
         <OrdersOrganism
           path="/"
           header={<OrdersHeader text="New Orders"/>}
-          content={<AppTab needsAction={needsAction.get()} inKitchen={inKitchen.get()} ready={ready.get()} />}
+          content={
+            <AppTab
+              needsAction={needsAction.get()}
+              inKitchen={inKitchen.get()}
+              ready={ready.get()}
+              history={history.get()}
+            />}
           footer={footer}
         />
         <OrderOrganism

@@ -14,13 +14,14 @@ interface TabProps {
   needsAction: Order[];
   inKitchen: Order[];
   ready: Order[];
+  history: Order[];
 }
 
 const TabPaneContainer = styled(TabPane)`
 `;
 
 export const AppTab = (props: TabProps) => {
-  const { needsAction, inKitchen, ready } = props;
+  const { needsAction, inKitchen, ready, history } = props;
   return(
     <Tabs >
       <TabPaneContainer tab={<NewActionTabElement />} key="1">
@@ -33,7 +34,7 @@ export const AppTab = (props: TabProps) => {
         <NewActionTabContent orders={ready} onClick={() => {navigate("/app/order")}}/>
       </TabPane>
       <TabPane tab={<TabElement text="History" showAttentionIcon={false}/>} key="4">
-      Content of Tab Pane 4
+        <NewActionTabContent orders={history} onClick={() => {navigate("/app/order")}}/>
       </TabPane>
     </Tabs>
   )
