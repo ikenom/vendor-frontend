@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { client } from './client'
 
-const PAGE_COUNT = 10
+const PAGE_COUNT = 100
 
 const getNeedsActionAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
   const result = await client.query({
