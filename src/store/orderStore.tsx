@@ -57,7 +57,6 @@ export default class OrderStore {
       needsAction.push(...partial_needs_action)
     }
 
-    console.log(needsAction)
     this.needsAction.set(needsAction)
   }
 

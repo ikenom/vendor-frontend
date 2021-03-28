@@ -45,10 +45,6 @@ const App = () => {
     disableBodyScroll(document.body);
   }, []);
 
-  useEffect(() => {
-    // getOrdersAsync(order, "")
-  }, [])
-
   return (
     <>
       <GlobalStyle />
