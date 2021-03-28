@@ -4,6 +4,7 @@ import { Product } from "./product";
 export type OrderType = "TAKE OUT"
 
 export interface Order {
+  id: String;
   lineItems: Product[];
   customer: Customer;
   createdAt: string;
