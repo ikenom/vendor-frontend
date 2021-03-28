@@ -160,10 +160,44 @@ export const subscribeToOrderUpdated = (callback: (arg0: any) => void) => {
   })
 }
 
+const sendToKitchenAsync = async (orderId: String) => {
+  const result = await client.mutate({
+    mutation: gql`
+      mutation sendToKitchen($orderId: ID!) {
+        sendToKitchen(input: {orderId: $orderId}) {
+          succeeded
+        }
+      }
+    `,
+    variables: {
+      orderId: orderId
+    }
+  })
+  return result.data.sendToKitchen
+}
+
+const completeOrderAsync = async (orderId: String) => {
+  const result = await client.mutate({
+    mutation: gql`
+      mutation completeOrder($orderId: ID!) {
+        completeOrder(input: {orderId: $orderId}) {
+          succeeded
+        }
+      }
+    `,
+    variables: {
+      orderId: orderId
+    }
+  })
+  return result.data.completeOrder
+}
+
 export default {
   getNeedsActionAsync,
   getInKitchenAsync,
   getReadyAsync,
   getHistoryAsync,
+  sendToKitchenAsync,
+  completeOrderAsync,
   subscribeToOrderUpdated
 }

@@ -139,6 +139,14 @@ export default class OrderStore {
   orderUpdated = async () => {
     await this.updateOrders()
   }
+
+  sendToKitchenAsync = async (orderId: String) => {
+    await orderClient.sendToKitchenAsync(orderId)
+  }
+
+  completeOrderAsync = async (orderId: String) => {
+    await orderClient.completeOrderAsync(orderId)
+  }
 }
 
 let details = "";
