@@ -6,11 +6,16 @@ import { LineItemHeaderProps } from '../components/atoms/lineItem/header';
 
 export default class OrderStore {
   private static instance: OrderStore;
-  orders: State<Array<Order>>
-  needsAction: State<Array<Order>>
-  inKitchen: State<Array<Order>>
-  ready: State<Array<Order>>
-  history: State<Array<Order>>
+
+  private orders: State<Array<Order>>
+  private needsAction: State<Array<Order>>
+  private inKitchen: State<Array<Order>>
+  private ready: State<Array<Order>>
+  private history: State<Array<Order>>
+
+  private _needsActionUpdated: State<Boolean>;
+  private _inKitchenUpdated: State<Boolean>;
+  private _readyUpdated: State<Boolean>;
 
   static init = async () => {
     const orderStore = OrderStore.getInstance()
@@ -89,7 +94,18 @@ export default class OrderStore {
       cursor = result.pageInfo.endCursor
     }
 
-    this.needsAction.set(needsAction)
+    if(!this.isSame(this.needsAction.get(), needsAction)) {
+      this._needsActionUpdated.set(true)
+      this.needsAction.set(needsAction)
+    }
+  }
+
+  private isSame(listA: Order[], listB: Order[]): Boolean {
+    const idsA = listA.map((item: Order) => item.id)
+    const idsBA = listB.map((item: Order) => item.id)
+    const remaining = idsA.filter((item: any) => idsBA.indexOf(item) < 0);
+
+    return remaining.length == 0
   }
 
   getInKitchen = () => {
@@ -109,7 +125,10 @@ export default class OrderStore {
       cursor = result.pageInfo.endCursor
     }
 
-    this.inKitchen.set(inKitchen)
+    if(!this.isSame(this.inKitchen.get(), inKitchen)) {
+      this._inKitchenUpdated.set(true)
+      this.inKitchen.set(inKitchen)
+    }
   }
 
   getReady = () => {
@@ -129,7 +148,10 @@ export default class OrderStore {
       cursor = result.pageInfo.endCursor
     }
 
-    this.ready.set(ready)
+    if(!this.isSame(this.inKitchen.get(), ready)) {
+      this._readyUpdated.set(true)
+      this.ready.set(ready)
+    }
   }
 
   getHistory = () => {
@@ -178,6 +200,18 @@ export default class OrderStore {
 
   cancelOrderAsync = async (orderId: String) => {
     await orderClient.cancelOrderAsync(orderId)
+  }
+
+  get needsActionUpdated() {
+    return this._needsActionUpdated
+  }
+
+  get inKitchenUpdated() {
+    return this._inKitchenUpdated
+  }
+
+  get readyUpdated() {
+    return this._readyUpdated
   }
 }
 
