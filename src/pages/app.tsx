@@ -16,7 +16,14 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    padding: 0;
+    padding: 30px 0px 0px 0px;
+  }
+
+  @supports (padding: max(0px)) {
+    /* CSS specific to iOS devices */
+    body {
+      padding-top: max(20px, env(safe-area-inset-top));
+    }
   }
 `
 
@@ -47,10 +54,10 @@ const App = () => {
 
 export const AppLayout = styled(Layout)`
   width: 100%;
-  min-height: 100vh;
   max-width: 700px;
   overflow: hidden;
-  height: 100vh;
+  max-height: 95vh;
+  min-height: 95vh;
 `;
 
 export interface AppLayoutProps {
