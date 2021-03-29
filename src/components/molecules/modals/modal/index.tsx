@@ -89,12 +89,3 @@ export const DefaultModal = (props: ModalProps) => {
   </Modal>
   )
 }
-
-
-/**
- * 1) Modal 1 Needs Action Modal (Pause / Cancel)
- *  2) Modal 2 In Kitchen
- * 3) Modal 3 Ready
- * 4) Modal 4 Cancel
- * 5) Modal 5 Needs Action (Send Kitchen)
- */ 

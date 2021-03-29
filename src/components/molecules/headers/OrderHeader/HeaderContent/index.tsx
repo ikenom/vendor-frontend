@@ -5,7 +5,7 @@ import { HeaderLabel, HeaderLabelProps } from "../HeaderLabel";
 
 export interface HeaderContentProps {
   labelProps: HeaderLabelProps;
-  actionProps?: HeaderActionsProps;
+  actionProps: HeaderActionsProps;
 }
 
 const Container = styled.div`
@@ -26,13 +26,13 @@ const Actions = styled(HeaderActions)`
 `
 
 export const HeaderContent = (props: HeaderContentProps) => {
-  const { labelProps } = props;
+  const { labelProps, actionProps } = props;
 
   return (
     <Container>
       <HeaderLabel {...labelProps}/>
       <Space />
-      <Actions />
+      <Actions {...actionProps}/>
     </Container>
   )
 }

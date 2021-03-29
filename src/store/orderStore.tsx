@@ -1,9 +1,8 @@
 import { State, createState } from '@hookstate/core';
 import { Order } from '../models/orders';
 import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
-import { LineItemContentProps } from '../components/molecules/lineItem/lineItemContent';
-import { LineItemHeaderProps } from '../components/atoms/lineItem/header';
-
+import _ from 'cypress/types/lodash';
+import { hashCode } from './mockUtils';
 export default class OrderStore {
   private static instance: OrderStore;
 
@@ -46,9 +45,10 @@ export default class OrderStore {
     subscribeToOrderUpdated(this.orderUpdated)
   }
 
-  getOrdersFromPayload = (payload) => {
+  getOrdersFromPayload = (payload): Order[] => {
     return payload.edges.map(edge => ({
       id: edge.node.id,
+      orderNumber: hashCode(edge.node.id).toString(),
       price: edge.node.price,
       createdAt: edge.node.createdAt,
       type: "TAKE OUT",
@@ -57,11 +57,17 @@ export default class OrderStore {
         firstName: edge.node.customer.firstName,
         lastName: edge.node.customer.lastName,
       }
-    }))
+    } as Order))
   }
 
-  getOrder = (orderId: String) => {
-    return this.orders.filter(order => order.get().id == orderId)[0]
+  getOrder = (orderNumber: String) => {
+    return this.orders.value.find(order => { 
+      return order.orderNumber === orderNumber
+    })
+  }
+
+  getOrders = () : State<Array<Order>> => {
+    return this.orders
   }
 
   getOrdersAsync = async () => {
@@ -216,34 +222,5 @@ export default class OrderStore {
 
   get readyUpdated() {
     return this._readyUpdated
-  }
-}
-
-let details = "";
-for (let i = 0; i < 20; i++) {
-  details = details.concat("Lorem ipsum lorem ipsum lorem ipsum Lorem ipsum");
-}
-
-const lineItemNote = {
-  instructions: {title: "Instructions", details},
-  additionalComments: {title: "Additional Comments", details}
-}
-
-const lineItemSummary = {
-  price: "9.50",
-  mealName: "Buffalo Chicken Wings",
-  specialIngredient: "Bleu Cheese Dressing",
-  position: 1
-}
-
-export const LINE_ITEM_CONTENT: LineItemContentProps = {
-  lineItemSummary,
-  lineItemNote
-}
-
-export const LINE_ITEM_HEADER: LineItemHeaderProps = {
-  lineItemHeader: {
-    numOfItems: 1,
-    price: "9.50"
   }
 }

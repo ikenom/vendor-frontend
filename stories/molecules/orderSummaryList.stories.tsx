@@ -2,8 +2,8 @@ import { Meta } from "@storybook/react";
 import React from "react";
 import styled from "styled-components";
 import { width } from "styled-system";
-import { OrderSummaryProps } from "../../src/components/molecules/orderSummary";
-import { OrderSummaryList } from "../../src/components/molecules/orderSummaryList"
+import { OrderSummaryProps } from "../../src/components/molecules/orders/orderSummary";
+import { OrderSummaryList } from "../../src/components/molecules/orders/orderSummaryList";
 
 export default {
   title: "Molecules/OrderSummaryList",

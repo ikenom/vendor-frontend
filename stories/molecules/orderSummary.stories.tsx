@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/react";
 import React from "react";
 import styled from "styled-components";
-import { OrderSummary, OrderSummarySkeletonWrapper, OrderSummaryWithDivider, SkeletonWrapperProps } from "../../src/components/molecules/orderSummary"
 import { width } from 'styled-system';
+import { OrderSummary, OrderSummaryWithDivider, SkeletonWrapperProps, OrderSummarySkeletonWrapper } from "../../src/components/molecules/orders/orderSummary";
 
 
 export default {

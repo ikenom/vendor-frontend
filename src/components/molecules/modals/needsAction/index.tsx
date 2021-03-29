@@ -6,7 +6,7 @@ import { DefaultModal, ModalProps } from "../modal";
 
 const TITLE = "More Options";
 
-type ActionType = "pause" | "cancel";
+export type ActionType = "pause" | "cancel";
 
 interface OrderAction {
   label: string;
@@ -114,16 +114,18 @@ export const NeedsActionContent = (props: NeedsActionContentProps) => {
   )
 }
 
+
 export const NeedsActionModal = (props: Omit<ModalProps, "title" | "content" | "buttonLabel">) => {
   const { isOpen, onClose, onSubmit } = props;
 
   const [selectedAction, setSelectedAction] = useState<ActionType>();
 
-  const onModalSubmit = () => {
-    onSubmit(selectedAction)
-  }
   const onUpdate = (selectedAction: ActionType) => {
     setSelectedAction(selectedAction)
+  }
+
+  const onModalSubmit = () => {
+    onSubmit(selectedAction);
   }
 
   return (<DefaultModal isOpen={isOpen} onClose={onClose} title={TITLE} content={NeedsActionContent({onUpdate, selectedAction})} onSubmit={onModalSubmit} buttonLabel="Confirm"/>)

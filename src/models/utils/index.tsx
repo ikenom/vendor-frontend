@@ -1,4 +1,4 @@
-import { OrderSummaryProps } from "../../components/molecules/orderSummary";
+import { OrderSummaryProps } from "../../components/molecules/orders/orderSummary";
 import { Order } from "../orders";
 import { DateTime } from 'luxon';
 import { Customer } from "../customer";
@@ -6,8 +6,10 @@ import { Customer } from "../customer";
 // Class to convert order model to props needed by component
 export const orderToOrderSummaryAdapter = (order: Order): Omit<OrderSummaryProps, "onClick"> => {
 
-  const {lineItems, customer, type, createdAt, price} = order;
+  const {lineItems, customer, type, createdAt, price, orderNumber, id} = order;
   return {
+    id,
+    orderNumber: orderNumber,
     numOfItems: lineItems.length,
     customerName: formatCustomerName(customer),
     orderType: type,

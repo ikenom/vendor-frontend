@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { defaultTheme } from "../../../../defaultTheme";
-import { Button } from "../../../atoms/button";
-import { LineItemHeader, LineItemHeaderProps } from "../../../atoms/lineItem/header";
-import { LineItemContent, LineItemContentProps } from "../../../molecules/lineItem/lineItemContent";
+import { defaultTheme } from "../../../defaultTheme";
+import { Button } from "../../atoms/button";
+import { LineItemHeader, LineItemHeaderProps } from "../../atoms/lineItem/header";
+import { LineItemContent, LineItemContentProps } from "../lineItem/lineItemContent";
 
 interface OrderContentProps {
   lineItemHeader: LineItemHeaderProps;
@@ -13,7 +13,7 @@ interface OrderContentProps {
 
 interface ButtonProps {
   onClick: () => any;
-  label: string;
+  label?: string;
 }
 
 const Container = styled.div`
@@ -49,9 +49,15 @@ export const OrderContent = (props: OrderContentProps) => {
     <Container>
       <LineItemHeaderContainer {...lineItemHeader}/>
       <LineItems {...lineItemContent}/>
-      <ChangeStatusButton type={"primary"} shape={"round"} onClick={onClick}>
-      {label}
-      </ChangeStatusButton>
+      {
+        label
+          ? 
+          <ChangeStatusButton type={"primary"} shape={"round"} onClick={onClick}>
+          {label}
+          </ChangeStatusButton>
+          :
+          <></>
+      }
     </Container>
   )
 }

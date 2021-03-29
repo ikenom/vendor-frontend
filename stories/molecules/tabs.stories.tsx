@@ -1,9 +1,11 @@
 import { Meta } from "@storybook/react";
 import React from "react";
 import styled from "styled-components";
-import { layout } from "styled-system";import { AppTab } from "../../src/components/organisms/Tabs"
+import { layout } from "styled-system";
+import { AppTabs } from "../../src/components/organisms/Tabs"
 import { Order } from "../../src/models/orders";
 import { DateTime } from 'luxon';
+import { MockAppStore } from "../../src/store/store";
 
 export default {
   title: "Molecules/Tabs/AppTab",
@@ -58,9 +60,12 @@ const ORDERS: Order[] = [
 ]
 
 export const DefaultHeader = () => {
+
+  const appStore = new MockAppStore();
+  appStore.load()
   return(
     <Container width={"100%"} height={648}>
-      <AppTab orders ={ORDERS}/>
+      {appStore.isLoading ? <p>Loading</p> : <AppTabs />}
     </Container>
   )
 }

@@ -4,8 +4,8 @@ import { HeaderContent, HeaderContentProps } from "./HeaderContent";
 import { HeaderNavProps, HeaderNavWithDivider } from "./HeaderNav";
 
 export interface OrderHeaderProps {
-  navProps: HeaderNavProps
-  contentProps: HeaderContentProps
+  navProps?: HeaderNavProps;
+  contentProps: HeaderContentProps;
 }
 
 const Content = styled(HeaderContent)`
@@ -20,8 +20,9 @@ const Container = styled.div`
 `;
 
 
-export const OrderHeader = (props: OrderHeaderProps) => {
+export const OrderHeader = (props) => {
   const { navProps, contentProps } = props;
+
 
   return(
     <Container>
