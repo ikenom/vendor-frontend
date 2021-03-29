@@ -5,8 +5,6 @@ import { layout } from "styled-system";
 import { AppTabs } from "../../src/components/organisms/Tabs"
 import { Order } from "../../src/models/orders";
 import { DateTime } from 'luxon';
-import { MockAppStore } from "../../src/store/store";
-
 export default {
   title: "Molecules/Tabs/AppTab",
 } as Meta;
@@ -60,12 +58,9 @@ const ORDERS: Order[] = [
 ]
 
 export const DefaultHeader = () => {
-
-  const appStore = new MockAppStore();
-  appStore.load()
   return(
     <Container width={"100%"} height={648}>
-      {appStore.isLoading ? <p>Loading</p> : <AppTabs />}
+      <AppTabs needsAction={ORDERS} inKitchen={ORDERS} ready={ORDERS} history={ORDERS}/>
     </Container>
   )
 }
