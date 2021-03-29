@@ -1,8 +1,8 @@
 import { State, createState } from '@hookstate/core';
 import { Order } from '../models/orders';
 import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
-
-
+import _ from 'cypress/types/lodash';
+import { hashCode } from './mockUtils';
 export default class OrderStore {
   private static instance: OrderStore;
   orders: State<Array<Order>>
@@ -37,9 +37,10 @@ export default class OrderStore {
     subscribeToOrderUpdated(this.orderUpdated)
   }
 
-  getOrdersFromPayload = (payload) => {
+  getOrdersFromPayload = (payload): Order[] => {
     return payload.edges.map(edge => ({
       id: edge.node.id,
+      orderNumber: hashCode(edge.node.id).toString(),
       price: edge.node.price,
       createdAt: edge.node.createdAt,
       type: "TAKE OUT",
@@ -48,11 +49,17 @@ export default class OrderStore {
         firstName: edge.node.customer.firstName,
         lastName: edge.node.customer.lastName,
       }
-    }))
+    } as Order))
   }
 
-  getOrder = (orderId: String) => {
-    return this.orders.filter(order => order.get().id == orderId)[0]
+  getOrder = (orderNumber: String) => {
+    return this.orders.value.find(order => { 
+      return order.orderNumber === orderNumber
+    })
+  }
+
+  getOrders = () : State<Array<Order>> => {
+    return this.orders
   }
 
   getOrdersAsync = async () => {

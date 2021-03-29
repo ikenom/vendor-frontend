@@ -5,6 +5,10 @@
   max-width: 20%;
 }
 
+.ant-tabs-tab + .ant-tabs-tab {
+  margin: 0 12.4% 0 0;
+}
+
 p {
   margin-block-end: 1px;
   margin-block-start: 1px;

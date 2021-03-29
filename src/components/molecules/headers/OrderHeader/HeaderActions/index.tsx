@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MessageIcon, MoreOptionsIcon, PhoneIcon } from "../../../../../icons/components";
+import { OrderStatus } from "../../../../../models/orders";
 import { Button } from "../../../../atoms/button";
-import { NeedsActionModal } from "../../../modals/needsAction";
+import { ActionType, NeedsActionModal } from "../../../modals/needsAction";
+import { ContentProps, TimeUpdateModal } from "../../../modals/timeUpdateModal";
 import "./index.css"
 
 export interface HeaderActionsProps {
   phoneOnClick?: () => any;
   messageOnClick?: () => any;
-  modalOnClick?: () => any;
+  modalType: OrderStatus;
+  modalSubmit: (data?: any) => void;
+  modalContentProps?: ContentProps;
 }
 
 const Container = styled.div`
@@ -35,6 +39,7 @@ const ModalButton = styled(Button)`
 `;
 
 export const HeaderActions = (props: HeaderActionsProps) => {
+  const { modalType, modalSubmit, modalContentProps } = props;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -46,12 +51,26 @@ export const HeaderActions = (props: HeaderActionsProps) => {
     setIsModalVisible(false);
   }
 
+  const ActionModal = () => {
+    switch(modalType) {
+      case "Needs Action": {
+        return (<NeedsActionModal isOpen={isModalVisible} onClose={onClose} onSubmit={modalSubmit}/>)
+      }
+      case "In Kitchen": {
+        return (<TimeUpdateModal isOpen={isModalVisible} onClose={onClose} onSubmit={modalSubmit} type={"Extension"} contentProps={modalContentProps}/>)
+      }
+      default :{
+        return (<> </>)
+      }
+    }
+  }
+
   return(
     <Container>
       <PhoneButton type={"ghost"} shape={"circle"} icon={<PhoneIcon/>}/>
       <MessageButton type={"ghost"} shape={"circle"} icon={<MessageIcon/>}/>
       <ModalButton type={"ghost"} shape={"circle"} icon={<MoreOptionsIcon/>} onClick={showModal}/>
-      <NeedsActionModal isOpen={isModalVisible} onClose={onClose} onSubmit={() => {}}/>
+      <ActionModal/>
     </Container>
   )
 }

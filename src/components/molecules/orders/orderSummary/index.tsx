@@ -74,12 +74,14 @@ const SkeletonWrapper = styled(Skeleton)`
 `
 
 export interface OrderSummaryProps {
+  id: string;
+  orderNumber: string;
   numOfItems: number;
   customerName: string;
   orderType: string;
   timeSinceOrderCreated: string;
   price: string;
-  onClick?: () => any
+  onClick: (orderNumber: string) => void;
 }
 
 export interface SkeletonWrapperProps {
@@ -103,23 +105,29 @@ const ProfileWithText = (props: Pick<OrderSummaryProps, "numOfItems" | "customer
 }
 
 
-const PriceWithArrow = (props: Pick<OrderSummaryProps, "price" | "onClick">) => {
-  const { price, onClick } = props;
+const PriceWithArrow = (props: Pick<OrderSummaryProps, "price" | "onClick" | "orderNumber">) => {
+  const { price, onClick, orderNumber } = props;
+
+  const navClick = () => {
+    onClick(orderNumber)
+  }
+
+
   return(
     <PriceWithArrowContainer>
       <Price>{`$ ${price}`}</Price>
-      <Arrow type={"ghost"} shape={"circle"} icon={<ArrowIcon/>} onClick={onClick}/>
+      <Arrow type={"ghost"} shape={"circle"} icon={<ArrowIcon/>} onClick={navClick}/>
     </PriceWithArrowContainer>
   )
 }
 
 export const OrderSummary = (props: OrderSummaryProps) => {
-  const { numOfItems , customerName, orderType, timeSinceOrderCreated, price, onClick } = props;
+  const { orderNumber, numOfItems , customerName, orderType, timeSinceOrderCreated, price, onClick } = props;
   return (
     <Container>
       <ProfileWithText numOfItems={numOfItems} customerName={customerName}/>
       <TextWithLabels label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`} width={"14%"}/>
-      <PriceWithArrow price={price} onClick={onClick}/>
+      <PriceWithArrow price={price} onClick={onClick} orderNumber={orderNumber}/>
     </Container>
   )
 }

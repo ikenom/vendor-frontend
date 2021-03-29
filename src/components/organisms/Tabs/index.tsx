@@ -28,16 +28,16 @@ export const AppTabs = (props: TabProps) => {
   return(
     <Tabs >
       <TabPaneContainer tab={<TabElement text="Needs Action" showAttentionIcon={false}/>} key="1">
-        <OrdersTabView orders={needsAction} onClick={() => {navigate("/app/order")}}/>
+        <OrdersTabView orders={needsAction} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Needs Action"}})}}/>
       </TabPaneContainer>
       <TabPane tab={<TabElement text="In Kitchen" showAttentionIcon={false}/>} key="2">
-        <OrdersTabView orders={inKitchen} onClick={() => {navigate("/app/order")}}/>
+        <OrdersTabView orders={inKitchen} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "In Kitchen"}})}}/>
       </TabPane>
       <TabPane tab={<TabElement text="Ready" showAttentionIcon={false}/>} key="3">
-        <OrdersTabView orders={ready} onClick={() => {navigate("/app/order")}}/>
+        <OrdersTabView orders={ready} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Ready"}})}}/>
       </TabPane>
       <TabPane tab={<TabElement text="History" showAttentionIcon={false}/>} key="4">
-        <OrdersTabView orders={history} onClick={() => {navigate("/app/order")}}/>
+        <OrdersTabView orders={history} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "History"}})}}/>
       </TabPane>
     </Tabs>
   )

@@ -5,7 +5,7 @@ import { OrderSummaryList } from "../orderSummaryList";
 
 export interface OrdersViewProps {
   orders: Order[];
-  onClick: () => void;
+  onClick: (orderNumber: string) => void;
 }
 
 export const OrdersTabView = (props: OrdersViewProps) => {

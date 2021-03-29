@@ -13,7 +13,7 @@ const NEED_EXTENSION = "Need an Extension?";
 const NEED_EXTENSION_MESSAGE_LABEL = "Extend Time";
 const NEED_EXTENSION_MESSAGE = "How much additional time do you need?";
 
-type modalType = "Send To Kitchen" | "Extension";
+export type modalType = "Send To Kitchen" | "Extension";
 
 const ContentContainer = styled.div`
   display: flex;
@@ -70,7 +70,7 @@ export const TimeUpdateContent = (props: ContentProps) => {
 }
 
 interface TimeUpdateModalProps extends Omit<ModalProps, "title" | "content" | "buttonLabel"> {
-  onSubmit: () => any;
+  onSubmit: (data: any) => any;
   type: modalType;
   contentProps: ContentProps;
 }

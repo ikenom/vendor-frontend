@@ -10,7 +10,7 @@ const OrderSummaryContainer = styled.div`
 
 interface OrderSummaryListProps {
   orderSummaries: Omit<OrderSummaryProps, "onClick">[];
-  onClick: () => any;
+  onClick: (orderNumber: string) => void;
 };
 
 export const OrderSummaryList = (props: OrderSummaryListProps) => {
@@ -19,10 +19,9 @@ export const OrderSummaryList = (props: OrderSummaryListProps) => {
   return(
     <>
     {orderSummaries.map(orderSummary => {
-      const { numOfItems } = orderSummary
       return (
-        <OrderSummaryContainer>
-          <OrderSummaryWithDivider {...orderSummary} onClick={onClick} key={Math.floor(Math.random() * numOfItems)}/>
+        <OrderSummaryContainer key={orderSummary.id}>
+          <OrderSummaryWithDivider {...orderSummary} onClick={onClick} key={orderSummary.orderNumber}/>
         </OrderSummaryContainer>)
     })}
     </>
