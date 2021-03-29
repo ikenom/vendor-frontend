@@ -37,6 +37,9 @@ export default class OrderStore {
     this.ready = createState<Array<Order>>([])
     this.history = createState<Array<Order>>([])
     this.orders = createState<Array<Order>>([])
+    this._needsActionUpdated = createState<Boolean>(false)
+    this._inKitchenUpdated = createState<Boolean>(false)
+    this._readyUpdated = createState<Boolean>(false)
   }
 
   connect = () => {
@@ -102,10 +105,11 @@ export default class OrderStore {
 
   private isSame(listA: Order[], listB: Order[]): Boolean {
     const idsA = listA.map((item: Order) => item.id)
-    const idsBA = listB.map((item: Order) => item.id)
-    const remaining = idsA.filter((item: any) => idsBA.indexOf(item) < 0);
+    const idsB = listB.map((item: Order) => item.id)
+    const remainingA = idsB.filter((item: any) => idsA.indexOf(item) < 0);
+    const remainingB = idsA.filter((item: any) => idsB.indexOf(item) < 0);
 
-    return remaining.length == 0
+    return remainingA.length == 0 && remainingB.length == 0
   }
 
   getInKitchen = () => {
