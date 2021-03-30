@@ -101,7 +101,9 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     switch(status) {
       case "Needs Action": {
         return async (timeInMinutes: number) => {
-            // orderStore.sendToKitchen(id, timeInMinutes)
+            const time = new Date()
+            time.setMinutes(time.getMinutes() + timeInMinutes);
+            orderStore.sendToKitchenAsync(id, time)
             console.log(`Sending to kitchen with ${timeInMinutes} to prepare`)
             navigate(`/app`, {state: {activeTab}})
         }
@@ -110,9 +112,9 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   }
 
 
-  const headerLabelProps: HeaderLabelProps = { 
-    label: customerLabel, 
-    content: contentLabel 
+  const headerLabelProps: HeaderLabelProps = {
+    label: customerLabel,
+    content: contentLabel
   }
 
   const headerContentProps: HeaderContentProps = {
@@ -139,10 +141,10 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
         />}
         footer={footer}
       />
-      <ButtonModal 
-        isOpen={isButtonModalVisible} 
-        onClose={onClose} 
-        onSubmit={footerButtonSubmit(orderStatus)} 
+      <ButtonModal
+        isOpen={isButtonModalVisible}
+        onClose={onClose}
+        onSubmit={footerButtonSubmit(orderStatus)}
         type={"Send To Kitchen"}
         contentProps={
           {
@@ -155,26 +157,26 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
 }
 
 const buttonLabel = (status: OrderStatus): string | null => {
-  switch(status) { 
-    case "Needs Action": { 
+  switch(status) {
+    case "Needs Action": {
        return SEND_TO_KITCHEN;
-    } 
-    case "In Kitchen": { 
+    }
+    case "In Kitchen": {
        return EXTEND_TIME;
-    } 
-    case "Ready": { 
+    }
+    case "Ready": {
       return COMPLETED;
-   } 
-    default: { 
+   }
+    default: {
        return
-    } 
- } 
+    }
+ }
 }
 
 interface ButtonModalProps {
   isOpen: boolean;
   onSubmit: (data?: any) => any;
-  onClose: () => any; 
+  onClose: () => any;
   type: modalType;
   contentProps: Omit<ContentProps, "onUpdate" | "showTimeRemaining" | "initialTime">;
 }

@@ -195,17 +195,18 @@ export const subscribeToOrderUpdated = (callback: (arg0: any) => void) => {
   })
 }
 
-const sendToKitchenAsync = async (orderId: String) => {
+const sendToKitchenAsync = async (orderId: String, time: Date) => {
   const result = await client.mutate({
     mutation: gql`
-      mutation sendToKitchen($orderId: ID!) {
-        sendToKitchen(input: {orderId: $orderId}) {
+      mutation sendToKitchen($orderId: ID!, $targetTime: ISO8601DateTime!) {
+        sendToKitchen(input: {orderId: $orderId, targetTime: $targetTime}) {
           succeeded
         }
       }
     `,
     variables: {
-      orderId: orderId
+      orderId: orderId,
+      targetTime: time
     }
   })
   return result.data.sendToKitchen
