@@ -32,7 +32,6 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
     selectedTab = location.state.activeTab
   }
 
-  console.log(selectedTab)
   return (
   <OrdersOrganismLayout
     path={path}
