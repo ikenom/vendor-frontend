@@ -108,6 +108,15 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             navigate(`/app`, {state: {activeTab}})
         }
       }
+      case "In Kitchen": {
+        return async (timeInMinutes: number) => {
+            const time = new Date()
+            time.setMinutes(time.getMinutes() + timeInMinutes);
+            orderStore.extendOrderAsync(id, time)
+            console.log(`Extending order by ${timeInMinutes}`)
+            navigate(`/app`, {state: {activeTab}})
+        }
+      }
     }
   }
 
