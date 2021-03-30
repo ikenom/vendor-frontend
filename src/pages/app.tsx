@@ -8,6 +8,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { Layout } from "antd";
 import { OrdersOrganism } from "../components/organisms/orders";
 import { OrderOrganism } from "../components/organisms/order";
+import { startup } from "../startup";
 
 
 
@@ -37,6 +38,9 @@ const AppPage = () => {
 export default AppPage;
 
 const App = () => {
+  React.useLayoutEffect(() => {
+    startup()
+  })
   // Disables scrolling of App
   useEffect(() => {
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
