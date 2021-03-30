@@ -1,15 +1,10 @@
 import { ApolloClient, InMemoryCache, createHttpLink, ApolloLink, concat, DefaultOptions } from '@apollo/client';
 import 'cross-fetch/polyfill';
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink';
-
+import { createConsumer } from '@rails/actioncable'
 const url = process.env.BACKEND_URL
 
-let cable;
-import('@rails/actioncable').then(
-  (ActionCable) => {
-    cable = ActionCable.createConsumer(`${url}/cable`)
-  }
-)
+let cable = createConsumer(`${url}/cable`)
 
 const httpLink = createHttpLink({
   uri: `${url}/graphql`
