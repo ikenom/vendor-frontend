@@ -22,7 +22,7 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
   const inKitchen = useState(orderStore.getInKitchen())
   const ready = useState(orderStore.getReady())
   const history = useState(orderStore.getHistory())
-  
+
   const { footer, path, location} = props;
 
   let selectedTab;
@@ -32,7 +32,7 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
   return (
   <OrdersOrganismLayout
     path={path}
-    header={<OrdersHeader text="New Orders"/>}
+    header={<OrdersHeader text="Orders"/>}
     content={
       <AppTabs
         needsAction={needsAction.get()}
