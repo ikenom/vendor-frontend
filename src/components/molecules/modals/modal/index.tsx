@@ -3,6 +3,7 @@ import { Button } from "../../../atoms/button";
 import Modal from 'react-modal';
 import styled from "styled-components";
 import { defaultTheme } from "../../../../defaultTheme";
+import { borderRadius } from "styled-system";
 
 const HeaderContainer = styled.div`
   max-width: 100%;
@@ -48,7 +49,8 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: `${defaultTheme.colors.white}`
+    backgroundColor: `${defaultTheme.colors.white}`,
+    borderRadius: '25px'
   }
 };
 
