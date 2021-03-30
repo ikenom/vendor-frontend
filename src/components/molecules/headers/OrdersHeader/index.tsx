@@ -13,14 +13,16 @@ interface OrdersHeaderProps {
 const OrdersHeaderContainer = styled.div`
   width: 100%;
   max-height: 100%;
-  margin-left: 3%;
   display: flex;
   flex-direction: row;
-  position: relative;
   margin-bottom: 10px;
+  align-items: center
 `;
 const SearchButton = styled(Button)`
-  width: 3%;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  box-shadow: none;
 `;
 
 const TextContainer = styled.p`
@@ -30,7 +32,6 @@ const TextContainer = styled.p`
   font-style: normal;
   font-weight: 800;
   font-size: ${defaultTheme.fontSize.xlg};
-  line-height: 100%;
   margin-right: 46%;
   margin-bottom: 0px;
   white-space: nowrap;
@@ -44,7 +45,7 @@ export const OrdersHeader = (props: OrdersHeaderProps) => {
       <TextContainer>
         {text}
       </TextContainer>
-      <SearchButton type={"ghost"} shape={"circle"} icon={<SearchIcon/>}/>
+      <SearchButton type={"ghost"} shape={"round"} icon={<SearchIcon/>}/>
     </OrdersHeaderContainer>
   );
 }

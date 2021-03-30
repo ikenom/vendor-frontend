@@ -53,6 +53,69 @@ export const MOCK_ORDERS: Order[] = [
     price: mockOrderPrice(MOCK_PRODUCTS_ONE),
     type: "TAKE OUT",
     status: "Needs Action"
+  },{
+    id: "4",
+    orderNumber: "4",
+    lineItems: MOCK_PRODUCTS_ONE,
+    customer: {
+      firstName: "Bubba",
+      lastName: "Bud"
+    },
+    createdAt: DateTime.now().minus({seconds: 400}).toISO(),
+    price: mockOrderPrice(MOCK_PRODUCTS_ONE),
+    type: "TAKE OUT",
+    status: "Needs Action"
+  },
+  {
+    id: "5",
+    orderNumber: "5",
+    lineItems: MOCK_PRODUCTS_TWO,
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 450}).toISO(),
+    price: mockOrderPrice(MOCK_PRODUCTS_TWO),
+    type: "TAKE OUT",
+    status: "Needs Action"
+  },
+  {
+    id: "5",
+    orderNumber: "7",
+    lineItems: MOCK_PRODUCTS_ONE,
+    customer: {
+      firstName: "Bobby",
+      lastName: "Larson"
+    },
+    createdAt: DateTime.now().minus({seconds: 700}).toISO(),
+    price: mockOrderPrice(MOCK_PRODUCTS_ONE),
+    type: "TAKE OUT",
+    status: "Needs Action"
+  },{
+    id: "7",
+    orderNumber: "7",
+    lineItems: MOCK_PRODUCTS_ONE,
+    customer: {
+      firstName: "Bubba",
+      lastName: "Bud"
+    },
+    createdAt: DateTime.now().minus({seconds: 400}).toISO(),
+    price: mockOrderPrice(MOCK_PRODUCTS_ONE),
+    type: "TAKE OUT",
+    status: "Needs Action"
+  },
+  {
+    id: "8",
+    orderNumber: "8",
+    lineItems: MOCK_PRODUCTS_TWO,
+    customer: {
+      firstName: "Sammy",
+      lastName: "Smith"
+    },
+    createdAt: DateTime.now().minus({seconds: 450}).toISO(),
+    price: mockOrderPrice(MOCK_PRODUCTS_TWO),
+    type: "TAKE OUT",
+    status: "Needs Action"
   }
 ]
 
@@ -78,6 +141,8 @@ export const MOCK_LINE_ITEM_CONTENT: LineItemContentProps = {
   lineItemSummary,
   lineItemNote
 }
+
+export const MOCK_LINE_ITEMS_CONTENT: LineItemContentProps[] = [MOCK_LINE_ITEM_CONTENT, MOCK_LINE_ITEM_CONTENT]
 
 export const MOCK_LINE_ITEM_HEADER: LineItemHeaderProps = {
   lineItemHeader: {

@@ -22,20 +22,20 @@ const Container = styled.div`
 `;
 
 const PhoneButton = styled(Button)`
-  max-width: 24%;
-  max-height: 50%;
-  margin-right: 13%;
+  max-width: 40px;
+  max-height: 40px;
+  margin-right: 10%;
 `;
 
 const MessageButton = styled(Button)`
-  max-width: 24%;
-  max-height: 50%;
-  margin-right: 13%;
+  max-width: 40px;
+  max-height: 40px;
+  margin-right: 10%;
 `;
 
 const ModalButton = styled(Button)`
-  max-width: 24%;
-  max-height: 50%;
+  max-width: 40px;
+  max-height: 40px;
 `;
 
 export const HeaderActions = (props: HeaderActionsProps) => {
