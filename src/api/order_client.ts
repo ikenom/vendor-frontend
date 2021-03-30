@@ -212,6 +212,23 @@ const sendToKitchenAsync = async (orderId: String, time: Date) => {
   return result.data.sendToKitchen
 }
 
+const extendOrderAsync = async (orderId: String, time: Date) => {
+  const result = await client.mutate({
+    mutation: gql`
+      mutation extendOrder($orderId: ID!, $targetTime: ISO8601DateTime!) {
+        extendOrder(input: {orderId: $orderId, targetTime: $targetTime}) {
+          succeeded
+        }
+      }
+    `,
+    variables: {
+      orderId: orderId,
+      targetTime: time
+    }
+  })
+  return result.data.extendOrder
+}
+
 const completeOrderAsync = async (orderId: String) => {
   const result = await client.mutate({
     mutation: gql`
@@ -267,6 +284,7 @@ export default {
   getReadyAsync,
   getHistoryAsync,
   sendToKitchenAsync,
+  extendOrderAsync,
   completeOrderAsync,
   cancelOrderAsync,
   pauseOrderAsync,

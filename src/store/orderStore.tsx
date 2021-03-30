@@ -212,6 +212,10 @@ export default class OrderStore {
     await orderClient.cancelOrderAsync(orderId)
   }
 
+  extendOrderAsync = async (orderId: String, time: Date) => {
+    await orderClient.extendOrderAsync(orderId, time)
+  }
+
   get needsActionUpdated() {
     return this._needsActionUpdated
   }
