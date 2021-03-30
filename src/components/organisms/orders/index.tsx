@@ -26,13 +26,17 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
   const { footer, path, location} = props;
 
   let selectedTab;
+  let title = "Orders"
+
   if(location && location.state) {
     selectedTab = location.state.activeTab
   }
+
+  console.log(selectedTab)
   return (
   <OrdersOrganismLayout
     path={path}
-    header={<OrdersHeader text="Orders"/>}
+    header={<OrdersHeader text={title}/>}
     content={
       <AppTabs
         needsAction={needsAction.get()}
