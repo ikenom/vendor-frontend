@@ -12,7 +12,7 @@ export interface HeaderActionsProps {
   messageOnClick?: () => any;
   modalType: OrderStatus;
   modalSubmit: (data?: any) => void;
-  modalContentProps?: ContentProps;
+  modalContentProps?: Omit<ContentProps, "onUpdate" | "showTimeRemaining" | "initialTime">;
 }
 
 const Container = styled.div`
