@@ -105,8 +105,26 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     switch(status) {
       case "Needs Action": {
         return async (timeInMinutes: number) => {
-            // orderStore.sendToKitchen(id, timeInMinutes)
+            const time = new Date()
+            time.setMinutes(time.getMinutes() + timeInMinutes);
+            await orderStore.sendToKitchenAsync(id, time)
             console.log(`Sending to kitchen with ${timeInMinutes} to prepare`)
+            navigate(`/app`, {state: {activeTab}})
+        }
+      }
+      case "In Kitchen": {
+        return async (timeInMinutes: number) => {
+            const time = new Date()
+            time.setMinutes(time.getMinutes() + timeInMinutes);
+            await orderStore.extendOrderAsync(id, time)
+            console.log(`Extending order by ${timeInMinutes}`)
+            navigate(`/app`, {state: {activeTab}})
+        }
+      }
+      case "Ready": {
+        return async () => {
+            await orderStore.completeOrderAsync(id)
+            console.log(`Marking order as complete`)
             navigate(`/app`, {state: {activeTab}})
         }
       }
@@ -114,9 +132,9 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   }
 
 
-  const headerLabelProps: HeaderLabelProps = { 
-    label: customerLabel, 
-    content: contentLabel 
+  const headerLabelProps: HeaderLabelProps = {
+    label: customerLabel,
+    content: contentLabel
   }
 
   const headerContentProps: HeaderContentProps = {
@@ -144,10 +162,10 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
         />}
         footer={footer}
       />
-      <ButtonModal 
-        isOpen={isButtonModalVisible} 
-        onClose={onClose} 
-        onSubmit={footerButtonSubmit(orderStatus)} 
+      <ButtonModal
+        isOpen={isButtonModalVisible}
+        onClose={onClose}
+        onSubmit={footerButtonSubmit(orderStatus)}
         type={"Send To Kitchen"}
         contentProps={
           {
@@ -160,20 +178,20 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
 }
 
 const buttonLabel = (status: OrderStatus): string | null => {
-  switch(status) { 
-    case "Needs Action": { 
+  switch(status) {
+    case "Needs Action": {
        return SEND_TO_KITCHEN;
-    } 
-    case "In Kitchen": { 
+    }
+    case "In Kitchen": {
        return EXTEND_TIME;
-    } 
-    case "Ready": { 
+    }
+    case "Ready": {
       return COMPLETED;
-   } 
-    default: { 
+   }
+    default: {
        return
-    } 
- } 
+    }
+ }
 }
 
 const getHeaderText = (status: OrderStatus): string => {
@@ -196,7 +214,7 @@ const getHeaderText = (status: OrderStatus): string => {
 interface ButtonModalProps {
   isOpen: boolean;
   onSubmit: (data?: any) => any;
-  onClose: () => any; 
+  onClose: () => any;
   type: modalType;
   contentProps: Omit<ContentProps, "onUpdate" | "showTimeRemaining" | "initialTime">;
 }

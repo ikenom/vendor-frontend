@@ -61,7 +61,7 @@ export default class OrderStore {
   }
 
   getOrder = (orderNumber: String) => {
-    return this.orders.value.find(order => { 
+    return this.orders.value.find(order => {
       return order.orderNumber === orderNumber
     })
   }
@@ -196,8 +196,8 @@ export default class OrderStore {
     await this.updateOrders()
   }
 
-  sendToKitchenAsync = async (orderId: String) => {
-    await orderClient.sendToKitchenAsync(orderId)
+  sendToKitchenAsync = async (orderId: String, time: Date) => {
+    await orderClient.sendToKitchenAsync(orderId, time)
   }
 
   completeOrderAsync = async (orderId: String) => {
@@ -210,6 +210,10 @@ export default class OrderStore {
 
   cancelOrderAsync = async (orderId: String) => {
     await orderClient.cancelOrderAsync(orderId)
+  }
+
+  extendOrderAsync = async (orderId: String, time: Date) => {
+    await orderClient.extendOrderAsync(orderId, time)
   }
 
   get needsActionUpdated() {

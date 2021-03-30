@@ -5,11 +5,10 @@ import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink';
 const url = process.env.BACKEND_URL
 
 let cable;
-import('@rails/actioncable').then(
-  (ActionCable) => {
-    cable = ActionCable.createConsumer(`${url}/cable`)
-  }
-)
+if (typeof window !== 'undefined') {
+  const ActionCable = require('@rails/actioncable');
+  cable = ActionCable.createConsumer(`${url}/cable`)
+}
 
 const httpLink = createHttpLink({
   uri: `${url}/graphql`
