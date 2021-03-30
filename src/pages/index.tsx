@@ -1,6 +1,5 @@
 import * as React from "react";
 import { navigate } from "gatsby"
-import { startup } from "../startup";
 import '@hookstate/devtools';
 
 /**
@@ -17,5 +16,4 @@ const IndexPage = () => {
   )
 };
 
-startup()
 export default IndexPage;
