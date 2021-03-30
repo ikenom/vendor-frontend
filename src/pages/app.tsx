@@ -8,6 +8,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { Layout } from "antd";
 import { OrdersOrganism } from "../components/organisms/orders";
 import { OrderOrganism } from "../components/organisms/order";
+import { defaultTheme } from "../defaultTheme";
 
 
 
@@ -23,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     /* CSS specific to iOS devices */
     body {
       padding-top: max(20px, env(safe-area-inset-top));
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
     }
   }
 `
@@ -58,6 +60,7 @@ export const AppLayout = styled(Layout)`
   overflow: hidden;
   max-height: 95vh;
   min-height: 95vh;
+  background-color: ${defaultTheme.colors.white};
 `;
 
 export interface AppLayoutProps {

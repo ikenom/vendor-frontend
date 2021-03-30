@@ -15,8 +15,8 @@ const Container = styled.div`
   align-items: flex-start;
 `;
 
-const Space = styled.span`
-  width: 162%
+const Space = styled.div`
+  width: 50%
 `;
 
 const Actions = styled(HeaderActions)`

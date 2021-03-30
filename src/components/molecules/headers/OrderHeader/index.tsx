@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { defaultTheme } from "../../../../defaultTheme";
 import { HeaderContent, HeaderContentProps } from "./HeaderContent";
 import { HeaderNavProps, HeaderNavWithDivider } from "./HeaderNav";
 
@@ -20,7 +21,7 @@ const Container = styled.div`
 `;
 
 
-export const OrderHeader = (props) => {
+export const OrderHeader = (props: OrderHeaderProps) => {
   const { navProps, contentProps } = props;
 
 

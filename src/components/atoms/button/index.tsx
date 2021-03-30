@@ -10,13 +10,13 @@ export const buttonCss = css`
 
   &:hover {
     cursor: pointer;
-    box-shadow 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
-    transform scale(1.03)
+    box-shadow: 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
+    transform: scale(1.03);
   }
 
   &:active {
-    box-shadow 0px 4px 8px rgba(darken(dodgerblue, 30%));
-    transform scale(.975)
+    box-shadow: 0px 4px 8px rgba(darken(dodgerblue, 30%));
+    transform: scale(.975);
   }
 
   &:disabled {
@@ -28,7 +28,7 @@ export const buttonCss = css`
 export const Button = styled(AntButton)`
   ${buttonCss}
   padding: 0;
-  width: 100%
+  width: 100%;
 `;
 
 export default Button;

@@ -47,6 +47,7 @@ const ContentLayout = styled(Content)<{ color: string | undefined }>`
   height: 80%;
   width: 100%;
   overflow-y: scroll;
+  webkit-overflow-scroll: touch;
   margin-left: 3%;
   margin-right: 3%;
   margin-top: 1%;

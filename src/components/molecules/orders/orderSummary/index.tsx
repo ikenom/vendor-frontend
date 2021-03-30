@@ -21,15 +21,15 @@ const OrderSummaryWithDividerContainer = styled.div`
 `;
 
 const ProfileAndTextContainer = styled.div`
-  width: 29%;
+  width: 35%;
   height: 71%;
   display: flex;
   flex-direction: row;
 `;
 
 const Profile = styled(ProfileIcon)`
-  height: 65%;
-  width: 26%;
+  height: 26px;
+  width: 26px;
   margin-top: 3px;
   margin-right: 14px;
 `
@@ -37,16 +37,10 @@ const Profile = styled(ProfileIcon)`
 const Arrow = styled(Button)`
   width: 20%;
   height: 57%;
-  margin-top: 2%;
 `
 
 const BottomDivider = styled(Divider)`
-  margin-top: 3px;
-`
-
-const TextWithLabels = styled(TextWithLabel)`
-  ${width}
-  margin-left: 14%;
+  margin-top: -2px;
 `
 
 const Price = styled.p`
@@ -55,7 +49,7 @@ const Price = styled.p`
   width: 67%;
   height: 100%;
   margin-top: 0px;
-  margin-right: 10%;
+  margin-right: 1%;
   margin-left: 10%;
   white-space: nowrap;
 `
@@ -65,7 +59,6 @@ const PriceWithArrowContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-context: space-between;
   margin-top: 3.7%;
 `;
 
@@ -99,7 +92,7 @@ const ProfileWithText = (props: Pick<OrderSummaryProps, "numOfItems" | "customer
   return(
     <ProfileAndTextContainer>
       <Profile/>
-      <TextWithLabels label= {`${numOfItems} ITEMS`} content={`${customerName}`} width={"70%"}/>
+      <TextWithLabel label= {`${numOfItems} ITEMS`} content={`${customerName}`} />
     </ProfileAndTextContainer>
   )
 }
@@ -126,7 +119,7 @@ export const OrderSummary = (props: OrderSummaryProps) => {
   return (
     <Container>
       <ProfileWithText numOfItems={numOfItems} customerName={customerName}/>
-      <TextWithLabels label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`} width={"14%"}/>
+      <TextWithLabel label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`}/>
       <PriceWithArrow price={price} onClick={onClick} orderNumber={orderNumber}/>
     </Container>
   )

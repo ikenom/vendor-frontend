@@ -1,7 +1,7 @@
 import { navigate } from "gatsby";
 import React from "react";
 import { OrderStatus } from "../../../models/orders";
-import { MOCK_LINE_ITEM_CONTENT } from "../../../store/mockUtils/mockOrderUtils";
+import { MOCK_LINE_ITEMS_CONTENT, MOCK_LINE_ITEM_CONTENT } from "../../../store/mockUtils/mockOrderUtils";
 import OrderStore from "../../../store/orderStore";
 import { LineItemHeaderProps } from "../../atoms/lineItem/header";
 import { OrderOrganismLayout } from "../../layouts/order";
@@ -61,7 +61,17 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
-  const activeTab =  getActiveTabFromOrderStatus(orderStatus)
+  const activeTab =  getActiveTabFromOrderStatus(orderStatus);
+
+  const onCancel = async () => {
+    try {
+      await orderStore.cancelOrderAsync(id)
+      console.log(" Cancel Order");
+      navigate(`/app`, {state: {activeTab}})
+    } catch(e) {
+
+    }
+  }
 
   const headerModalSubmit = (status: OrderStatus) => {
     switch(status) {
@@ -78,13 +88,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
               }
             }
             case "cancel": {
-              try {
-                await orderStore.cancelOrderAsync(id)
-                console.log(" Cancel Order");
-                navigate(`/app`, {state: {activeTab}})
-              } catch(e) {
-
-              }
+              onCancel()
             }
           }
         }
@@ -129,13 +133,14 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
       <OrderOrganismLayout
         path={path}
         header={<OrderHeader
-          navProps={{text: "New Orders"}}
+          navProps={{text: getHeaderText(orderStatus)}}
           contentProps={headerContentProps}
         />}
         content={<OrderContent
-          lineItemContent={MOCK_LINE_ITEM_CONTENT}
+          lineItemsContent={MOCK_LINE_ITEMS_CONTENT}
           lineItemHeader={lineItemHeader}
-          button={{onClick: showModal, label: buttonLabel(orderStatus)}}
+          button={{onClick: showModal, label: buttonLabel(orderStatus), onCancel}}
+          cancelSubmit={onCancel}
         />}
         footer={footer}
       />
@@ -164,6 +169,23 @@ const buttonLabel = (status: OrderStatus): string | null => {
     } 
     case "Ready": { 
       return COMPLETED;
+   } 
+    default: { 
+       return
+    } 
+ } 
+}
+
+const getHeaderText = (status: OrderStatus): string => {
+  switch(status) { 
+    case "Needs Action": { 
+       return "Needs Action"
+    } 
+    case "In Kitchen": { 
+       return "In Kitchen"
+    } 
+    case "Ready": { 
+      return "Ready";
    } 
     default: { 
        return

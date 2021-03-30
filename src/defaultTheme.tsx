@@ -6,6 +6,7 @@ export const defaultTheme = {
     greyOne: "#F9F9F9",
     greyTwo: "#A0A0A0",
     greyThree: "#E3E1D3",
+    greyFour: "#EEEEEF",
     blue: "#4785FE",
     light: "#1E1E1E",
     green: "#1C953E",

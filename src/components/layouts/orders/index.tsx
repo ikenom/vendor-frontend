@@ -20,16 +20,18 @@ export const HeaderWithContentLayout = styled(Layout)`
 `;
 
 const OrdersHeaderLayout = styled(Header)`
-  height: 10%;
+  height: 9%;
   width: 100%;
   background: transparent;
   padding: 0px;
+  max-height: 50px;
 `;
 
 const OrdersContentLayout = styled(Content)`
   height: 90%;
   width: 100%;
   overflow-y: scroll;
+  webkit-overflow-scroll: touch;
   margin-top: 1%;
 `;
 

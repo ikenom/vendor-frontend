@@ -21,13 +21,13 @@ export const HeaderNavContainer = styled.div`
 `;
 
 const BackArrow = styled(Button)`
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   margin-right: 27%;
 `;
 
 const HeaderText = styled.p`
-  font-size: ${defaultTheme.fontSize.m};
+  font-size: 20px;
   font-family: ${defaultTheme.fontFamily.hnt};
   white-space: nowrap;
   height: 100%;
@@ -51,7 +51,6 @@ export const HeaderNav = (props: HeaderNavProps) => {
 
 const HeaderNavWithDividerContainer = styled.div`
   margin-bottom: 4%;
-  line-height: 4%;
 `;
 
 const HeaderNavWithDividerWrapper = styled(HeaderNav)`

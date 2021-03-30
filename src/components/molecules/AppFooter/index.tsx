@@ -26,16 +26,6 @@ const AppFooterContainer= styled.div`
 `
 
 
-// Need to overylay this on the footer look up z index
-const DarkBar= styled.div`
-  border-top: 5px solid ${defaultTheme.colors.black};
-  height: 2%;
-  width: 40%;
-  margin-left: 30%;
-  margin-bottom: 7px;
-  border-radius: 10px;
-`;
-
 
 export const AppFooter = (props: AppFooterProps) => {
   return(
@@ -54,12 +44,18 @@ const FooterIconsContainer = styled.div`
   height: 60%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   background: rgba(71, 133, 254, 0.04);
 `
 const FooterIconContainer= styled.div`
-  width: 15%;
+  width: 14%;
+  display: block;
+  margin: auto;
+  padding-top: 5px;
+`;
+
+const SpaceSpan = styled.span`
+  margin-right: 7%;
 `;
 
 export const FooterIcons = (props: AppFooterProps) => {
@@ -69,12 +65,15 @@ export const FooterIcons = (props: AppFooterProps) => {
       <FooterIconContainer>
         <Button type={"ghost"} onClick={onClicks ? onClicks.ordersOnClick : undefined} icon={<SelectableIcon isSelected={true} type={"order"}/>}/>
       </FooterIconContainer>
+      <SpaceSpan />
       <FooterIconContainer>
         <Button type={"ghost"} onClick={onClicks ? onClicks.inventoryOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "inventory"} type={"inventory"}/>}/>
       </FooterIconContainer>
+      <SpaceSpan />
       <FooterIconContainer>
         <Button type={"ghost"} onClick={onClicks ? onClicks.supportOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "support"} type={"support"}/>}/>
       </FooterIconContainer>
+      <SpaceSpan />
       <FooterIconContainer>
         <Button type={"ghost"} onClick={onClicks ? onClicks.profileOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "profile"} type={"profile"}/>}/>
       </FooterIconContainer>
