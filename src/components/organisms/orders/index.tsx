@@ -8,6 +8,11 @@ import { AppTabs } from "../Tabs";
 interface OrdersOrganismProps {
   footer: JSX.Element;
   path: string;
+  location?: {
+    state: {
+      activeTab: string;
+    }
+  }
 }
 
 export const OrdersOrganism = (props: OrdersOrganismProps) => {
@@ -18,8 +23,12 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
   const ready = useState(orderStore.getReady())
   const history = useState(orderStore.getHistory())
   
-  const { footer, path } = props;
+  const { footer, path, location} = props;
 
+  let selectedTab;
+  if(location && location.state) {
+    selectedTab = location.state.activeTab
+  }
   return (
   <OrdersOrganismLayout
     path={path}
@@ -30,6 +39,7 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
         inKitchen={inKitchen.get()}
         ready={ready.get()}
         history={history.get()}
+        activeTab={selectedTab ? selectedTab : undefined}
       />}
     footer={footer}
   />

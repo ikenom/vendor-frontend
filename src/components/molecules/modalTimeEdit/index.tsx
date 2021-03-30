@@ -8,9 +8,10 @@ import { PlusOutlined, MinusOutlined } from "@ant-design/icons"
 export interface Props {
   timeRemaining?: number;
   onUpdate: (extendTime: number) => any;
+  initialTime: number;
 }
 
-const DEFAULT_EXTENSION_IN_MINUTES = 10;
+export const DEFAULT_TIME_IN_MINUTES = 10;
 
 const Container = styled.div `
   display: flex;
@@ -33,9 +34,9 @@ const Time = styled(TimeDisplay)`
 `;
 
 export const TimeEdit = (props: Props) => {
-  const { timeRemaining, onUpdate } = props;
+  const { timeRemaining, onUpdate, initialTime } = props;
 
-  const [extendTime, setExtendTime] = useState(DEFAULT_EXTENSION_IN_MINUTES);
+  const [extendTime, setExtendTime] = useState(initialTime);
 
   const updateExtendTime = (newTime: number) => {
     setExtendTime(newTime)
