@@ -103,7 +103,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
         return async (timeInMinutes: number) => {
             const time = new Date()
             time.setMinutes(time.getMinutes() + timeInMinutes);
-            orderStore.sendToKitchenAsync(id, time)
+            await orderStore.sendToKitchenAsync(id, time)
             console.log(`Sending to kitchen with ${timeInMinutes} to prepare`)
             navigate(`/app`, {state: {activeTab}})
         }
@@ -112,8 +112,15 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
         return async (timeInMinutes: number) => {
             const time = new Date()
             time.setMinutes(time.getMinutes() + timeInMinutes);
-            orderStore.extendOrderAsync(id, time)
+            await orderStore.extendOrderAsync(id, time)
             console.log(`Extending order by ${timeInMinutes}`)
+            navigate(`/app`, {state: {activeTab}})
+        }
+      }
+      case "Ready": {
+        return async () => {
+            await orderStore.completeOrderAsync(id)
+            console.log(`Marking order as complete`)
             navigate(`/app`, {state: {activeTab}})
         }
       }
