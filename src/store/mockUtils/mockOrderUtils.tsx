@@ -17,7 +17,7 @@ export const mockOrderPrice = (products: Product[]): string => {
 export const MOCK_ORDERS: Order[] = [
   {
     id: "1",
-    number: "1",
+    orderNumber: "1",
     lineItems: MOCK_PRODUCTS_ONE,
     customer: {
       firstName: "Bubba",
@@ -30,7 +30,7 @@ export const MOCK_ORDERS: Order[] = [
   },
   {
     id: "2",
-    number: "2",
+    orderNumber: "2",
     lineItems: MOCK_PRODUCTS_TWO,
     customer: {
       firstName: "Sammy",
@@ -43,7 +43,7 @@ export const MOCK_ORDERS: Order[] = [
   },
   {
     id: "3",
-    number: "3",
+    orderNumber: "3",
     lineItems: MOCK_PRODUCTS_ONE,
     customer: {
       firstName: "Bobby",

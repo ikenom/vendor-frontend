@@ -7,9 +7,11 @@ import { LineItemHeaderProps } from "../../atoms/lineItem/header";
 import { OrderOrganismLayout } from "../../layouts/order";
 import { OrderHeader } from "../../molecules/headers/OrderHeader";
 import { HeaderContentProps } from "../../molecules/headers/OrderHeader/HeaderContent";
+import { HeaderLabelProps } from "../../molecules/headers/OrderHeader/HeaderLabel";
 import { ActionType } from "../../molecules/modals/needsAction";
 import { ContentProps, modalType, TimeUpdateModal } from "../../molecules/modals/timeUpdateModal";
 import { OrderContent } from "../../molecules/order";
+import { getActiveTabFromOrderStatus } from "../Tabs";
 
 interface OrderOrganismProps {
   footer: JSX.Element;
@@ -31,14 +33,16 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
 
   const { footer, path, orderNumber, location} = props;
 
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const orderStatus = location.state.status;
+
+  const [isButtonModalVisible, setIsButtonModalVisible] = React.useState(false);
 
   const showModal = () => {
-    setIsModalVisible(true);
+    setIsButtonModalVisible(true);
   };
 
   const onClose = () => {
-    setIsModalVisible(false);
+    setIsButtonModalVisible(false);
   }
 
 
@@ -57,6 +61,8 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
+  const activeTab =  getActiveTabFromOrderStatus(orderStatus)
+
   const headerModalSubmit = (status: OrderStatus) => {
     switch(status) {
       case "Needs Action": {
@@ -66,15 +72,16 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
               try {
                 await orderStore.pauseOrderAsync(id)
                 console.log(" Pause Order!");
+                navigate(`/app`, {state: {activeTab}})
               } catch(e) {
-
+                console.log("Something went wrong")
               }
             }
             case "cancel": {
               try {
                 await orderStore.cancelOrderAsync(id)
                 console.log(" Cancel Order");
-                navigate("/app")
+                navigate(`/app`, {state: {activeTab}})
               } catch(e) {
 
               }
@@ -82,14 +89,9 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
           }
         }
       }
-      case "In Kitchen": {
-        return (timeExtensionInMinutes: number) => {
-          console.log(`Extend time for ${timeExtensionInMinutes} minutes`);
-        }
-      }
       default: {
         return (data: any) => {
-          JSON.stringify(data)
+          console.log(JSON.stringify(data))
         }
       }
     }
@@ -98,20 +100,26 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const footerButtonSubmit = (status: OrderStatus) => {
     switch(status) {
       case "Needs Action": {
-        console.log("Send To Kitchen");
+        return async (timeInMinutes: number) => {
+            // orderStore.sendToKitchen(id, timeInMinutes)
+            console.log(`Sending to kitchen with ${timeInMinutes} to prepare`)
+            navigate(`/app`, {state: {activeTab}})
+        }
       }
     }
   }
 
 
+  const headerLabelProps: HeaderLabelProps = { 
+    label: customerLabel, 
+    content: contentLabel 
+  }
+
   const headerContentProps: HeaderContentProps = {
-    labelProps: { 
-      label: customerLabel, 
-      content: contentLabel 
-    },
+    labelProps: headerLabelProps,
     actionProps: {
-      modalType: location.state.status,
-      modalSubmit: headerModalSubmit(location.state.status)
+      modalType: orderStatus,
+      modalSubmit: headerModalSubmit(orderStatus)
     }
   }
 
@@ -127,11 +135,21 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
         content={<OrderContent
           lineItemContent={MOCK_LINE_ITEM_CONTENT}
           lineItemHeader={lineItemHeader}
-          button={{onClick: () => {}, label: buttonLabel(location.state.status)}}
+          button={{onClick: showModal, label: buttonLabel(orderStatus)}}
         />}
         footer={footer}
       />
-      {/* <ButtonModal isOpen={isModalVisible} onClose={onClose} onSubmit={}/> */}
+      <ButtonModal 
+        isOpen={isButtonModalVisible} 
+        onClose={onClose} 
+        onSubmit={footerButtonSubmit(orderStatus)} 
+        type={"Send To Kitchen"}
+        contentProps={
+          {
+            modalType: orderStatus === "Needs Action" ? "Send To Kitchen" : "Extension",
+            orderDetails: headerLabelProps
+          }}
+      />
     </>
   )
 }
@@ -158,7 +176,7 @@ interface ButtonModalProps {
   onSubmit: (data?: any) => any;
   onClose: () => any; 
   type: modalType;
-  contentProps: ContentProps;
+  contentProps: Omit<ContentProps, "onUpdate" | "showTimeRemaining" | "initialTime">;
 }
 
 const ButtonModal = (props: ButtonModalProps) => {

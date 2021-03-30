@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { defaultTheme } from "../../../../defaultTheme";
 import { HeaderLabel, HeaderLabelProps } from "../../headers/OrderHeader/HeaderLabel";
-import { TimeEdit } from "../../modalTimeEdit";
+import { DEFAULT_TIME_IN_MINUTES, TimeEdit } from "../../modalTimeEdit";
 import { DefaultModal, ModalProps } from "../modal";
 
 const SEND_TO_KITCHEN = "Send To Kitchen!";
@@ -53,10 +53,11 @@ export interface ContentProps {
     showTimeRemaining: boolean;
     modalType: modalType;
     onUpdate: (extendTime: number) => any; 
+    initialTime: number;
 }
 
 export const TimeUpdateContent = (props: ContentProps) => {
-    const { orderDetails, modalType, onUpdate } = props;
+    const { orderDetails, modalType, onUpdate, initialTime } = props;
   return(
     <ContentContainer>
       <OrderDetails {...orderDetails}/>
@@ -64,7 +65,7 @@ export const TimeUpdateContent = (props: ContentProps) => {
         <MessageLabel>{modalType === "Send To Kitchen" ? SEND_TO_KITCHEN_MESSAGE_LABEL : NEED_EXTENSION_MESSAGE_LABEL}</MessageLabel>
         <Message>{modalType === "Send To Kitchen" ? SEND_TO_KITCHEN_MESSAGE : NEED_EXTENSION_MESSAGE}</Message>
       </MessageContainer>
-      <EditTime onUpdate={onUpdate} />
+      <EditTime onUpdate={onUpdate} initialTime={initialTime}/>
     </ContentContainer>
   )
 }
@@ -72,14 +73,25 @@ export const TimeUpdateContent = (props: ContentProps) => {
 interface TimeUpdateModalProps extends Omit<ModalProps, "title" | "content" | "buttonLabel"> {
   onSubmit: (data: any) => any;
   type: modalType;
-  contentProps: ContentProps;
+  contentProps: Omit<ContentProps, "onUpdate" | "showTimeRemaining" | "initialTime">;
 }
 
 export const TimeUpdateModal = (props: Omit<TimeUpdateModalProps, "title" | "content" | "buttonLabel">) => {
   const { isOpen, onClose, onSubmit, type, contentProps } = props;
 
+  const [timeInMinutes, setTimeInMinutes] = React.useState(DEFAULT_TIME_IN_MINUTES);
+
+  const onModalSubmit = () => {
+    onSubmit(timeInMinutes)
+  }
+
+  const onUpdate = (extendTime: number) => {
+    setTimeInMinutes(extendTime)
+  }
+
   let title = "";
   let buttonText = "";
+  let showTimeRemaining = false;
 
   switch(type) {
     case "Send To Kitchen": {
@@ -90,9 +102,18 @@ export const TimeUpdateModal = (props: Omit<TimeUpdateModalProps, "title" | "con
     case "Extension": {
       title = NEED_EXTENSION
       buttonText = "ExtendTime"
+      showTimeRemaining = true
     }
   }
 
-  return (<DefaultModal isOpen={isOpen} onClose={onClose} title={title} content={TimeUpdateContent(contentProps)} onSubmit={onSubmit} buttonLabel={buttonText}/>)
+  return (
+    <DefaultModal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      title={title} 
+      content={TimeUpdateContent({...contentProps, onUpdate, showTimeRemaining, initialTime: DEFAULT_TIME_IN_MINUTES})} 
+      onSubmit={onModalSubmit} 
+      buttonLabel={buttonText}
+    />)
 
 }

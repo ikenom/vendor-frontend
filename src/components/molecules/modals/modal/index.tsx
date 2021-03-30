@@ -78,6 +78,7 @@ export const DefaultModal = (props: ModalProps) => {
 
   return(
   <Modal
+    ariaHideApp={false}
     isOpen={isOpen}
     style={customStyles}
     shouldCloseOnOverlayClick={true}
