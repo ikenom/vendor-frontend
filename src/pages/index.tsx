@@ -9,7 +9,6 @@ import '@hookstate/devtools';
  */
 const IndexPage = () => {
   React.useEffect(() => {
-  startup()
     navigate("/app")
   })
   return (
@@ -17,5 +16,7 @@ const IndexPage = () => {
     </>
   )
 };
+
+startup()
 
 export default IndexPage;
