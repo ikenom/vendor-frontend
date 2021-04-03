@@ -16,6 +16,8 @@ export default class OrderStore {
   private _inKitchenUpdated: State<Boolean>;
   private _readyUpdated: State<Boolean>;
 
+  private _isInitialLoad: State<Boolean>;
+
   static init = async () => {
     const orderStore = OrderStore.getInstance()
     await orderStore.updateOrders()
@@ -39,6 +41,7 @@ export default class OrderStore {
     this._needsActionUpdated = createState<Boolean>(false)
     this._inKitchenUpdated = createState<Boolean>(false)
     this._readyUpdated = createState<Boolean>(false)
+    this._isInitialLoad = createState<Boolean>(true)
   }
 
   connect = () => {
@@ -185,11 +188,17 @@ export default class OrderStore {
   }
 
   updateOrders = async () => {
+    
+  
     await this.getOrdersAsync()
     await this.getNeedsActionAsync()
     await this.getInKitchenAsync()
     await this.getReadyAsync()
     await this.getHistoryAsync()
+
+    if(this._isInitialLoad.get().valueOf()) {
+      this._isInitialLoad.set(false)
+    }
   }
 
   orderUpdated = async () => {
@@ -226,5 +235,9 @@ export default class OrderStore {
 
   get readyUpdated() {
     return this._readyUpdated
+  }
+
+  get isInitialLoad() {
+    return this._isInitialLoad;
   }
 }

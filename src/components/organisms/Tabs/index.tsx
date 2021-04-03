@@ -20,6 +20,7 @@ interface TabProps {
   inKitchen: Order[];
   ready: Order[];
   history: Order[];
+  isLoading: boolean;
   activeTab?: string;
 }
 
@@ -28,23 +29,23 @@ const TabPaneContainer = styled(TabPane)`
 `;
 
 export const AppTabs = (props: TabProps) => {
-  const { needsAction, inKitchen, ready, history, activeTab } = props;
+  const { needsAction, inKitchen, ready, history, activeTab, isLoading } = props;
 
   const [ selectedTab, setSelectedTab ] = React.useState(activeTab);
 
   return(
     <Tabs activeKey={selectedTab ? selectedTab : undefined} onChange={(tab) => setSelectedTab(tab)}>
       <TabPaneContainer tab={<TabElement text="Needs Action" showAttentionIcon={false}/>} key={NEEDS_ACTION_TAB}>
-        <OrdersTabView orders={needsAction} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Needs Action"}})}}/>
+        <OrdersTabView orders={needsAction} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Needs Action"}})}}/>
       </TabPaneContainer>
       <TabPane tab={<TabElement text="In Kitchen" showAttentionIcon={false}/>} key={IN_KITCHEN_TAB}>
-        <OrdersTabView orders={inKitchen} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "In Kitchen"}})}}/>
+        <OrdersTabView orders={inKitchen} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "In Kitchen"}})}}/>
       </TabPane>
       <TabPane tab={<TabElement text="Ready" showAttentionIcon={false}/>} key={READY_TAB}>
-        <OrdersTabView orders={ready} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Ready"}})}}/>
+        <OrdersTabView orders={ready} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Ready"}})}}/>
       </TabPane>
       <TabPane tab={<TabElement text="History" showAttentionIcon={false}/>} key={HISTORY_TAB}>
-        <OrdersTabView orders={history} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "History"}})}}/>
+        <OrdersTabView orders={history} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "History"}})}}/>
       </TabPane>
     </Tabs>
   )
