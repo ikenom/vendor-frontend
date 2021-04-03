@@ -18,10 +18,12 @@ interface OrdersOrganismProps {
 export const OrdersOrganism = (props: OrdersOrganismProps) => {
   const orderStore = OrderStore.getInstance();
 
-  const needsAction = useState(orderStore.getNeedsAction())
-  const inKitchen = useState(orderStore.getInKitchen())
-  const ready = useState(orderStore.getReady())
-  const history = useState(orderStore.getHistory())
+  const needsAction = useState(orderStore.getNeedsAction());
+  const inKitchen = useState(orderStore.getInKitchen());
+  const ready = useState(orderStore.getReady());
+  const history = useState(orderStore.getHistory());
+
+  const isLoadingInitialData = useState(orderStore.isInitialLoad).get().valueOf()
 
   const { footer, path, location} = props;
 
@@ -42,6 +44,7 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
         inKitchen={inKitchen.get()}
         ready={ready.get()}
         history={history.get()}
+        isLoading={isLoadingInitialData}
         activeTab={selectedTab ? selectedTab : undefined}
       />}
     footer={footer}

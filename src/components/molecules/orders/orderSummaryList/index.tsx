@@ -1,4 +1,4 @@
-import { OrderSummaryProps, OrderSummaryWithDivider } from "../orderSummary";
+import { OrderSummaryProps, OrderSummarySkeletonWrapper, OrderSummaryWithDivider } from "../orderSummary";
 import styled from "styled-components";
 import React from "react";
 
@@ -11,17 +11,18 @@ const OrderSummaryContainer = styled.div`
 interface OrderSummaryListProps {
   orderSummaries: Omit<OrderSummaryProps, "onClick">[];
   onClick: (orderNumber: string) => void;
+  isLoading: boolean;
 };
 
 export const OrderSummaryList = (props: OrderSummaryListProps) => {
-  const { orderSummaries, onClick } = props;
+  const { orderSummaries, onClick, isLoading } = props;
 
   return(
     <>
     {orderSummaries.map(orderSummary => {
       return (
         <OrderSummaryContainer key={orderSummary.id}>
-          <OrderSummaryWithDivider {...orderSummary} onClick={onClick} key={orderSummary.orderNumber}/>
+          <OrderSummarySkeletonWrapper showSkeleton={isLoading} orderSummaryProps={{...orderSummary, onClick}} key={orderSummary.orderNumber}/>
         </OrderSummaryContainer>)
     })}
     </>
