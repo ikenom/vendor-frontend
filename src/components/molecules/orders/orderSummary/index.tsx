@@ -63,7 +63,7 @@ const PriceWithArrowContainer = styled.div`
 `;
 
 const SkeletonWrapper = styled(Skeleton)`
-  height: 100%;
+  height: 3rem;
 `
 
 export interface OrderSummaryProps {
@@ -78,10 +78,7 @@ export interface OrderSummaryProps {
 }
 
 export interface SkeletonWrapperProps {
-  skeletonProps: {
-    isLoading: boolean;
-    showSkeleton: boolean;
-  }
+  showSkeleton: boolean;
   orderSummaryProps: OrderSummaryProps;
 }
 
@@ -134,13 +131,11 @@ export const OrderSummaryWithDivider = (props: OrderSummaryProps) => {
   )
 }
 
-// Need to figure out how to get the skeleton to fill the same space as component
+
 export const OrderSummarySkeletonWrapper = (props: SkeletonWrapperProps) => {
-  const { skeletonProps: { isLoading, showSkeleton }, orderSummaryProps } = props;
+  const { showSkeleton , orderSummaryProps } = props;
   return(
-    showSkeleton
-    ? isLoading ? (<SkeletonWrapper duration={1.3} />) : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
-    : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
+    showSkeleton ?  (<SkeletonWrapper duration={1.3} />) : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
   )
 }
 
