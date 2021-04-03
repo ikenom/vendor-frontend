@@ -220,11 +220,23 @@ export default class OrderStore {
     return this._needsActionUpdated
   }
 
+  viewedNeedsActionUpdates = () => {
+    this._needsActionUpdated.set(false)
+  }
+
   get inKitchenUpdated() {
     return this._inKitchenUpdated
   }
 
+  viewedInKitchenUpdates = () => {
+    this._inKitchenUpdated.set(false)
+  }
+
   get readyUpdated() {
     return this._readyUpdated
+  }
+
+  viewedReadyUpdates = () => {
+    this._readyUpdated.set(false)
   }
 }

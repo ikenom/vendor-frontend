@@ -3,7 +3,7 @@ import React from "react";
 import OrderStore from "../../../store/orderStore";
 import { OrdersOrganismLayout } from "../../layouts/orders";
 import { OrdersHeader } from "../../molecules/headers/OrdersHeader";
-import { AppTabs } from "../Tabs";
+import { AppTabs, TabUpdates } from "../Tabs";
 
 interface OrdersOrganismProps {
   footer: JSX.Element;
@@ -22,6 +22,26 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
   const inKitchen = useState(orderStore.getInKitchen())
   const ready = useState(orderStore.getReady())
   const history = useState(orderStore.getHistory())
+
+  // Check for updates
+  const needsActionUpdated = orderStore.needsActionUpdated.get().valueOf()
+  const inKitchenUpdated = orderStore.inKitchenUpdated.get().valueOf()
+  const readyUpdated = orderStore.readyUpdated.get().valueOf()
+
+  const tabUpdates: TabUpdates = {
+    needsActionUpdated: {
+      isUpdated: needsActionUpdated,
+      onView: orderStore.viewedNeedsActionUpdates
+    },
+    inKitchenUpdated: {
+      isUpdated: inKitchenUpdated,
+      onView: orderStore.viewedInKitchenUpdates
+    },
+    readyUpdated: {
+      isUpdated: readyUpdated,
+      onView: orderStore.viewedReadyUpdates
+    }
+  }
 
   const { footer, path, location} = props;
 
@@ -42,6 +62,7 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
         inKitchen={inKitchen.get()}
         ready={ready.get()}
         history={history.get()}
+        tabUpdates={tabUpdates}
         activeTab={selectedTab ? selectedTab : undefined}
       />}
     footer={footer}

@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/react";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { layout } from "styled-system";
-import { AppTabs } from "../../src/components/organisms/Tabs"
+import { AppTabs, TabUpdates } from "../../src/components/organisms/Tabs"
 import { Order } from "../../src/models/orders";
 import { DateTime } from 'luxon';
 export default {
@@ -58,9 +58,29 @@ const ORDERS: Order[] = [
 ]
 
 export const DefaultHeader = () => {
+
+  const [needsActionUpdated, setNeedsActionUpdate] = useState(false);
+  const [inKitchenUpdated, setInKitchenUpdate] = useState(true);
+  const [readyUpdated, setReadyUpdate] = useState(true);
+
+  const tabUpdates: TabUpdates = {
+    needsActionUpdated: {
+      isUpdated: needsActionUpdated,
+      onView: () => setNeedsActionUpdate(false)
+    },
+    inKitchenUpdated: {
+      isUpdated: inKitchenUpdated,
+      onView: () => setInKitchenUpdate(false)
+    },
+    readyUpdated: {
+      isUpdated: readyUpdated,
+      onView: () => setReadyUpdate(false)
+    }
+  }
+
   return(
     <Container width={"100%"} height={648}>
-      <AppTabs needsAction={ORDERS} inKitchen={ORDERS} ready={ORDERS} history={ORDERS}/>
+      <AppTabs needsAction={ORDERS} inKitchen={ORDERS} ready={ORDERS} history={ORDERS} tabUpdates={tabUpdates}/>
     </Container>
   )
 }
