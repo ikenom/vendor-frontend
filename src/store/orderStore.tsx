@@ -73,6 +73,10 @@ export default class OrderStore {
     return this.orders
   }
 
+  getIsInitialLoad = (): State<Boolean> => {
+    return this._isInitialLoad;
+  }
+
   getOrdersAsync = async () => {
     let cursor: String = null
     let hasNext = true
@@ -107,9 +111,10 @@ export default class OrderStore {
     }
 
     if(!this.isSame(this.needsAction.get(), needsAction)) {
-      this._needsActionUpdated.set(true)
+      this._isInitialLoad ? this._needsActionUpdated.set(false) : this._needsActionUpdated.set(true)
       this.needsAction.set(needsAction)
     }
+    return
   }
 
   private isSame(listA: Order[], listB: Order[]): Boolean {
@@ -139,9 +144,10 @@ export default class OrderStore {
     }
 
     if(!this.isSame(this.inKitchen.get(), inKitchen)) {
-      this._inKitchenUpdated.set(true)
+      this._isInitialLoad ? this._inKitchenUpdated.set(false) : this._inKitchenUpdated.set(true)
       this.inKitchen.set(inKitchen)
     }
+    return
   }
 
   getReady = () => {
@@ -162,9 +168,10 @@ export default class OrderStore {
     }
 
     if(!this.isSame(this.inKitchen.get(), ready)) {
-      this._readyUpdated.set(true)
+      this._isInitialLoad ? this._readyUpdated.set(false) : this._readyUpdated.set(true)
       this.ready.set(ready)
     }
+    return
   }
 
   getHistory = () => {
@@ -247,9 +254,5 @@ export default class OrderStore {
 
   viewedReadyUpdates = () => {
     this._readyUpdated.set(false)
-  }
-  
-  get isInitialLoad() {
-    return this._isInitialLoad;
   }
 }

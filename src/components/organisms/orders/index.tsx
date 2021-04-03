@@ -23,7 +23,7 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
   const ready = useState(orderStore.getReady());
   const history = useState(orderStore.getHistory());
 
-  const isLoadingInitialData = useState(orderStore.isInitialLoad).get().valueOf()
+  const isLoadingInitialData = useState(orderStore.getIsInitialLoad()).get().valueOf()
 
   // Check for updates
   const needsActionUpdated = orderStore.needsActionUpdated.get().valueOf()
