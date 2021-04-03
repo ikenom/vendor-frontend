@@ -68,7 +68,6 @@ export const HeaderActions = (props: HeaderActionsProps) => {
   return(
     <Container>
       <PhoneButton type={"ghost"} shape={"circle"} icon={<PhoneIcon/>}/>
-      <MessageButton type={"ghost"} shape={"circle"} icon={<MessageIcon/>}/>
       <ModalButton type={"ghost"} shape={"circle"} icon={<MoreOptionsIcon/>} onClick={showModal}/>
       <ActionModal/>
     </Container>
