@@ -210,7 +210,10 @@ const getHeaderText = (status: OrderStatus): string => {
     } 
     case "Ready": { 
       return "Ready";
-   } 
+    }
+    case "History": {
+      return "History"
+    } 
     default: { 
        return
     } 
