@@ -12,7 +12,7 @@ export interface HeaderLabelProps {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 32%;
+  max-width: 44%;
 `;
 
 const Label = styled.p`
