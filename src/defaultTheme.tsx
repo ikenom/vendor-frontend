@@ -20,9 +20,9 @@ export const defaultTheme = {
   },
   fontSize: {
     xsm: "10px",
-    sm: "16px",
+    sm: "18px",
     default: "14px",
-    m: "18px",
+    m: "20px",
     lg: "24px",
     xlg: "30px",
     max: "42px",
