@@ -29,7 +29,7 @@ const OrderContentLayout = styled(Content)`
   height: 77%;
   max-height: 85%;
   width: 100%;
-  margin-top: 7%;
+  margin-top: 8%;
   display: flex;
 `;
 

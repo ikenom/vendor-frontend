@@ -13,7 +13,7 @@ import AttentionNeededLogo from '../../src/icons/svg/attentionNeededIcon.svg'
 import SearchLogo from '../../src/icons/svg/searchIcon.svg'
 import PauseLogo from '../../src/icons/svg/pauseIcon.svg'
 import styled from "styled-components";
-import { MessageIcon, PhoneIcon, CancelOrderIcon, CancelIcon } from "../../src/icons/components";
+import { MessageIcon, PhoneIcon, CancelOrderIcon, CancelIcon, LoaderIcon } from "../../src/icons/components";
 
 export default {
   title: "Icons/All",
@@ -130,6 +130,14 @@ const CancelIconStory = () => (
   </>
 )
 
+const LoaderIconStory = () => (
+  <>
+    <IconContainer>
+      <LoaderIcon style={{width: "100%", height: "100%"}} />
+    </IconContainer>
+  </>
+)
+
 const IconGroup = () => (
   <GroupIconContainer>
     <PhoneIconStory/>
@@ -145,6 +153,7 @@ const IconGroupTwo = () => (
   <GroupIconContainer>
     <PauseLogo/>
     <CancelIconStory/>
+    <LoaderIconStory/>
   </GroupIconContainer>
 )
 

@@ -59,7 +59,7 @@ const PriceWithArrowContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
-  margin-top: 3.9%;
+  margin-top: 3.7%;
 `;
 
 const SkeletonWrapper = styled(Skeleton)`
@@ -89,7 +89,7 @@ const ProfileWithText = (props: Pick<OrderSummaryProps, "numOfItems" | "customer
   return(
     <ProfileAndTextContainer>
       <Profile/>
-      <TextWithLabel label= {`${numOfItems == 1 ? " ITEM" : " ITEMS"}`} content={`${customerName}`} />
+      <TextWithLabel label= {`${numOfItems} ${numOfItems == 1 ? "ITEM" : "ITEMS"}`} content={`${customerName}`} />
     </ProfileAndTextContainer>
   )
 }
