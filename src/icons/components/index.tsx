@@ -20,6 +20,7 @@ import PauseLogo from '../svg/pauseIcon.svg';
 import CancelLogo from '../svg/cancelIcon.svg';
 import PlusLogo from '../svg/plusIcon.svg';
 import MinusLogo from '../svg/minusIcon.svg';
+import LoaderLogo from '../svg/loaderIcon.svg';
 import React from 'react';
 
 const iconCss = css`
@@ -52,6 +53,10 @@ export const PlusIcon = styled(PlusLogo)`
 `;
 
 export const MinusIcon = styled(MinusLogo)`
+  ${iconCss}
+`;
+
+export const LoaderIcon = styled(LoaderLogo)`
   ${iconCss}
 `;
 

@@ -17,10 +17,10 @@ export const DEFAULT_TIME_INTERVAL_IN_MINUTES = 10;
 const Container = styled.div `
   display: flex;
   flex-direction: row;
-  max-width: 60%;
+  max-width: 70%;
   justify-content: space-between;
   align-items: center;
-  margin: 0% 0% 0% 18%;
+  margin: 0% 0% 0% 14%;
 `;
 
 const ButtonContainer = styled(Button)`

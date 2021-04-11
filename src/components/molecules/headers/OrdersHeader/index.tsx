@@ -28,9 +28,8 @@ const SearchButton = styled(Button)`
 const TextContainer = styled.p`
   width: 41%;
   max-height: 100%;
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
   font-style: normal;
-  font-weight: 800;
   font-size: ${defaultTheme.fontSize.xlg};
   margin-right: 46%;
   margin-bottom: 0px;

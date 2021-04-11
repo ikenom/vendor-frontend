@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { defaultTheme } from "../../../../defaultTheme";
+import { TimeRemainingLabel } from "../../../atoms/timeRemainingLabel";
 import { HeaderLabel, HeaderLabelProps } from "../../headers/OrderHeader/HeaderLabel";
 import { DEFAULT_TIME_IN_MINUTES, TimeEdit } from "../../modalTimeEdit";
 import { DefaultModal, ModalProps } from "../modal";
@@ -21,15 +22,20 @@ const ContentContainer = styled.div`
 `;
 
 const OrderDetails = styled(HeaderLabel)`
-  max-width: 32%;
-  width: 32%;
+`;
+
+const Space = styled.span`
+  height: 20px;
+`;
+
+const TimeRemainingContainer = styled(TimeRemainingLabel)`
 `;
 
 const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 84%;
-  margin: 5% 0% 7% 0%
+  margin: 9.5% 0% 7% 0%
 `;
 
 const MessageLabel = styled.p`
@@ -50,16 +56,19 @@ const EditTime = styled(TimeEdit)`
 export interface ContentProps {
     orderDetails: HeaderLabelProps;
     showTimeRemaining: boolean;
+    timeRemainingInMinutes?: number;
     modalType: modalType;
     onUpdate: (extendTime: number) => any; 
     initialTime: number;
 }
 
 export const TimeUpdateContent = (props: ContentProps) => {
-    const { orderDetails, modalType, onUpdate, initialTime } = props;
+    const { orderDetails, modalType, onUpdate, initialTime, timeRemainingInMinutes, showTimeRemaining } = props;
   return(
     <ContentContainer>
-      <OrderDetails {...orderDetails}/>
+      <OrderDetails {...orderDetails} withoutBar={true}/>
+      <Space />
+      {showTimeRemaining ? <TimeRemainingContainer timeRemainingInMinutes={timeRemainingInMinutes}/> : <> </>}
       <MessageContainer>
         <MessageLabel>{modalType === "Send To Kitchen" ? SEND_TO_KITCHEN_MESSAGE_LABEL : NEED_EXTENSION_MESSAGE_LABEL}</MessageLabel>
         <Message>{modalType === "Send To Kitchen" ? SEND_TO_KITCHEN_MESSAGE : NEED_EXTENSION_MESSAGE}</Message>
@@ -100,7 +109,7 @@ export const TimeUpdateModal = (props: Omit<TimeUpdateModalProps, "title" | "con
     }
     case "Extension": {
       title = NEED_EXTENSION
-      buttonText = "ExtendTime"
+      buttonText = "Extend Time"
       showTimeRemaining = true
     }
   }

@@ -34,6 +34,7 @@ const ActionContainer = styled.div<{isSelected: boolean}>`
 const ActionTextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 84%;
 `;
 
 const ActionHeader = styled.p`
@@ -52,13 +53,13 @@ const ActionContent = styled.p`
 const PauseContainer = styled(PauseIcon)`
   height: 30px;
   width: 30px;
-  margin: 0px 16px 0px 0px;
+  margin: 16px 16px 0px 0px;
 `;
 
 const CancelContainer = styled(CancelIcon)`
   height: 30px;
   width: 30px;
-  margin: 0px 16px 0px 0px;
+  margin: 16px 16px 0px 0px;
 `;
 
 

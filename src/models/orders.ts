@@ -13,5 +13,5 @@ export interface Order {
   price: string;
   type: OrderType;
   status: OrderStatus;
-  timeRemaining: number;
+  timeRemaining?: number;
 }

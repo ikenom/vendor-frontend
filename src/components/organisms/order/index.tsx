@@ -139,7 +139,8 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
 
   const contentProps = {
       modalType: (orderStatus === "Needs Action" ? "Send To Kitchen" : "Extension") as modalType,
-      orderDetails: headerLabelProps
+      orderDetails: headerLabelProps,
+      timeRemainingInMinutes: order.timeRemaining
   }
 
   const headerContentProps: HeaderContentProps = {
