@@ -22,7 +22,7 @@ interface Note {
 
 const Title = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_bold};
   color: ${defaultTheme.colors.greyTwo};
   font-weight: 700;
   max-height: 32%;

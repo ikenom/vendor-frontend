@@ -13,8 +13,7 @@ const HeaderContainer = styled.div`
 
 export const ModalHeader = styled.p`
   font-size: ${defaultTheme.fontSize.lg};
-  font-family: ${defaultTheme.fontFamily.hnt};
-  font-weight: 700;
+  font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
 `;
 
 const ContentContainer = styled.div`
@@ -26,6 +25,7 @@ const ButtonContainer = styled(Button)`
   background-color: ${defaultTheme.colors.blue};
   color: ${defaultTheme.colors.white};
   max-height: 50px;
+  font-family: ${defaultTheme.fontFamily.hnt_medium};
   &:hover {
     background-color: ${defaultTheme.colors.blue};
   }
@@ -50,7 +50,8 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: `${defaultTheme.colors.white}`,
-    borderRadius: '25px'
+    borderRadius: '25px',
+    fontFamily: "Helvetica Now Text Medium",
   }
 };
 

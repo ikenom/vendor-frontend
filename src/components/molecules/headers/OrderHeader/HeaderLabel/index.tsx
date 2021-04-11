@@ -17,7 +17,7 @@ const Container = styled.div`
 
 const Label = styled.p`
   font-size: ${defaultTheme.fontSize.lg};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
   white-space: nowrap;
   width: 100%;
   weight: 800px;

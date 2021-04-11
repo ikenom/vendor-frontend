@@ -28,7 +28,7 @@ const BackArrow = styled(Button)`
 
 const HeaderText = styled.p`
   font-size: 20px;
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_bold};
   white-space: nowrap;
   height: 100%;
 `;

@@ -29,18 +29,17 @@ const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 84%;
-  font-family: ${defaultTheme.fontFamily.hnt};
   margin: 5% 0% 7% 0%
 `;
 
 const MessageLabel = styled.p`
   font-family: ${defaultTheme.fontSize.m};
-  font-weight: 600;
+  font-family: ${defaultTheme.fontFamily.hnt_medium};
 `;
 
 const Message = styled.p`
   font-family: ${defaultTheme.fontSize.sm};
-  font-weight: 400;
+  font-family: ${defaultTheme.fontFamily.hnt};
 `;
 
 const EditTime = styled(TimeEdit)`
