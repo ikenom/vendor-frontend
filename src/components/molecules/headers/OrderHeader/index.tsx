@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { defaultTheme } from "../../../../defaultTheme";
 import { HeaderContent, HeaderContentProps } from "./HeaderContent";
 import { HeaderNavProps, HeaderNavWithDivider } from "./HeaderNav";
 

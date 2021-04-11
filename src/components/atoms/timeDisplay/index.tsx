@@ -10,8 +10,9 @@ const Content = styled.div`
   background: ${defaultTheme.colors.greyThree};
   display: flex;
   flex-direction: column;
-  border-radius: 25px;
-  padding: 3% 15% 12% 15%;
+  border-radius: 15px;
+  padding: 5% 16% 5% 16%;
+  margin: 0% 10% 0% 10%;
 `;
 
 const NumText = styled.p`

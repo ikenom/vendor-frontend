@@ -23,14 +23,14 @@ export const HeaderNavContainer = styled.div`
 const BackArrow = styled(Button)`
   width: 20px;
   height: 20px;
-  margin-right: 27%;
 `;
 
-const HeaderText = styled.p`
+const HeaderText = styled.p<{needsExtraMargin: boolean}>`
   font-size: 20px;
   font-family: ${defaultTheme.fontFamily.hnt_bold};
   white-space: nowrap;
   height: 100%;
+  margin-left: ${({ needsExtraMargin }) => needsExtraMargin ? "33%;" : "27%;"}
 `;
 
 export const HeaderNav = (props: HeaderNavProps) => {
@@ -44,7 +44,7 @@ export const HeaderNav = (props: HeaderNavProps) => {
   return(
     <HeaderNavContainer>
       <BackArrow type={"ghost"} shape={"circle"} icon={<BackArrowIcon/>} onClick={onClick}/>
-      <HeaderText>{ text }</HeaderText>
+      <HeaderText needsExtraMargin={text.length < 8}>{ text }</HeaderText>
     </HeaderNavContainer>
   )
 }
