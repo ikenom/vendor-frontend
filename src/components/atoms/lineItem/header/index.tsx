@@ -32,19 +32,19 @@ const TextContainer = styled.div`
 
 const Label = styled.p`
   font-size: ${defaultTheme.fontSize.lg};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
   white-space: nowrap;
   font-weight: 800;
   max-height: 100%;
   height: 100%;
   width: 55%;
   max-width: 55%;
-  margin: 0% 40% 0% 0%;
+  margin: 0% 25% 0% 0%;
 `;
 
 const Price = styled.p`
   font-size: ${defaultTheme.fontSize.m};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_bold};
   white-space: nowrap;
   font-weight: 800;
   max-height: 74%;
@@ -64,7 +64,7 @@ export const LineItemHeader = (props: LineItemHeaderProps) => {
   return (
     <Container>
       <TextContainer>
-        <Label>{`Order (${numOfItems} ${numOfItems == 1 ? "Items" : "Item"})`}</Label>
+        <Label>{`Order (${numOfItems} ${numOfItems == 1 ? " Item" : " Items"})`}</Label>
         <Price>{`$${price}`}</Price>
       </TextContainer>
       <BottomDivider/>

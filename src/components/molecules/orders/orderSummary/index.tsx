@@ -30,7 +30,7 @@ const ProfileAndTextContainer = styled.div`
 const Profile = styled(ProfileIcon)`
   height: 26px;
   width: 26px;
-  margin-top: 3px;
+  margin-top: 8px;
   margin-right: 14px;
 `
 
@@ -46,11 +46,11 @@ const BottomDivider = styled(Divider)`
 const Price = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
   font-family: ${defaultTheme.fontFamily.hnt};
-  width: 67%;
+  width: 3.5rem;
   height: 100%;
   margin-top: 0px;
-  margin-right: 1%;
-  margin-left: 10%;
+  margin-right: 6%;
+  margin-left: 14%;
   white-space: nowrap;
 `
 
@@ -59,7 +59,7 @@ const PriceWithArrowContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
-  margin-top: 3.7%;
+  margin-top: 3.9%;
 `;
 
 const SkeletonWrapper = styled(Skeleton)`
@@ -89,7 +89,7 @@ const ProfileWithText = (props: Pick<OrderSummaryProps, "numOfItems" | "customer
   return(
     <ProfileAndTextContainer>
       <Profile/>
-      <TextWithLabel label= {`${numOfItems} ITEMS`} content={`${customerName}`} />
+      <TextWithLabel label= {`${numOfItems == 1 ? " ITEM" : " ITEMS"}`} content={`${customerName}`} />
     </ProfileAndTextContainer>
   )
 }
@@ -135,7 +135,7 @@ export const OrderSummaryWithDivider = (props: OrderSummaryProps) => {
 export const OrderSummarySkeletonWrapper = (props: SkeletonWrapperProps) => {
   const { showSkeleton , orderSummaryProps } = props;
   return(
-    showSkeleton ?  (<SkeletonWrapper duration={1.3} />) : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
+    showSkeleton ?  (<SkeletonWrapper duration={.8} />) : (<OrderSummaryWithDivider {...orderSummaryProps}/>)
   )
 }
 

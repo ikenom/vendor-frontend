@@ -29,6 +29,7 @@ export const Button = styled(AntButton)`
   ${buttonCss}
   padding: 0;
   width: 100%;
+  font-family: "Helvetica Now Text Medium";
 `;
 
 export default Button;

@@ -38,7 +38,7 @@ const ActionTextContainer = styled.div`
 
 const ActionHeader = styled.p`
   font-size: ${defaultTheme.fontSize.m};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_bold};
   font-weight: 700px;
   margin: 0px 6px 0px 0px;
 `

@@ -1,5 +1,3 @@
-//import styled from 'styled-components';
-
 export const defaultTheme = {
   colors: {
     black: "#000000",
@@ -15,8 +13,14 @@ export const defaultTheme = {
     white: "#FFFFFF",
   },
   fontFamily: {
-    dual: "Dual",
+    dual_sm: "Dual-300",
+    dual_lg: "Dual-600",
     hnt: "Helvetica Now Text",
+    hnt_light: "Helvetica Now Text Light",
+    hnt_medium: "Helvetica Now Text Medium",
+    hnt_bold: "Helvetica Now Text Bold",
+    hnt_extra_bold: "Helvetica Now Text Extra Bold",
+    hnt_black: "Helvetica Now Text Black"
   },
   fontSize: {
     xsm: "10px",

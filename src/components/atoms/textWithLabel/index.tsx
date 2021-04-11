@@ -12,18 +12,16 @@ const Container = styled.div``
 
 const Label = styled.p`
   font-size: ${defaultTheme.fontSize.xsm};
-  font-family: ${defaultTheme.fontFamily.dual};
+  font-family: ${defaultTheme.fontFamily.dual_sm};
   line-height: 10px;
   margin-bottom: 6px;
   margin-top: 0px;
-  weight: 400px;
 `
 
 const Content = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
   font-family: ${defaultTheme.fontFamily.hnt};
   line-height: 21px;
-  weight: 400px;
   margin-top: 0px;
   white-space: nowrap;
 `
