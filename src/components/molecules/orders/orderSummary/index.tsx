@@ -123,8 +123,14 @@ export const OrderSummary = (props: OrderSummaryProps) => {
 }
 
 export const OrderSummaryWithDivider = (props: OrderSummaryProps) => {
+  const { onClick , orderNumber } = props
+
+  const navClick = () => {
+    onClick(orderNumber)
+  }
+  
   return(
-    <OrderSummaryWithDividerContainer>
+    <OrderSummaryWithDividerContainer onClick={navClick}>
       <OrderSummary {...props}/>
       <BottomDivider/>
     </OrderSummaryWithDividerContainer>
