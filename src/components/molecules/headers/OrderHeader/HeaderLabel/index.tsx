@@ -12,12 +12,12 @@ export interface HeaderLabelProps {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 32%;
+  max-width: 44%;
 `;
 
 const Label = styled.p`
   font-size: ${defaultTheme.fontSize.lg};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
   white-space: nowrap;
   width: 100%;
   weight: 800px;

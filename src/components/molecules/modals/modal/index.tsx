@@ -3,7 +3,6 @@ import { Button } from "../../../atoms/button";
 import Modal from 'react-modal';
 import styled from "styled-components";
 import { defaultTheme } from "../../../../defaultTheme";
-import { borderRadius } from "styled-system";
 
 const HeaderContainer = styled.div`
   max-width: 100%;
@@ -13,8 +12,7 @@ const HeaderContainer = styled.div`
 
 export const ModalHeader = styled.p`
   font-size: ${defaultTheme.fontSize.lg};
-  font-family: ${defaultTheme.fontFamily.hnt};
-  font-weight: 700;
+  font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
 `;
 
 const ContentContainer = styled.div`
@@ -26,9 +24,12 @@ const ButtonContainer = styled(Button)`
   background-color: ${defaultTheme.colors.blue};
   color: ${defaultTheme.colors.white};
   max-height: 50px;
+  font-family: ${defaultTheme.fontFamily.hnt_medium};
   &:hover {
     background-color: ${defaultTheme.colors.blue};
   }
+  height: 2.6rem;
+  border-radius: 10px;
 `;
 
 
@@ -41,16 +42,17 @@ const customStyles = {
     // Centers modal
     top: '50%',
     left: '50%',
-    width: '88%',
-    maxWidth: '88%',
+    width: '90%',
+    maxWidth: '90%',
     minHeight: '40%',
     maxHeight: '75%',
     right: 'auto',
     bottom: 'auto',
-    marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: `${defaultTheme.colors.white}`,
-    borderRadius: '25px'
+    fontFamily: "Helvetica Now Text Medium",
+    borderRadius: '35px',
+    padding: '25px',
   }
 };
 

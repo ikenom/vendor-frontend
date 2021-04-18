@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "Dual-300";
+  src: url("../fonts/Dual-300.ttf");
+}
+
+@font-face {
+  font-family: "Dual-600";
+  src: url("../fonts/Dual-600.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica Now Text";
+  src: url("../fonts/HelveticaNowText-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica Now Text Light";
+  src: url("../fonts/HelveticaNowText-Light.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica Now Text Medium";
+  src: url("../fonts/HelveticaNowText-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica Now Text Bold";
+  src: url("../fonts/HelveticaNowText-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica Now Text Extra Bold";
+  src: url("../fonts/HelveticaNowText-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica Now Text Black";
+  src: url("../fonts/HelveticaNowText-Black.ttf");
+}
+

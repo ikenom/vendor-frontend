@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Dual-600.ttf</string>
+		<string>Dual-300.ttf</string>
+		<string>HelveticaNowText-Black.ttf</string>
+		<string>HelveticaNowText-Bold.ttf</string>
+		<string>HelveticaNowText-ExtraBold.ttf</string>
+		<string>HelveticaNowText-Light.ttf</string>
+		<string>HelveticaNowText-Medium.ttf</string>
+		<string>HelveticaNowText-Regular.ttf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

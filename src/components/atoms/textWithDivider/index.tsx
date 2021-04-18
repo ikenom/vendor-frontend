@@ -8,11 +8,11 @@ interface TextWithBarProps {
 }
 
 const Container = styled.div`
-  width: 100%;
+  max-width: 100%;
 `;
 
 const Text = styled.p`
-  font-size: ${defaultTheme.fontSize.sm};
+  font-size: ${defaultTheme.fontSize.default};
   font-family: ${defaultTheme.fontFamily.hnt};
   white-space: nowrap;
   width: 100%;
@@ -24,7 +24,6 @@ const BottomDivider = styled(Divider)`
   margin-top: 2px;
   border-top: 1px solid ${defaultTheme.colors.blue};
   margin-bottom: 0;
-  max-width: 75%;
 `;
 
 export const TextWithBar =  (props: TextWithBarProps) => {

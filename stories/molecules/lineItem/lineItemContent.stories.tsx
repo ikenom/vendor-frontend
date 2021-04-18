@@ -17,8 +17,8 @@ for (let i = 0; i < 20; i++) {
 }
 
 const lineItemNote = {
-  instructions: {title: "Instructions", details},
-  additionalComments: {title: "Additional Comments", details}
+  instructions: details,
+  additionalComments: {title: "Additional Comments", details: "Extra Spicy Please"}
 }
 
 const lineItemSummary = {

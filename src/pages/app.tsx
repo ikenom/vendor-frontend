@@ -11,6 +11,8 @@ import { OrderOrganism } from "../components/organisms/order";
 import { defaultTheme } from "../defaultTheme";
 import { startup } from "../startup";
 
+import "./index.css";
+
 
 
 const GlobalStyle = createGlobalStyle`
@@ -18,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-family: "Helvetica Now Text", "Helvetica Now Text Light" , "Helvetica Now Text Medium", "Helvetica Now Text Bold", "Helvetica Now Text Extra Bold", "Helvetica Now Text Black", "Dual-300", "Dual-600";
     padding: 30px 0px 0px 0px;
   }
 

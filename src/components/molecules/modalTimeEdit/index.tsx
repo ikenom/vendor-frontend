@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../atoms/button";
-import { TimeDisplay, TimeDisplayProps } from "../../atoms/timeDisplay";
-import { PlusOutlined, MinusOutlined } from "@ant-design/icons"
+import { TimeDisplay } from "../../atoms/timeDisplay";
+import { MinusIcon, PlusIcon } from "../../../icons/components";
 
 
 export interface Props {
@@ -11,15 +11,16 @@ export interface Props {
   initialTime: number;
 }
 
-export const DEFAULT_TIME_IN_MINUTES = 10;
+export const DEFAULT_TIME_IN_MINUTES = 30;
+export const DEFAULT_TIME_INTERVAL_IN_MINUTES = 10;
 
 const Container = styled.div `
   display: flex;
   flex-direction: row;
-  max-width: 53%;
-  margin: 0% 20% 0% 20%;
+  max-width: 70%;
   justify-content: space-between;
   align-items: center;
+  margin: 0% 0% 0% 14%;
 `;
 
 const ButtonContainer = styled(Button)`
@@ -33,8 +34,9 @@ const Time = styled(TimeDisplay)`
   margin: 0% 6% 0% 6%;
 `;
 
+
 export const TimeEdit = (props: Props) => {
-  const { timeRemaining, onUpdate, initialTime } = props;
+  const { onUpdate, initialTime } = props;
 
   const [extendTime, setExtendTime] = useState(initialTime);
 
@@ -44,18 +46,18 @@ export const TimeEdit = (props: Props) => {
   }
 
   const increment = () => {
-    updateExtendTime(extendTime + 1)
+    updateExtendTime(extendTime + DEFAULT_TIME_INTERVAL_IN_MINUTES)
   }
 
   const decrement = () => {
-    updateExtendTime(extendTime - 1)
+    updateExtendTime(extendTime - DEFAULT_TIME_INTERVAL_IN_MINUTES)
   }
 
   return(
     <Container>
-      <ButtonContainer type={"ghost"} icon={<MinusOutlined/>} onClick={decrement} disabled={extendTime < 1}/>
+      <ButtonContainer type={"ghost"} icon={<MinusIcon/>} onClick={decrement} disabled={extendTime < 1}/>
       <Time minutes={extendTime}/>
-      <ButtonContainer type={"ghost"} icon={<PlusOutlined/>} onClick={increment} disabled={extendTime > 90}/>
+      <ButtonContainer type={"ghost"} icon={<PlusIcon/>} onClick={increment} disabled={extendTime > 120}/>
     </Container>
   )
 }

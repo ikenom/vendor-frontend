@@ -2,7 +2,7 @@ import { Customer } from "./customer";
 import { Product } from "./product";
 
 export type OrderType = "TAKE OUT";
-export type OrderStatus = "Needs Action" | "In Kitchen" | "Ready" | "Completed";
+export type OrderStatus = "Needs Action" | "In Kitchen" | "Ready" | "History";
 
 export interface Order {
   id: string;
@@ -13,5 +13,5 @@ export interface Order {
   price: string;
   type: OrderType;
   status: OrderStatus;
-  timeRemaining: number;
+  timeRemaining?: number;
 }

@@ -51,7 +51,7 @@ export default class OrderStore {
   getOrdersFromPayload = (payload): Order[] => {
     return payload.edges.map(edge => ({
       id: edge.node.id,
-      orderNumber: hashCode(edge.node.id).toString(),
+      orderNumber: hashCode(edge.node.id).toString(), // TODO: get this value from backend
       price: edge.node.price,
       createdAt: edge.node.createdAt,
       type: "TAKE OUT",
@@ -59,7 +59,8 @@ export default class OrderStore {
       customer: {
         firstName: edge.node.customer.firstName,
         lastName: edge.node.customer.lastName,
-      }
+      },
+      timeRemaining: 15 // TODO get this from the backend. This is a nullable field
     } as Order))
   }
 

@@ -4,13 +4,11 @@ import { defaultTheme } from "../../../../defaultTheme";
 
 interface LineItemSummaryProps {
   lineItemSummary: LineItemSummary;
-
 }
 
 export interface LineItemSummary {
   price: string;
   mealName: string;
-  specialIngredient: string; // This will 100% need to be converted to a list but doing this now for functional testing
   position: number
 }
 
@@ -21,7 +19,7 @@ const Container = styled.div`
 
 const PositionLabel = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_bold};
   color: ${defaultTheme.colors.black};
   font-weight: 700;
   height: 47%;
@@ -39,12 +37,12 @@ const MealContainer = styled.div`
   max-width: 43%;
   height: 100%;
   max-height: 100%;
-  margin: 0% 36% 0% 0%;
+  margin: 0% 27% 0% 0%;
 `;
 
 const MealLabel = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_bold};
   color: ${defaultTheme.colors.black};
   font-weight: 700;
   height: 47%;
@@ -52,24 +50,12 @@ const MealLabel = styled.p`
   width: 100%;
   max-width: 100%;
   white-space: nowrap;
-  margin: 0% 0% 4% 0%;
-`;
-
-const IngredientLabel = styled.p`
-  font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hnt};
-  color: ${defaultTheme.colors.black};
-  font-weight: 400;
-  height: 40%;
-  max-height: 40%;
-  width: 85%;
-  max-width: 85%;
-  white-space: nowrap;
+  margin: 0% 0% 0% 0%;
 `;
 
 const PriceLabel = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_bold};
   color: ${defaultTheme.colors.black};
   font-weight: 700;
   height: 47%;
@@ -81,14 +67,13 @@ const PriceLabel = styled.p`
 `;
 
 export const LineItemSummary = (props: LineItemSummaryProps) => {
-  const { lineItemSummary : { price, mealName, specialIngredient, position }} = props
+  const { lineItemSummary : { price, mealName, position }} = props
 
   return (
     <Container>
       <PositionLabel>{position}</PositionLabel>
       <MealContainer>
         <MealLabel>{mealName}</MealLabel>
-        <IngredientLabel>{specialIngredient}</IngredientLabel>
       </MealContainer>
       <PriceLabel>{`$${price}`}</PriceLabel>
     </Container>
