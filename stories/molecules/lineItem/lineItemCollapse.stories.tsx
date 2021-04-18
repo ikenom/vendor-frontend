@@ -9,7 +9,8 @@ export default {
 } as Meta;
 
 const Container = styled.div`
-  ${layout}
+  ${layout};
+  margin-top: 30px;
 `
 
 let details = "";
@@ -18,8 +19,8 @@ let details = "";
   }
 
   const lineItemNote: LineItemNotes = {
-    instructions: {title: "Instructions", details},
-    additionalComments: {title: "Additional Comments", details}
+    instructions: details,
+    additionalComments: {title: "Additional Comments", details: "Extra Spicy Please"}
   }
   
 

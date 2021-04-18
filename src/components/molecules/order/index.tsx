@@ -4,7 +4,7 @@ import { defaultTheme } from "../../../defaultTheme";
 import { CancelOrderIcon } from "../../../icons/components";
 import { Button } from "../../atoms/button";
 import { LineItemHeader, LineItemHeaderProps } from "../../atoms/lineItem/header";
-import { LineItemContent, LineItemContentProps, LineItemListContent } from "../lineItem/lineItemContent";
+import { LineItemContentProps, LineItemListContent } from "../lineItem/lineItemContent";
 
 interface OrderContentProps {
   lineItemHeader: LineItemHeaderProps;
@@ -46,14 +46,9 @@ const ChangeStatusButton = styled(Button)`
   margin-top: auto;
   margin-bottom: 10px;
   background: ${defaultTheme.colors.blue};
+  border-radius: 10px;
 `;
 
-const CancelButton = styled(Button)`
-  width: 30px;
-  max-width: 30px;
-  align-self: end;
-  margin-left: 88%;
-`;
 
 export const OrderContent = (props: OrderContentProps) => {
   const { lineItemHeader, lineItemsContent, button: { onClick, label }, cancelSubmit } = props;
@@ -62,7 +57,6 @@ export const OrderContent = (props: OrderContentProps) => {
     <Container>
       <LineItemHeaderContainer {...lineItemHeader}/>
       <LineItems lineItems={lineItemsContent}/>
-      <CancelButton type={"ghost"} icon={<CancelOrderIcon />} onClick={cancelSubmit}/>
       {
         label
           ? 

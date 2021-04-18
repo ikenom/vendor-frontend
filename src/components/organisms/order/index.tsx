@@ -1,7 +1,7 @@
 import { navigate } from "gatsby";
 import React from "react";
 import { OrderStatus } from "../../../models/orders";
-import { MOCK_LINE_ITEMS_CONTENT, MOCK_LINE_ITEM_CONTENT } from "../../../store/mockUtils/mockOrderUtils";
+import { MOCK_LINE_ITEMS_CONTENT, MOCK_LINE_ITEM_HEADER } from "../../../store/mockUtils/mockOrderUtils";
 import OrderStore from "../../../store/orderStore";
 import { LineItemHeaderProps } from "../../atoms/lineItem/header";
 import { OrderOrganismLayout } from "../../layouts/order";
@@ -51,15 +51,12 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
 
   const {customer, lineItems, price, id} = order;
 
+
   const customerLabel = `${customer.firstName } ${customer.lastName[0]}.`;
   const contentLabel = `Order #${orderNumber}`;
 
-  const lineItemHeader: LineItemHeaderProps = {
-    lineItemHeader: {
-      numOfItems: lineItems.length,
-      price: price
-    }
-  }
+  // TODO Making sure UI correctly displays mock data. Update to get data from order once it is provided by backend
+  const lineItemHeader: LineItemHeaderProps = MOCK_LINE_ITEM_HEADER
 
   const activeTab =  getActiveTabFromOrderStatus(orderStatus);
 

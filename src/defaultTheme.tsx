@@ -23,7 +23,7 @@ export const defaultTheme = {
     hnt_black: "Helvetica Now Text Black"
   },
   fontSize: {
-    xsm: "10px",
+    xsm: "12px",
     sm: "18px",
     default: "14px",
     m: "20px",

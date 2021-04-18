@@ -9,7 +9,6 @@ interface LineItemSummaryProps {
 export interface LineItemSummary {
   price: string;
   mealName: string;
-  specialIngredient: string; // This will 100% need to be converted to a list but doing this now for functional testing
   position: number
 }
 
@@ -38,7 +37,7 @@ const MealContainer = styled.div`
   max-width: 43%;
   height: 100%;
   max-height: 100%;
-  margin: 0% 30% 0% 0%;
+  margin: 0% 27% 0% 0%;
 `;
 
 const MealLabel = styled.p`
@@ -51,24 +50,12 @@ const MealLabel = styled.p`
   width: 100%;
   max-width: 100%;
   white-space: nowrap;
-  margin: 0% 0% 4% 0%;
-`;
-
-const IngredientLabel = styled.p`
-  font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hnt};
-  color: ${defaultTheme.colors.black};
-  font-weight: 400;
-  height: 40%;
-  max-height: 40%;
-  width: 85%;
-  max-width: 85%;
-  white-space: nowrap;
+  margin: 0% 0% 0% 0%;
 `;
 
 const PriceLabel = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
-  font-family: ${defaultTheme.fontFamily.hnt};
+  font-family: ${defaultTheme.fontFamily.hnt_bold};
   color: ${defaultTheme.colors.black};
   font-weight: 700;
   height: 47%;

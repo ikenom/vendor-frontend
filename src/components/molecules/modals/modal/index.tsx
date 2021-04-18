@@ -29,7 +29,7 @@ const ButtonContainer = styled(Button)`
     background-color: ${defaultTheme.colors.blue};
   }
   height: 2.6rem;
-  border-radius: 25px;
+  border-radius: 10px;
 `;
 
 
