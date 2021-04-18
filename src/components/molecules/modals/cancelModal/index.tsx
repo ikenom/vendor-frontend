@@ -14,19 +14,12 @@ const HeaderContainer = styled.div`
   flex-direction: column;
 `
 
-const HeaderSubText = styled.p`
-  font-size: ${defaultTheme.fontSize.lg};
-  font-family: ${defaultTheme.fontFamily.hnt};
-  font-weight: 700;
-  color: ${defaultTheme.colors.greyTwo}
-`;
 
 const Header = (lineItemHeader: Omit<LineItemSummary, "price" | "position">) => {
-    const { mealName , specialIngredient } = lineItemHeader
+    const { mealName } = lineItemHeader;
     return(
       <HeaderContainer>
         <ModalHeader>{mealName}</ModalHeader>
-        <HeaderSubText>{specialIngredient}</HeaderSubText>
       </HeaderContainer>
     )
 }
@@ -34,7 +27,6 @@ const Header = (lineItemHeader: Omit<LineItemSummary, "price" | "position">) => 
 const ContentContainer = styled.p`
   font-size: ${defaultTheme.fontSize.sm};
   font-family: ${defaultTheme.fontFamily.hnt};
-  font-weight: 400;
 `;
 
 const HighlightedText = styled.span`

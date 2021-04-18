@@ -121,32 +121,46 @@ export const MOCK_ORDERS: Order[] = [
 
 
 let details = "";
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 5; i++) {
   details = details.concat("Lorem ipsum lorem ipsum lorem ipsum Lorem ipsum");
 }
 
 const lineItemNote = {
-  instructions: {title: "Instructions", details},
-  additionalComments: {title: "Additional Comments", details}
+  instructions: details,
+  additionalComments: {title: "Additional Comments", details: "Extra Spicy Please!"}
 }
 
 const lineItemSummary = {
-  price: "9.50",
+  price: "9.53",
   mealName: "Buffalo Chicken Wings",
   specialIngredient: "Bleu Cheese Dressing",
   position: 1 
 }
 
-export const MOCK_LINE_ITEM_CONTENT: LineItemContentProps = {
-  lineItemSummary,
-  lineItemNote
+const lineItemSummaryTwo = {
+  price: "19.50",
+  mealName: "Large Pepperoni Pizza",
+  specialIngredient: "Bleu Cheese Dressing",
+  position: 2
 }
 
-export const MOCK_LINE_ITEMS_CONTENT: LineItemContentProps[] = [MOCK_LINE_ITEM_CONTENT, MOCK_LINE_ITEM_CONTENT]
+export const MOCK_LINE_ITEM_CONTENT: LineItemContentProps = {
+  lineItemSummary,
+  lineItemNote,
+  unavailableOnClick: () => {}
+}
+
+export const MOCK_LINE_ITEM_CONTENT_TWO: LineItemContentProps = {
+  lineItemSummary: lineItemSummaryTwo,
+  lineItemNote,
+  unavailableOnClick: () => {}
+}
+
+export const MOCK_LINE_ITEMS_CONTENT: LineItemContentProps[] = [MOCK_LINE_ITEM_CONTENT, MOCK_LINE_ITEM_CONTENT_TWO]
 
 export const MOCK_LINE_ITEM_HEADER: LineItemHeaderProps = {
   lineItemHeader: {
-    numOfItems: 1, 
-    price: "9.50"
+    numOfItems: 2, 
+    price: "29.03"
   }
 }

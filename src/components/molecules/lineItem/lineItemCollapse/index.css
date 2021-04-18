@@ -6,3 +6,31 @@
 .ant-collapse-content > .ant-collapse-content-box {
   padding: 0px 18px 0px 0px;
 }
+
+
+.ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+  padding: 0px 40px 0px 12px;
+  font-family: "Helvetica Now Text Bold";
+  font-size: 16px;
+  padding-left: 9px;
+}
+
+.ant-collapse-content > .ant-collapse-content-box {
+  padding-top: 0px !important;
+  padding-left: 2% !important;
+  padding-bottom: 12px;
+  padding-right: 7px !important;
+}
+
+.ant-collapse > .ant-collapse-item.ant-collapse-no-arrow > .ant-collapse-header {
+  color: #4785FE;
+  padding-top: 0px;
+}
+
+.ant-collapse > .ant-collapse-item.ant-collapse-no-arrow > .ant-collapse-header {
+  padding-left: 9px !important;
+}
+
+.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+  padding: 0px !important;
+}

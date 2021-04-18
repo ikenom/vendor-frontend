@@ -39,7 +39,7 @@ const Label = styled.p`
   height: 100%;
   width: 55%;
   max-width: 55%;
-  margin: 0% 25% 0% 0%;
+  margin: 0% 23% 0% 0%;
 `;
 
 const Price = styled.p`
