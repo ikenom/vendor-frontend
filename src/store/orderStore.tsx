@@ -21,7 +21,11 @@ export default class OrderStore {
   static init = async () => {
     const orderStore = OrderStore.getInstance()
     await orderStore.updateOrders()
-    orderStore.connect()
+    orderStore.subscribeToOrderUpdates()
+  }
+
+  static mockInit = async () => {
+    const orderStore = OrderStore.getInstance();
   }
 
   static getInstance(): OrderStore {
@@ -41,10 +45,10 @@ export default class OrderStore {
     this._needsActionUpdated = createState<Boolean>(false)
     this._inKitchenUpdated = createState<Boolean>(false)
     this._readyUpdated = createState<Boolean>(false)
-    this._isInitialLoad = createState<Boolean>(true)
+    this._isInitialLoad = createState<Boolean>(true) // Allows us to render skeleton component
   }
 
-  connect = () => {
+  subscribeToOrderUpdates = () => {
     subscribeToOrderUpdated(this.orderUpdated)
   }
 
@@ -197,14 +201,12 @@ export default class OrderStore {
 
   updateOrders = async () => {
     
-  
-    await this.getOrdersAsync()
     await this.getNeedsActionAsync()
     await this.getInKitchenAsync()
     await this.getReadyAsync()
     await this.getHistoryAsync()
 
-    if(this._isInitialLoad.get().valueOf()) {
+    if(this._isInitialLoad.get()) {
       this._isInitialLoad.set(false)
     }
   }
