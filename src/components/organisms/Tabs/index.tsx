@@ -44,30 +44,36 @@ const TabPaneContainer = styled(TabPane)`
 export const AppTabs = (props: TabProps) => {
   const { needsAction, inKitchen, ready, history, activeTab, tabUpdates, isLoading, onTabChange } = props;
 
-  const { needsActionUpdated, inKitchenUpdated, readyUpdated } = tabUpdates
+  const { needsActionUpdated , inKitchenUpdated, readyUpdated } = tabUpdates
+
+  const { isUpdated: needsActionIsUpdated , onView: needsActionOnView } = needsActionUpdated
+  const { isUpdated: inKitchenIsUpdated , onView: inKitchenOnView } = inKitchenUpdated
+  const { isUpdated: readyIsUpdated , onView: readyOnView } = readyUpdated
 
   const [ selectedTab, setSelectedTab ] = React.useState(activeTab);
 
   const updateSelectedTab = (tab: string) => {
     //onTabChange(tab);
     setSelectedTab(tab)
-    switch(tab) {
-      case(NEEDS_ACTION_TAB): { needsActionUpdated.onView() }
-      case(IN_KITCHEN_TAB): { inKitchenUpdated.onView() }
-      case(READY_TAB): { readyUpdated.onView() }
-      default:{}
+
+    if(tab === "1") {
+      needsActionOnView()
+    } else if (tab === "2") {
+      inKitchenOnView()
+    } else if (tab === "3") {
+      readyOnView()
     }
   }
 
   return(
     <Tabs activeKey={selectedTab ? selectedTab : undefined} onChange={(tab) => updateSelectedTab(tab)}>
-      <TabPaneContainer tab={<TabElement text="Needs Action" showAttentionIcon={needsActionUpdated.isUpdated}/>} key={NEEDS_ACTION_TAB}>
+      <TabPaneContainer tab={<TabElement text="Needs Action" showAttentionIcon={needsActionIsUpdated}/>} key={NEEDS_ACTION_TAB}>
         <OrdersTabView orders={needsAction} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Needs Action"}})}}/>
       </TabPaneContainer>
-      <TabPane tab={<TabElement text="In Kitchen" showAttentionIcon={inKitchenUpdated.isUpdated}/>} key={IN_KITCHEN_TAB}>
+      <TabPane tab={<TabElement text="In Kitchen" showAttentionIcon={inKitchenIsUpdated}/>} key={IN_KITCHEN_TAB}>
         <OrdersTabView orders={inKitchen} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "In Kitchen"}})}}/>
       </TabPane>
-      <TabPane tab={<TabElement text="Ready" showAttentionIcon={readyUpdated.isUpdated}/>} key={READY_TAB}>
+      <TabPane tab={<TabElement text="Ready" showAttentionIcon={readyIsUpdated}/>} key={READY_TAB}>
         <OrdersTabView orders={ready} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Ready"}})}}/>
       </TabPane>
       <TabPane tab={<TabElement text="History" showAttentionIcon={false}/>} key={HISTORY_TAB}>
