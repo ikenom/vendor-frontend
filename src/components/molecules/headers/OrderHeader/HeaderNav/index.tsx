@@ -8,7 +8,7 @@ import "./index.css"
 import { navigate } from "gatsby";
 
 export interface HeaderNavProps {
-  previousPagePath?: string;
+  previousTab?: string;
   text: string;
 }
 
@@ -35,9 +35,10 @@ const HeaderText = styled.p<{needsExtraMargin: boolean}>`
 
 export const HeaderNav = (props: HeaderNavProps) => {
 
-  const { text } = props;
+  const { text, previousTab } = props;
 
   const onClick = () => {
+    console.log(`Navigating to tab ${previousTab}`)
     navigate("/app")
   }
 
