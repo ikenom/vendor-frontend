@@ -1,5 +1,5 @@
 import { Tabs } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
 import { TabElement } from '../../atoms/tabElement';
@@ -20,9 +20,21 @@ interface TabProps {
   inKitchen: Order[];
   ready: Order[];
   history: Order[];
+  tabUpdates: TabUpdates;
   isLoading: boolean;
   activeTab?: string;
   onTabChange?: (tab: string) => void;
+}
+
+export interface TabUpdates {
+  needsActionUpdated: TabUpdate;
+  inKitchenUpdated: TabUpdate;
+  readyUpdated: TabUpdate;
+}
+
+export interface TabUpdate {
+  isUpdated: boolean;
+  onView: () => void;
 }
 
 const TabPaneContainer = styled(TabPane)`
@@ -30,24 +42,38 @@ const TabPaneContainer = styled(TabPane)`
 `;
 
 export const AppTabs = (props: TabProps) => {
-  const { needsAction, inKitchen, ready, history, activeTab, isLoading, onTabChange } = props;
+  const { needsAction, inKitchen, ready, history, activeTab, tabUpdates, isLoading, onTabChange } = props;
+
+  const { needsActionUpdated , inKitchenUpdated, readyUpdated } = tabUpdates
+
+  const { isUpdated: needsActionIsUpdated , onView: needsActionOnView } = needsActionUpdated
+  const { isUpdated: inKitchenIsUpdated , onView: inKitchenOnView } = inKitchenUpdated
+  const { isUpdated: readyIsUpdated , onView: readyOnView } = readyUpdated
 
   const [ selectedTab, setSelectedTab ] = React.useState(activeTab);
 
-  const onChangeTab = (tab: string) => {
+  const updateSelectedTab = (tab: string) => {
     //onTabChange(tab);
-    setSelectedTab(tab);
+    setSelectedTab(tab)
+
+    if(tab === "1") {
+      needsActionOnView()
+    } else if (tab === "2") {
+      inKitchenOnView()
+    } else if (tab === "3") {
+      readyOnView()
+    }
   }
 
   return(
-    <Tabs activeKey={selectedTab ? selectedTab : undefined} onChange={(tab) => onChangeTab(tab)}>
-      <TabPaneContainer tab={<TabElement text="Needs Action" showAttentionIcon={false}/>} key={NEEDS_ACTION_TAB}>
+    <Tabs activeKey={selectedTab ? selectedTab : undefined} onChange={(tab) => updateSelectedTab(tab)}>
+      <TabPaneContainer tab={<TabElement text="Needs Action" showAttentionIcon={needsActionIsUpdated}/>} key={NEEDS_ACTION_TAB}>
         <OrdersTabView orders={needsAction} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Needs Action"}})}}/>
       </TabPaneContainer>
-      <TabPane tab={<TabElement text="In Kitchen" showAttentionIcon={false}/>} key={IN_KITCHEN_TAB}>
+      <TabPane tab={<TabElement text="In Kitchen" showAttentionIcon={inKitchenIsUpdated}/>} key={IN_KITCHEN_TAB}>
         <OrdersTabView orders={inKitchen} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "In Kitchen"}})}}/>
       </TabPane>
-      <TabPane tab={<TabElement text="Ready" showAttentionIcon={false}/>} key={READY_TAB}>
+      <TabPane tab={<TabElement text="Ready" showAttentionIcon={readyIsUpdated}/>} key={READY_TAB}>
         <OrdersTabView orders={ready} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Ready"}})}}/>
       </TabPane>
       <TabPane tab={<TabElement text="History" showAttentionIcon={false}/>} key={HISTORY_TAB}>

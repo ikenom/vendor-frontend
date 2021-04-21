@@ -4,8 +4,7 @@ import { defaultTheme } from "../../../../defaultTheme";
 import { ArrowIcon, ProfileIcon } from "../../../../icons/components";
 import { TextWithLabel } from "../../../atoms/textWithLabel";
 import { Divider } from "../../../layouts/divider";
-import { width } from 'styled-system';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton';
 import { Button } from "../../../atoms/button";
 
 
@@ -16,8 +15,25 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const OrderSummaryWithDividerContainer = styled.div`
+const OrderSummaryWithDividerContainer = styled.div<{showHoverAnimation: boolean}>`
   width: 100%;
+
+   ${({ showHoverAnimation }) => //showHoverAnimation // Inspired by https://spectrum.chat/styled-components/general/how-to-inject-styles-using-an-on-click~1dffe25f-efc9-4194-a5cd-f641db2fa5d9
+    // ? 
+    // ` &:hover {
+    //     cursor: pointer;
+    //     box-shadow: 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
+    //     transform: scale(1.03);
+    //   }
+    // `
+    // : 
+    ``
+    }
+    &:active {
+      box-shadow: 0px 4px 8px rgba(darken(dodgerblue, 30%));
+      transform: scale(.95);
+    }
+  }
 `;
 
 const ProfileAndTextContainer = styled.div`
@@ -127,12 +143,15 @@ export const OrderSummary = (props: OrderSummaryProps) => {
 export const OrderSummaryWithDivider = (props: OrderSummaryProps) => {
   const { onClick , orderNumber } = props
 
+  const [showHoverAnimation, setHoverAnimation] = React.useState(false);
+
   const navClick = () => {
+    setHoverAnimation(true)
     onClick(orderNumber)
   }
   
   return(
-    <OrderSummaryWithDividerContainer onClick={navClick}>
+    <OrderSummaryWithDividerContainer onClick={navClick} showHoverAnimation={showHoverAnimation} onTouchEnd={() => {setHoverAnimation(false)}}>
       <OrderSummary {...props}/>
       <BottomDivider/>
     </OrderSummaryWithDividerContainer>

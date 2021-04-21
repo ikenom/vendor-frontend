@@ -21,7 +21,11 @@ export default class OrderStore {
   static init = async () => {
     const orderStore = OrderStore.getInstance()
     await orderStore.updateOrders()
-    orderStore.connect()
+    orderStore.subscribeToOrderUpdates()
+  }
+
+  static mockInit = async () => {
+    const orderStore = OrderStore.getInstance();
   }
 
   static getInstance(): OrderStore {
@@ -41,10 +45,10 @@ export default class OrderStore {
     this._needsActionUpdated = createState<Boolean>(false)
     this._inKitchenUpdated = createState<Boolean>(false)
     this._readyUpdated = createState<Boolean>(false)
-    this._isInitialLoad = createState<Boolean>(true)
+    this._isInitialLoad = createState<Boolean>(true) // Allows us to render skeleton component
   }
 
-  connect = () => {
+  subscribeToOrderUpdates = () => {
     subscribeToOrderUpdated(this.orderUpdated)
   }
 
@@ -74,6 +78,10 @@ export default class OrderStore {
     return this.orders
   }
 
+  getIsInitialLoad = (): State<Boolean> => {
+    return this._isInitialLoad;
+  }
+
   getOrdersAsync = async () => {
     let cursor: String = null
     let hasNext = true
@@ -97,7 +105,7 @@ export default class OrderStore {
   getNeedsActionAsync = async () => {
     let cursor: String = null
     let hasNext = true
-    const needsAction = []
+    const needsAction: Order[] = []
 
     while(hasNext) {
       const result = await orderClient.getNeedsActionAsync(cursor)
@@ -107,19 +115,18 @@ export default class OrderStore {
       cursor = result.pageInfo.endCursor
     }
 
-    if(!this.isSame(this.needsAction.get(), needsAction)) {
-      this._needsActionUpdated.set(true)
-      this.needsAction.set(needsAction)
+    if(!this.isSameList(this.getNeedsAction().value, needsAction) && this.getNeedsAction().value.length < needsAction.length) {
+      this._isInitialLoad.value ? this._needsActionUpdated.set(false) : this._needsActionUpdated.set(true)
     }
+
+    this.needsAction.set(needsAction);
+    return
   }
 
-  private isSame(listA: Order[], listB: Order[]): Boolean {
-    const idsA = listA.map((item: Order) => item.id)
-    const idsB = listB.map((item: Order) => item.id)
-    const remainingA = idsB.filter((item: any) => idsA.indexOf(item) < 0);
-    const remainingB = idsA.filter((item: any) => idsB.indexOf(item) < 0);
-
-    return remainingA.length == 0 && remainingB.length == 0
+  private isSameList(listA: Order[], listB: Order[]): Boolean {
+    const areSameLength = Object.keys(listA).length === Object.keys(listB).length;
+    const haveMatchingElements = Object.keys(listA).every(element => listA[+element] === listB[+element])
+    return areSameLength && haveMatchingElements;
   }
 
   getInKitchen = () => {
@@ -129,20 +136,22 @@ export default class OrderStore {
   getInKitchenAsync = async () => {
     let cursor: String = null
     let hasNext = true
-    const inKitchen = []
+    const inKitchenOrders: Order[] = []
 
     while(hasNext) {
       const result = await orderClient.getInKitchenAsync(cursor)
-      inKitchen.push(...this.getOrdersFromPayload(result))
+      inKitchenOrders.push(...this.getOrdersFromPayload(result))
 
       hasNext = result.pageInfo.hasNextPage
       cursor = result.pageInfo.endCursor
     }
 
-    if(!this.isSame(this.inKitchen.get(), inKitchen)) {
-      this._inKitchenUpdated.set(true)
-      this.inKitchen.set(inKitchen)
+    if(!this.isSameList(this.getInKitchen().value, inKitchenOrders) && this.getInKitchen().value.length < inKitchenOrders.length) {
+      this._isInitialLoad.value ? this._inKitchenUpdated.set(false) : this._inKitchenUpdated.set(true)
     }
+
+    this.inKitchen.set(inKitchenOrders)
+    return
   }
 
   getReady = () => {
@@ -152,20 +161,22 @@ export default class OrderStore {
   getReadyAsync = async () => {
     let cursor: String = null
     let hasNext = true
-    const ready = []
+    const readyOrders: Order[] = []
 
     while(hasNext) {
       const result = await orderClient.getReadyAsync(cursor)
-      ready.push(...this.getOrdersFromPayload(result))
+      readyOrders.push(...this.getOrdersFromPayload(result))
 
       hasNext = result.pageInfo.hasNextPage
       cursor = result.pageInfo.endCursor
     }
 
-    if(!this.isSame(this.inKitchen.get(), ready)) {
-      this._readyUpdated.set(true)
-      this.ready.set(ready)
+    if(!this.isSameList(this.getReady().value, readyOrders) && this.getReady().value.length < readyOrders.length) {
+      this._isInitialLoad.value ? this._readyUpdated.set(false) : this._readyUpdated.set(true)
     }
+
+    this.ready.set(readyOrders)
+    return
   }
 
   getHistory = () => {
@@ -190,14 +201,16 @@ export default class OrderStore {
 
   updateOrders = async () => {
     
-  
+    // This list is what we use to navigate to orders by id
     await this.getOrdersAsync()
+
+    // These list are used for the UI to be able to match the domain of the data.
     await this.getNeedsActionAsync()
     await this.getInKitchenAsync()
     await this.getReadyAsync()
     await this.getHistoryAsync()
 
-    if(this._isInitialLoad.get().valueOf()) {
+    if(this._isInitialLoad.get()) {
       this._isInitialLoad.set(false)
     }
   }
@@ -230,15 +243,23 @@ export default class OrderStore {
     return this._needsActionUpdated
   }
 
+  viewedNeedsActionUpdates = () => {
+    this._needsActionUpdated.set(false)
+  }
+
   get inKitchenUpdated() {
     return this._inKitchenUpdated
+  }
+
+  viewedInKitchenUpdates = () => {
+    this._inKitchenUpdated.set(false)
   }
 
   get readyUpdated() {
     return this._readyUpdated
   }
 
-  get isInitialLoad() {
-    return this._isInitialLoad;
+  viewedReadyUpdates = () => {
+    this._readyUpdated.set(false)
   }
 }

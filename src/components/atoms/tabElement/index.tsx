@@ -43,9 +43,3 @@ export const TabElement = (props: TabElementProps) => {
     </Container>
   )
 }
-/**
- * Original figma dimensions:
- * Total: width= 96px, height= 25px
- * Text: margin-top:4px, width 89px, height 21px
- * Icon: width 12px, height 12px
- */
