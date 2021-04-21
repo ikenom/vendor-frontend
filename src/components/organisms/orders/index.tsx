@@ -26,9 +26,9 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
   const isLoadingInitialData = useState(orderStore.getIsInitialLoad()).get().valueOf()
 
   // Check for updates
-  const needsActionUpdated = orderStore.needsActionUpdated.get().valueOf()
-  const inKitchenUpdated = orderStore.inKitchenUpdated.get().valueOf()
-  const readyUpdated = orderStore.readyUpdated.get().valueOf()
+  const needsActionUpdated = useState(orderStore.needsActionUpdated).get().valueOf()
+  const inKitchenUpdated = useState(orderStore.inKitchenUpdated).get().valueOf()
+  const readyUpdated = useState(orderStore.readyUpdated).get().valueOf()
 
   const tabUpdates: TabUpdates = {
     needsActionUpdated: {

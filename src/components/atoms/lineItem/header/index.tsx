@@ -34,7 +34,6 @@ const Label = styled.p`
   font-size: ${defaultTheme.fontSize.lg};
   font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
   white-space: nowrap;
-  font-weight: 800;
   max-height: 100%;
   height: 100%;
   width: 55%;
@@ -44,9 +43,8 @@ const Label = styled.p`
 
 const Price = styled.p`
   font-size: ${defaultTheme.fontSize.m};
-  font-family: ${defaultTheme.fontFamily.hnt_bold};
+  font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
   white-space: nowrap;
-  font-weight: 800;
   max-height: 74%;
   height: 74%;
   width: 18%;
