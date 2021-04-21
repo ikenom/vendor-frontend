@@ -37,7 +37,7 @@ export const AppFooter = (props: AppFooterProps) => {
 
 
 const FooterIconsContainer = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   border-radius: 10px;
   padding: 0px 10px 0px 10px;
   width: 100%;

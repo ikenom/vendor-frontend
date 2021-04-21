@@ -10,7 +10,7 @@ import { OrdersTabView } from '../../molecules/orders/ordersView';
 
 const { TabPane } = Tabs;
 
-const NEEDS_ACTION_TAB = "1";
+export const NEEDS_ACTION_TAB = "1";
 const IN_KITCHEN_TAB = "2";
 const READY_TAB = "3";
 const HISTORY_TAB = "4";
@@ -22,6 +22,7 @@ interface TabProps {
   history: Order[];
   isLoading: boolean;
   activeTab?: string;
+  onTabChange?: (tab: string) => void;
 }
 
 const TabPaneContainer = styled(TabPane)`
@@ -29,12 +30,17 @@ const TabPaneContainer = styled(TabPane)`
 `;
 
 export const AppTabs = (props: TabProps) => {
-  const { needsAction, inKitchen, ready, history, activeTab, isLoading } = props;
+  const { needsAction, inKitchen, ready, history, activeTab, isLoading, onTabChange } = props;
 
   const [ selectedTab, setSelectedTab ] = React.useState(activeTab);
 
+  const onChangeTab = (tab: string) => {
+    //onTabChange(tab);
+    setSelectedTab(tab);
+  }
+
   return(
-    <Tabs activeKey={selectedTab ? selectedTab : undefined} onChange={(tab) => setSelectedTab(tab)}>
+    <Tabs activeKey={selectedTab ? selectedTab : undefined} onChange={(tab) => onChangeTab(tab)}>
       <TabPaneContainer tab={<TabElement text="Needs Action" showAttentionIcon={false}/>} key={NEEDS_ACTION_TAB}>
         <OrdersTabView orders={needsAction} isLoading={isLoading} onClick={(orderNumber) => {navigate(`/app/${orderNumber}`, {state: {status: "Needs Action"}})}}/>
       </TabPaneContainer>
@@ -62,8 +68,25 @@ export const getActiveTabFromOrderStatus = (status: OrderStatus): string => {
     case "Ready": {
       return READY_TAB
     }
-    case "Completed": {
+    case "History": {
       return HISTORY_TAB
+    }
+  }
+}
+
+export const getOrderStatusFromActiveTab = (tab: string): OrderStatus => {
+  switch(tab) {
+    case "1": {
+      return "Needs Action"
+    }
+    case "2": {
+      return "In Kitchen"
+    }
+    case "3": {
+      return "Ready"
+    }
+    case "4": {
+      return "History"
     }
   }
 }
