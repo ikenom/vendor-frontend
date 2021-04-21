@@ -28,15 +28,17 @@ const ProfileAndTextContainer = styled.div`
 `;
 
 const Profile = styled(ProfileIcon)`
-  height: 26px;
-  width: 26px;
+  height: 32px;
+  width: 32px;
   margin-top: 8px;
-  margin-right: 14px;
+  margin-right: 10px;
 `
 
 const Arrow = styled(Button)`
   width: 20%;
   height: 57%;
+  margin-top: 2px;
+  margin-right: 3px;
 `
 
 const BottomDivider = styled(Divider)`
@@ -49,8 +51,8 @@ const Price = styled.p`
   width: 3.5rem;
   height: 100%;
   margin-top: 0px;
-  margin-right: 6%;
-  margin-left: 14%;
+  margin-right: 10%;
+  margin-left: 10%;
   white-space: nowrap;
 `
 

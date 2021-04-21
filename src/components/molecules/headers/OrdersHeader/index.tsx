@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { defaultTheme } from "../../../../defaultTheme";
 import { SearchIcon } from "../../../../icons/components";
 import Button from "../../../atoms/button";
+import "./index.css";
 
 interface OrdersHeaderProps {
-  orderStore?: any;
   text: string;
 }
 
@@ -31,13 +31,13 @@ const TextContainer = styled.p`
   font-family: ${defaultTheme.fontFamily.hnt_extra_bold};
   font-style: normal;
   font-size: ${defaultTheme.fontSize.xlg};
-  margin-right: 46%;
+  margin-right: 51%;
   margin-bottom: 0px;
   white-space: nowrap;
 `;
 
 export const OrdersHeader = (props: OrdersHeaderProps) => {
-  const { text, orderStore } = props;
+  const { text } = props;
 
   return(
     <OrdersHeaderContainer>

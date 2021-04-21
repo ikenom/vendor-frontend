@@ -10,7 +10,7 @@ import { OrdersTabView } from '../../molecules/orders/ordersView';
 
 const { TabPane } = Tabs;
 
-const NEEDS_ACTION_TAB = "1";
+export const NEEDS_ACTION_TAB = "1";
 const IN_KITCHEN_TAB = "2";
 const READY_TAB = "3";
 const HISTORY_TAB = "4";
@@ -23,6 +23,7 @@ interface TabProps {
   tabUpdates: TabUpdates;
   isLoading: boolean;
   activeTab?: string;
+  onTabChange?: (tab: string) => void;
 }
 
 export interface TabUpdates {
@@ -41,13 +42,14 @@ const TabPaneContainer = styled(TabPane)`
 `;
 
 export const AppTabs = (props: TabProps) => {
-  const { needsAction, inKitchen, ready, history, activeTab, tabUpdates, isLoading } = props;
+  const { needsAction, inKitchen, ready, history, activeTab, tabUpdates, isLoading, onTabChange } = props;
 
   const { needsActionUpdated, inKitchenUpdated, readyUpdated } = tabUpdates
 
   const [ selectedTab, setSelectedTab ] = React.useState(activeTab);
 
   const updateSelectedTab = (tab: string) => {
+    //onTabChange(tab);
     setSelectedTab(tab)
     switch(tab) {
       case(NEEDS_ACTION_TAB): { needsActionUpdated.onView() }
@@ -86,8 +88,25 @@ export const getActiveTabFromOrderStatus = (status: OrderStatus): string => {
     case "Ready": {
       return READY_TAB
     }
-    case "Completed": {
+    case "History": {
       return HISTORY_TAB
+    }
+  }
+}
+
+export const getOrderStatusFromActiveTab = (tab: string): OrderStatus => {
+  switch(tab) {
+    case "1": {
+      return "Needs Action"
+    }
+    case "2": {
+      return "In Kitchen"
+    }
+    case "3": {
+      return "Ready"
+    }
+    case "4": {
+      return "History"
     }
   }
 }
