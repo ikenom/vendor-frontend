@@ -46,16 +46,31 @@ const App = () => {
   React.useLayoutEffect(() => {
     startup()
   })
-  // Disables scrolling of App
+
+  // Disables scrolling of App view port
   useEffect(() => {
     document.getElementsByTagName("html")[0].style.overflow = "hidden";
     disableBodyScroll(document.body);
   }, []);
 
+  // Refresh app every 30 seconds so that data involving time is always fresh
+  
+  const [, updateState] = React.useState<any>();
+  
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      forceUpdate()
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, [])
+
   return (
     <>
       <GlobalStyle />
-      <TestApp footer={<AppFooter selectedIcon="order"/>}
+      <AppComponent footer={<AppFooter selectedIcon="order"/>}
     />
     </>
   )
@@ -77,7 +92,7 @@ export interface AppLayoutProps {
 }
 
 
-const TestApp = (props: Omit<AppLayoutProps, "content" | "header">) => {
+const AppComponent = (props: Omit<AppLayoutProps, "content" | "header">) => {
   const { footer } = props;
 
   return (
