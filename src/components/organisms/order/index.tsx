@@ -156,7 +156,8 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     actionProps: {
       modalType: orderStatus,
       modalSubmit: headerModalSubmit(orderStatus),
-      modalContentProps: contentProps
+      modalContentProps: contentProps,
+      timeRemainingInMinutes: order.timeRemaining
     }
   }
 
