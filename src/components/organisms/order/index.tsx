@@ -70,6 +70,17 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
+  const headerContentButtonSubmit = (status: OrderStatus) => {
+    switch(status) {
+      case "Ready" : {
+        return () => { console.log("Completed on submit") };
+      }
+      default: {
+        return showModal;
+      }
+    }
+  }
+
   const headerModalSubmit = (status: OrderStatus) => {
     switch(status) {
       case "Needs Action": {
@@ -161,7 +172,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
         content={<OrderContent
           lineItemsContent={MOCK_LINE_ITEMS_CONTENT}
           lineItemHeader={lineItemHeader}
-          button={{onClick: showModal, label: buttonLabel(orderStatus), onCancel}}
+          button={{onClick: headerContentButtonSubmit(orderStatus), label: buttonLabel(orderStatus), onCancel}}
           cancelSubmit={onCancel}
         />}
         footer={footer}
