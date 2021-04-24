@@ -12,7 +12,7 @@ export interface Props {
 }
 
 export const DEFAULT_TIME_IN_MINUTES = 30;
-export const DEFAULT_TIME_INTERVAL_IN_MINUTES = 10;
+export const DEFAULT_TIME_INTERVAL_IN_MINUTES = 5;
 
 const Container = styled.div `
   display: flex;
