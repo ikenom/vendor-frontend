@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { layout } from "styled-system";
 import { LineItemHeaderProps } from "../../../src/components/atoms/lineItem/header";
+import { LineItemNotes } from "../../../src/components/atoms/lineItem/notes";
 import { LineItemContentProps } from "../../../src/components/molecules/lineItem/lineItemContent";
 import { OrderContent } from "../../../src/components/molecules/order"
 
@@ -20,8 +21,8 @@ for (let i = 0; i < 20; i++) {
   details = details.concat("Lorem ipsum lorem ipsum lorem ipsum Lorem ipsum");
 }
 
-const lineItemNote = {
-  instructions: {title: "Instructions", details},
+const lineItemNote: LineItemNotes = {
+  instructions: "Instructions",
   additionalComments: {title: "Additional Comments", details}
 }
 
@@ -34,7 +35,8 @@ const lineItemSummary = {
 
 const lineItemContent: LineItemContentProps = {
   lineItemSummary,
-  lineItemNote
+  lineItemNote,
+  unavailableOnClick: () => {}
 }
 
 const lineItemHeader: LineItemHeaderProps = {
@@ -46,16 +48,18 @@ const lineItemHeader: LineItemHeaderProps = {
 
 const buttonProps = {
   onClick: () => {},
-  label: "Send To Kitchen"
+  label: "Send To Kitchen",
+  onCancel: () => {}
 }
 
 export const LineItemCollapseComponent = () => {
   return(
     <Container width={343} height={547}>
       <OrderContent 
-        lineItemContent={lineItemContent} 
+        lineItemsContent={[lineItemContent]} 
         lineItemHeader={lineItemHeader}
         button={buttonProps}
+        cancelSubmit={() => {}}
       />
     </Container>
   )
