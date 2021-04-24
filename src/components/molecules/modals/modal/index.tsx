@@ -7,7 +7,7 @@ import { defaultTheme } from "../../../../defaultTheme";
 const HeaderContainer = styled.div`
   max-width: 100%;
   max-height: 30%;
-  margin: 7% 0% 9% 0%;
+  margin: 5% 0% 7% 0%;
 `;
 
 export const ModalHeader = styled.p`
@@ -23,20 +23,22 @@ const ContentContainer = styled.div`
 const ButtonContainer = styled(Button)`
   background-color: ${defaultTheme.colors.blue};
   color: ${defaultTheme.colors.white};
-  max-height: 50px;
+  max-height: 60px;
   font-family: ${defaultTheme.fontFamily.hnt_medium};
   &:hover {
     background-color: ${defaultTheme.colors.blue};
   }
   height: 2.6rem;
   border-radius: 10px;
+  margin-bottom: 6px;
 `;
 
 
 const customStyles = {
   overlay: {
     backgroundColor: 'rgb(119, 119, 120, .6)',
-    opacity: 1
+    opacity: 1,
+    zIndex: 1000,
   },
   content : {
     // Centers modal

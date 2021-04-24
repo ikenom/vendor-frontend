@@ -47,6 +47,8 @@ const ChangeStatusButton = styled(Button)`
   margin-bottom: 10px;
   background: ${defaultTheme.colors.blue};
   border-radius: 10px;
+  font-family: ${defaultTheme.fontFamily.hnt};
+  font-size: 16px;
 `;
 
 

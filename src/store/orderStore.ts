@@ -3,6 +3,7 @@ import { Order } from '../models/orders';
 import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
 import _ from 'cypress/types/lodash';
 import { hashCode } from './mockUtils';
+import { formatPrice } from './utils';
 export default class OrderStore {
   private static instance: OrderStore;
 
@@ -56,7 +57,7 @@ export default class OrderStore {
     return payload.edges.map(edge => ({
       id: edge.node.id,
       orderNumber: hashCode(edge.node.id).toString(), // TODO: get this value from backend
-      price: edge.node.price,
+      price: formatPrice(edge.node.price),
       createdAt: edge.node.createdAt,
       type: "TAKE OUT",
       lineItems: edge.node.lineItems.map((lineItem: { id: String; }) => ({ id: lineItem.id })),
