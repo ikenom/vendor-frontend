@@ -22,7 +22,7 @@ const Background = styled.div`
   z-index: 0;
   left: 0;
   top: 0;
-  height: 23%;
+  height: 22%;
 `;
 
 const OrderContentLayout = styled(Content)`

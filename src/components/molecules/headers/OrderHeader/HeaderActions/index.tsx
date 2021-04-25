@@ -43,19 +43,83 @@ const PhoneButton = styled(Button)`
   max-width: 30px;
   max-height: 30px;
   margin-right: 10%;
-  box-shadow: 0px;
+  padding: 0;
+  border: none;
+  background: none;
+  border-color: ${defaultTheme.colors.greyFour};
+  box-shadow: none;
+
+  &:hover { 
+    color: ${defaultTheme.colors.greyFour};
+    box-shadow: none;
+    border-color: ${defaultTheme.colors.greyFour};
+    transition: none;
+    -webkit-transition: none;
+  }
+
+  &:active {
+    color: ${defaultTheme.colors.greyFour};
+    box-shadow: none;
+    transform: scale(.975);
+    border-color: ${defaultTheme.colors.greyFour};
+    transition: none;
+    -webkit-transition: none;
+  }
 `;
 
 const MessageButton = styled(Button)`
-  max-width: 28px;
-  max-height: 28px;
+  max-width: 32px;
+  max-height: 32px;
   margin-right: 10%;
+  padding: 0;
+  border: none;
+  background: none;
+  border-color: ${defaultTheme.colors.greyFour};
+  box-shadow: none;
+
+  &:hover { 
+    color: ${defaultTheme.colors.greyFour};
+    box-shadow: none;
+    border-color: ${defaultTheme.colors.greyFour};
+    transition: none;
+    -webkit-transition: none;
+  }
+
+  &:active {
+    color: ${defaultTheme.colors.greyFour};
+    box-shadow: none;
+    transform: scale(.975);
+    border-color: ${defaultTheme.colors.greyFour};
+    transition: none;
+    -webkit-transition: none;
+  }
 `;
 
 const ModalButton = styled(Button)`
-  max-width: 28px;
-  max-height: 28px;
-  box-shadow: 0px !important;
+  max-width: 32px;
+  max-height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  border-color: ${defaultTheme.colors.greyFour};
+  box-shadow: none;
+
+  &:hover { 
+    color: ${defaultTheme.colors.greyFour};
+    box-shadow: none;
+    border-color: ${defaultTheme.colors.greyFour};
+    transition: none;
+    -webkit-transition: none;
+  }
+
+  &:active {
+    color: ${defaultTheme.colors.greyFour};
+    box-shadow: none;
+    transform: scale(.975);
+    border-color: ${defaultTheme.colors.greyFour};
+    transition: none;
+    -webkit-transition: none;
+  }
 `;
 
 const Text = styled.p`

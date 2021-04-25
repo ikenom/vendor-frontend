@@ -35,11 +35,33 @@ export const AppFooter = (props: AppFooterProps) => {
   )
 }
 
+const FooterButton = styled(Button)`
+  border: none;
+  background: none;
+  box-shadow: none;
+
+  &:hover { 
+    color: ${defaultTheme.colors.greyFour};
+    box-shadow: none;
+    border-color: ${defaultTheme.colors.greyFour};
+    transition: none;
+    -webkit-transition: none;
+  }
+
+  &:active {
+    color: ${defaultTheme.colors.greyFour};
+    box-shadow: none;
+    transform: scale(.975);
+    border-color: ${defaultTheme.colors.greyFour};
+    transition: none;
+    -webkit-transition: none;
+  }
+`;
+
 
 const FooterIconsContainer = styled.div`
-  margin-bottom: 12px;
   border-radius: 10px;
-  padding: 0px 10px 0px 10px;
+  padding: 0px 10px 12px 10px;
   width: 100%;
   height: 60%;
   display: flex;
@@ -63,19 +85,19 @@ export const FooterIcons = (props: AppFooterProps) => {
   return(
     <FooterIconsContainer>
       <FooterIconContainer>
-        <Button type={"ghost"} onClick={onClicks ? onClicks.ordersOnClick : undefined} icon={<SelectableIcon isSelected={true} type={"order"}/>}/>
+        <FooterButton type={"ghost"} onClick={onClicks ? onClicks.ordersOnClick : undefined} icon={<SelectableIcon isSelected={true} type={"order"}/>}/>
       </FooterIconContainer>
       <SpaceSpan />
       <FooterIconContainer>
-        <Button type={"ghost"} onClick={onClicks ? onClicks.inventoryOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "inventory"} type={"inventory"}/>}/>
+        <FooterButton type={"ghost"} onClick={onClicks ? onClicks.inventoryOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "inventory"} type={"inventory"}/>}/>
       </FooterIconContainer>
       <SpaceSpan />
       <FooterIconContainer>
-        <Button type={"ghost"} onClick={onClicks ? onClicks.supportOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "support"} type={"support"}/>}/>
+        <FooterButton type={"ghost"} onClick={onClicks ? onClicks.supportOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "support"} type={"support"}/>}/>
       </FooterIconContainer>
       <SpaceSpan />
       <FooterIconContainer>
-        <Button type={"ghost"} onClick={onClicks ? onClicks.profileOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "profile"} type={"profile"}/>}/>
+        <FooterButton type={"ghost"} onClick={onClicks ? onClicks.profileOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "profile"} type={"profile"}/>}/>
       </FooterIconContainer>
     </FooterIconsContainer>
   )

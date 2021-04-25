@@ -89,10 +89,9 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             case "pause": {
               try {
                 await orderStore.pauseOrderAsync(id)
-                console.log(" Pause Order!");
                 navigate(`/app`, {state: {activeTab}})
               } catch(e) {
-                console.log("Something went wrong")
+                console.log("Something went wrong") // Sentry goes here
               }
             }
             case "cancel": {

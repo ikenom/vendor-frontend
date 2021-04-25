@@ -25,8 +25,9 @@ const ActionContainer = styled.div<{isSelected: boolean}>`
   cursor: pointer;
   ${({ isSelected }) => isSelected ? 
     `border: 1px solid ${defaultTheme.colors.blue};
-    box-shadow 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
-    transform scale(1.03);` 
+     padding: 5px;
+     box-shadow 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
+     transform scale(1.03);` 
     : 
     ''}
 `;
