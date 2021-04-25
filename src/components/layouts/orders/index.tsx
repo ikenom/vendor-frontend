@@ -28,7 +28,7 @@ const OrdersHeaderLayout = styled(Header)`
 `;
 
 const OrdersContentLayout = styled(Content)`
-  height: 90%;
+  height: 85%;
   width: 100%;
   overflow-y: scroll;
   webkit-overflow-scroll: touch;
@@ -36,9 +36,9 @@ const OrdersContentLayout = styled(Content)`
 `;
 
 export const FooterLayout = styled(Footer)`
-  height: 15%;
+  height: 20%;
   width: 100%;
-  padding: 0;
+  padding: 0px 0px 8px 0px;
   margin-top: 0%;
 `;
 
