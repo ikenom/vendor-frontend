@@ -144,8 +144,10 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     content: contentLabel
   }
 
+  const buttonModalType = (orderStatus === "Needs Action" ? "Send To Kitchen" : "Extension") as modalType
+
   const contentProps = {
-      modalType: (orderStatus === "Needs Action" ? "Send To Kitchen" : "Extension") as modalType,
+      modalType: buttonModalType,
       orderDetails: headerLabelProps,
       timeRemainingInMinutes: order.timeRemaining
   }
@@ -181,11 +183,12 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
         isOpen={isButtonModalVisible}
         onClose={onClose}
         onSubmit={footerButtonSubmit(orderStatus)}
-        type={"Send To Kitchen"}
+        type={buttonModalType}
         contentProps={
           {
             modalType: orderStatus === "Needs Action" ? "Send To Kitchen" : "Extension",
-            orderDetails: headerLabelProps
+            orderDetails: headerLabelProps,
+            timeRemainingInMinutes: buttonModalType === "Extension" ? order.timeRemaining : undefined
           }}
       />
     </>

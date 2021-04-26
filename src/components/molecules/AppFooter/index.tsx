@@ -61,7 +61,8 @@ const FooterButton = styled(Button)`
 
 const FooterIconsContainer = styled.div`
   border-radius: 10px;
-  padding: 0px 10px 12px 10px;
+  padding: 6px 10px 6px 10px;
+  margin-top: 6px;
   width: 100%;
   height: 60%;
   display: flex;

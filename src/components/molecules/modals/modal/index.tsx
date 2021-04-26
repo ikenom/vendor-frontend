@@ -31,6 +31,7 @@ const ButtonContainer = styled(Button)`
   height: 2.6rem;
   border-radius: 10px;
   margin-bottom: 6px;
+  align-self: flex-end;
 `;
 
 
@@ -46,7 +47,7 @@ const customStyles = {
     left: '50%',
     width: '90%',
     maxWidth: '90%',
-    minHeight: '40%',
+    minHeight: '35%',
     maxHeight: '75%',
     right: 'auto',
     bottom: 'auto',

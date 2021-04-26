@@ -77,7 +77,7 @@ const PriceWithArrowContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
-  margin-top: 3.7%;
+  margin-top: 3.3%;
 `;
 
 const SkeletonWrapper = styled(Skeleton)`
