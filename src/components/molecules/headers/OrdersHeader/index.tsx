@@ -23,6 +23,27 @@ const SearchButton = styled(Button)`
   height: 30px;
   border-radius: 100%;
   box-shadow: none;
+  border: none;
+  background: none;
+  border-color: ${defaultTheme.colors.white};
+  --antd-wave-shadow-color: ${defaultTheme.colors.white};
+
+  &:hover { 
+    color: ${defaultTheme.colors.white};
+    box-shadow: none;
+    border-color: ${defaultTheme.colors.white};
+    transition: none;
+    -webkit-transition: none;
+  }
+
+  &:active {
+    color: ${defaultTheme.colors.white};
+    box-shadow: none;
+    transform: scale(.975);
+    border-color: ${defaultTheme.colors.white};
+    transition: none;
+    -webkit-transition: none;
+  }
 `;
 
 const TextContainer = styled.p`
