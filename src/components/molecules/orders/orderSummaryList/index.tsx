@@ -12,17 +12,18 @@ interface OrderSummaryListProps {
   orderSummaries: Omit<OrderSummaryProps, "onClick">[];
   onClick: (orderNumber: string) => void;
   isLoading: boolean;
+  displayTime?: boolean;
 };
 
 export const OrderSummaryList = (props: OrderSummaryListProps) => {
-  const { orderSummaries, onClick, isLoading } = props;
+  const { orderSummaries, onClick, isLoading, displayTime } = props;
 
   return(
     <>
     {orderSummaries.map(orderSummary => {
       return (
         <OrderSummaryContainer key={orderSummary.id}>
-          <OrderSummarySkeletonWrapper showSkeleton={isLoading} orderSummaryProps={{...orderSummary, onClick}} key={orderSummary.orderNumber}/>
+          <OrderSummarySkeletonWrapper showSkeleton={isLoading} orderSummaryProps={{...orderSummary, onClick, displayTimeAsTimestamp: displayTime}} key={orderSummary.orderNumber}/>
         </OrderSummaryContainer>)
     })}
     </>

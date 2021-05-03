@@ -6,6 +6,7 @@ import { TextWithLabel } from "../../../atoms/textWithLabel";
 import { Divider } from "../../../layouts/divider";
 import Skeleton from 'react-loading-skeleton';
 import { Button } from "../../../atoms/button";
+import { getDateTime } from "../../../../models/utils";
 
 
 const Container = styled.div`
@@ -93,6 +94,8 @@ export interface OrderSummaryProps {
   timeSinceOrderCreated: string;
   price: string;
   onClick: (orderNumber: string) => void;
+  createdAt: string;
+  displayTimeAsTimestamp?: boolean;
 }
 
 export interface SkeletonWrapperProps {
@@ -130,11 +133,13 @@ const PriceWithArrow = (props: Pick<OrderSummaryProps, "price" | "onClick" | "or
 }
 
 export const OrderSummary = (props: OrderSummaryProps) => {
-  const { orderNumber, numOfItems , customerName, orderType, timeSinceOrderCreated, price, onClick } = props;
+  const { orderNumber, numOfItems , customerName, orderType, timeSinceOrderCreated, price, onClick, displayTimeAsTimestamp, createdAt } = props;
+
+  const timeDisplay = displayTimeAsTimestamp ? getDateTime(createdAt).toFormat('HH:ss') : timeSinceOrderCreated;
   return (
     <Container>
       <ProfileWithText numOfItems={numOfItems} customerName={customerName}/>
-      <TextWithLabel label={`${orderType.toUpperCase()}`} content={`${timeSinceOrderCreated}`}/>
+      <TextWithLabel label={`${displayTimeAsTimestamp ? 'COMPLETED' : orderType.toUpperCase()}`} content={`${timeDisplay}`}/>
       <PriceWithArrow price={price} onClick={onClick} orderNumber={orderNumber}/>
     </Container>
   )
