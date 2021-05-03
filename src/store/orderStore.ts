@@ -1,9 +1,9 @@
 import { State, createState } from '@hookstate/core';
 import { Order } from '../models/orders';
 import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
-import _ from 'cypress/types/lodash';
 import { hashCode } from './mockUtils';
 import { formatPrice } from './utils';
+import { OrdersByDate, partitionOrdersByDate } from '../models/utils';
 export default class OrderStore {
   private static instance: OrderStore;
 
@@ -11,7 +11,7 @@ export default class OrderStore {
   private needsAction: State<Array<Order>>
   private inKitchen: State<Array<Order>>
   private ready: State<Array<Order>>
-  private history: State<Array<Order>>
+  private history: State<OrdersByDate>
 
   private _needsActionUpdated: State<Boolean>;
   private _inKitchenUpdated: State<Boolean>;
@@ -41,7 +41,7 @@ export default class OrderStore {
     this.needsAction = createState<Array<Order>>([])
     this.inKitchen = createState<Array<Order>>([])
     this.ready = createState<Array<Order>>([])
-    this.history = createState<Array<Order>>([])
+    this.history = createState<OrdersByDate>({})
     this.orders = createState<Array<Order>>([])
     this._needsActionUpdated = createState<Boolean>(false)
     this._inKitchenUpdated = createState<Boolean>(false)
@@ -197,7 +197,7 @@ export default class OrderStore {
       cursor = result.pageInfo.endCursor
     }
 
-    this.history.set(history)
+    this.history.set(partitionOrdersByDate(history))
   }
 
   updateOrders = async () => {
