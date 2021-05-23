@@ -1,5 +1,5 @@
 import { Customer } from "./customer";
-import { Product } from "./product";
+import { LineItem } from "./product";
 
 export type OrderType = "TAKE OUT";
 export type OrderStatus = "Needs Action" | "In Kitchen" | "Ready" | "History";
@@ -7,7 +7,7 @@ export type OrderStatus = "Needs Action" | "In Kitchen" | "Ready" | "History";
 export interface Order {
   id: string;
   orderNumber: string;
-  lineItems: Product[];
+  lineItems: LineItem[];
   customer: Customer;
   createdAt: string;
   price: string;

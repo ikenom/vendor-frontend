@@ -9,7 +9,7 @@ import { LineItemSummary } from "../lineItemSummary";
 export interface LineItemContentProps {
   lineItemSummary: LineItemSummary;
   lineItemNote: LineItemNotes;
-  unavailableOnClick: () => any;
+  unavailableOnClick: (id: string) => any;
 }
 
 export interface LineItemsContentProps {

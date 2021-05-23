@@ -15,7 +15,7 @@ const { Panel } = Collapse;
 interface LineItemCollapseProps {
   lineItemNote: LineItemNotes;
   mealName: string;
-  unavailableOnSubmit: () => any;
+  unavailableOnSubmit: (id: string) => any;
 }
 
 const WrappedCollapse = styled(Collapse)`

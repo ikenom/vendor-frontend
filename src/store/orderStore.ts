@@ -263,4 +263,8 @@ export default class OrderStore {
   viewedReadyUpdates = () => {
     this._readyUpdated.set(false)
   }
+
+  removeLineItem = (id: string) => {
+    
+  }
 }
