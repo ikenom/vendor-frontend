@@ -162,6 +162,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
+console.log(lineItems)
 
   return(
     <>
@@ -172,7 +173,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
           contentProps={headerContentProps}
         />}
         content={<OrderContent
-          lineItemsContent={MOCK_LINE_ITEMS_CONTENT}
+          lineItemsContent={lineItems}
           lineItemHeader={lineItemHeader}
           button={{onClick: headerContentButtonSubmit(orderStatus), label: buttonLabel(orderStatus), onCancel}}
           cancelSubmit={onCancel}
@@ -213,23 +214,23 @@ const buttonLabel = (status: OrderStatus): string | null => {
 }
 
 const getHeaderText = (status: OrderStatus): string => {
-  switch(status) { 
-    case "Needs Action": { 
+  switch(status) {
+    case "Needs Action": {
        return "Needs Action"
-    } 
-    case "In Kitchen": { 
+    }
+    case "In Kitchen": {
        return "In Kitchen"
-    } 
-    case "Ready": { 
+    }
+    case "Ready": {
       return "Ready";
     }
     case "History": {
       return "History"
-    } 
-    default: { 
+    }
+    default: {
        return
-    } 
- } 
+    }
+ }
 }
 
 interface ButtonModalProps {

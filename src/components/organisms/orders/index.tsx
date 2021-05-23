@@ -17,11 +17,12 @@ interface OrdersOrganismProps {
 
 export const OrdersOrganism = (props: OrdersOrganismProps) => {
   const orderStore = OrderStore.getInstance();
+  const orders = useState(orderStore.getOrders());
 
-  const needsAction = useState(orderStore.getNeedsAction());
-  const inKitchen = useState(orderStore.getInKitchen());
-  const ready = useState(orderStore.getReady());
-  const history = useState(orderStore.getHistory());
+  const needsAction = OrderStore.getNeedsAction(orders.get())
+  const inKitchen = OrderStore.getInKitchen(orders.get())
+  const ready = OrderStore.getReady(orders.get())
+  const history = OrderStore.getHistory(orders.get())
 
   const isLoadingInitialData = useState(orderStore.getIsInitialLoad()).get().valueOf()
 
@@ -60,10 +61,10 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
     header={<OrdersHeader text={title}/>}
     content={
       <AppTabs
-        needsAction={needsAction.get()}
-        inKitchen={inKitchen.get()}
-        ready={ready.get()}
-        history={history.get()}
+        needsAction={needsAction}
+        inKitchen={inKitchen}
+        ready={ready}
+        history={history}
         tabUpdates={tabUpdates}
         isLoading={isLoadingInitialData}
         activeTab={selectedTab ? selectedTab : undefined}

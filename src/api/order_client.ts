@@ -3,23 +3,34 @@ import { client } from './client'
 
 const PAGE_COUNT = 100
 
-const getOrdersAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
+const getOrdersAsync = async (status: String, after?: String, pageCount: Number = PAGE_COUNT) => {
   const result = await client.query({
     query: gql`
-      query OrderQuery($first: Int!, $after: String) {
-        orders(first: $first, after: $after) {
+      query OrderQuery($status: OrderStatus, $first: Int!, $after: String) {
+        orders(status: $status, first: $first, after: $after) {
           edges {
             node {
               id
-              price
-              createdAt
+              orderNumber
               lineItems {
                 id
+                price
+                product {
+                  name
+                }
+                quantity
+                instructions
+                additionalComments
               }
               customer {
                 firstName
                 lastName
               }
+              price
+              type
+              status
+              timeRemaining
+              createdAt
             }
           },
           pageInfo {
@@ -30,6 +41,7 @@ const getOrdersAsync = async (after?: String, pageCount: Number = PAGE_COUNT) =>
       }
     `,
     variables: {
+      status: status,
       first: pageCount,
       after: after
     }
@@ -38,157 +50,40 @@ const getOrdersAsync = async (after?: String, pageCount: Number = PAGE_COUNT) =>
   return result.data.orders
 }
 
-const getNeedsActionAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
-  const result = await client.query({
-    query: gql`
-      query OrderQuery($first: Int!, $after: String) {
-        needsActions(first: $first, after: $after) {
-          edges {
-            node {
-              id
-              price
-              createdAt
-              lineItems {
-                id
-              }
-              customer {
-                firstName
-                lastName
-              }
-            }
-          },
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-        }
-      }
-    `,
-    variables: {
-      first: pageCount,
-      after: after
-    }
-  })
-
-  return result.data.needsActions
-}
-
-const getInKitchenAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
-  const result = await client.query({
-    query: gql`
-      query OrderQuery($first: Int!, $after: String) {
-        inKitchen(first: $first, after: $after) {
-          edges {
-            node {
-              id
-              price
-              createdAt
-              lineItems {
-                id
-              }
-              customer {
-                firstName
-                lastName
-              }
-            }
-          },
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-        }
-      }
-    `,
-    variables: {
-      first: pageCount,
-      after: after
-    }
-  })
-
-  return result.data.inKitchen
-}
-
-const getReadyAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
-  const result = await client.query({
-    query: gql`
-      query OrderQuery($first: Int!, $after: String) {
-        ready(first: $first, after: $after) {
-          edges {
-            node {
-              id
-              price
-              createdAt
-              lineItems {
-                id
-              }
-              customer {
-                firstName
-                lastName
-              }
-            }
-          },
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-        }
-      }
-    `,
-    variables: {
-      first: pageCount,
-      after: after
-    }
-  })
-
-  return result.data.ready
-}
-
-const getHistoryAsync = async (after?: String, pageCount: Number = PAGE_COUNT) => {
-  const result = await client.query({
-    query: gql`
-      query OrderQuery($first: Int!, $after: String) {
-        history(first: $first, after: $after) {
-          edges {
-            node {
-              id
-              price
-              createdAt
-              lineItems {
-                id
-              }
-              customer {
-                firstName
-                lastName
-              }
-            }
-          },
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-        }
-      }
-    `,
-    variables: {
-      first: pageCount,
-      after: after
-    }
-  })
-
-  return result.data.history
-}
-
 export const subscribeToOrderUpdated = (callback: (arg0: any) => void) => {
   client.subscribe({
     query: gql`
       subscription OrderUpdatedSubscription {
         orderUpdated {
-          id
+          order {
+            id
+              orderNumber
+              lineItems {
+                id
+                price
+                product {
+                  name
+                }
+                quantity
+                instructions
+                additionalComments
+              }
+              customer {
+                firstName
+                lastName
+              }
+              price
+              type
+              status
+              timeRemaining
+              createdAt
+          }
         }
       }
     `
   }).subscribe({
     next(result) {
+      console.log(result.data.order)
       callback(result.data)
     },
     error(err) { console.log('err', err); },
@@ -279,10 +174,6 @@ const pauseOrderAsync = async (orderId: String) => {
 
 export default {
   getOrdersAsync,
-  getNeedsActionAsync,
-  getInKitchenAsync,
-  getReadyAsync,
-  getHistoryAsync,
   sendToKitchenAsync,
   extendOrderAsync,
   completeOrderAsync,
