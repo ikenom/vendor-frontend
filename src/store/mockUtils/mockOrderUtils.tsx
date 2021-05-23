@@ -2,10 +2,10 @@ import { DateTime } from "luxon";
 import { LineItemHeaderProps } from "../../components/atoms/lineItem/header";
 import { LineItemContentProps } from "../../components/molecules/lineItem/lineItemContent";
 import { Order } from "../../models/orders";
-import { Product } from "../../models/product";
-import { MOCK_PRODUCTS_ONE, MOCK_PRODUCTS_TWO } from "./mockProductUtils";
+import { LineItem } from "../../models/product";
+import { MOCK_LINE_ITEMS_ONE, MOCK_LINE_ITEMS_TWO } from "./mockProductUtils";
 
-export const mockOrderPrice = (products: Product[]): string => {
+export const mockOrderPrice = (products: LineItem[]): string => {
   const totalPrice = products.map(product => parseFloat(product.price))
     .reduce((totalPrice, productPrice) => totalPrice + productPrice)
 
@@ -18,102 +18,102 @@ export const MOCK_ORDERS: Order[] = [
   {
     id: "1",
     orderNumber: "1",
-    lineItems: MOCK_PRODUCTS_ONE,
+    lineItems: MOCK_LINE_ITEMS_ONE,
     customer: {
       firstName: "Bubba",
       lastName: "Bud"
     },
     createdAt: DateTime.now().minus({seconds: 400}).toISO(),
-    price: mockOrderPrice(MOCK_PRODUCTS_ONE),
+    price: mockOrderPrice(MOCK_LINE_ITEMS_ONE),
     type: "TAKE OUT",
     status: "Needs Action"
   },
   {
     id: "2",
     orderNumber: "2",
-    lineItems: MOCK_PRODUCTS_TWO,
+    lineItems: MOCK_LINE_ITEMS_TWO,
     customer: {
       firstName: "Sammy",
       lastName: "Smith"
     },
     createdAt: DateTime.now().minus({seconds: 450}).toISO(),
-    price: mockOrderPrice(MOCK_PRODUCTS_TWO),
+    price: mockOrderPrice(MOCK_LINE_ITEMS_TWO),
     type: "TAKE OUT",
     status: "Needs Action"
   },
   {
     id: "3",
     orderNumber: "3",
-    lineItems: MOCK_PRODUCTS_ONE,
+    lineItems: MOCK_LINE_ITEMS_ONE,
     customer: {
       firstName: "Bobby",
       lastName: "Larson"
     },
     createdAt: DateTime.now().minus({seconds: 700}).toISO(),
-    price: mockOrderPrice(MOCK_PRODUCTS_ONE),
+    price: mockOrderPrice(MOCK_LINE_ITEMS_ONE),
     type: "TAKE OUT",
     status: "Needs Action"
   },{
     id: "4",
     orderNumber: "4",
-    lineItems: MOCK_PRODUCTS_ONE,
+    lineItems: MOCK_LINE_ITEMS_ONE,
     customer: {
       firstName: "Bubba",
       lastName: "Bud"
     },
     createdAt: DateTime.now().minus({seconds: 400}).toISO(),
-    price: mockOrderPrice(MOCK_PRODUCTS_ONE),
+    price: mockOrderPrice(MOCK_LINE_ITEMS_ONE),
     type: "TAKE OUT",
     status: "Needs Action"
   },
   {
     id: "5",
     orderNumber: "5",
-    lineItems: MOCK_PRODUCTS_TWO,
+    lineItems: MOCK_LINE_ITEMS_TWO,
     customer: {
       firstName: "Sammy",
       lastName: "Smith"
     },
     createdAt: DateTime.now().minus({seconds: 450}).toISO(),
-    price: mockOrderPrice(MOCK_PRODUCTS_TWO),
+    price: mockOrderPrice(MOCK_LINE_ITEMS_TWO),
     type: "TAKE OUT",
     status: "Needs Action"
   },
   {
     id: "5",
     orderNumber: "7",
-    lineItems: MOCK_PRODUCTS_ONE,
+    lineItems: MOCK_LINE_ITEMS_ONE,
     customer: {
       firstName: "Bobby",
       lastName: "Larson"
     },
     createdAt: DateTime.now().minus({seconds: 700}).toISO(),
-    price: mockOrderPrice(MOCK_PRODUCTS_ONE),
+    price: mockOrderPrice(MOCK_LINE_ITEMS_ONE),
     type: "TAKE OUT",
     status: "Needs Action"
   },{
     id: "7",
     orderNumber: "7",
-    lineItems: MOCK_PRODUCTS_ONE,
+    lineItems: MOCK_LINE_ITEMS_ONE,
     customer: {
       firstName: "Bubba",
       lastName: "Bud"
     },
     createdAt: DateTime.now().minus({seconds: 400}).toISO(),
-    price: mockOrderPrice(MOCK_PRODUCTS_ONE),
+    price: mockOrderPrice(MOCK_LINE_ITEMS_ONE),
     type: "TAKE OUT",
     status: "Needs Action"
   },
   {
     id: "8",
     orderNumber: "8",
-    lineItems: MOCK_PRODUCTS_TWO,
+    lineItems: MOCK_LINE_ITEMS_TWO,
     customer: {
       firstName: "Sammy",
       lastName: "Smith"
     },
     createdAt: DateTime.now().minus({seconds: 450}).toISO(),
-    price: mockOrderPrice(MOCK_PRODUCTS_TWO),
+    price: mockOrderPrice(MOCK_LINE_ITEMS_TWO),
     type: "TAKE OUT",
     status: "Needs Action"
   }

@@ -1,6 +1,7 @@
 import { navigate } from "gatsby";
 import React from "react";
 import { OrderStatus } from "../../../models/orders";
+import { lineItemToLineItemContentProps } from "../../../models/product";
 import { MOCK_LINE_ITEMS_CONTENT, MOCK_LINE_ITEM_HEADER } from "../../../store/mockUtils/mockOrderUtils";
 import OrderStore from "../../../store/orderStore";
 import { LineItemHeaderProps } from "../../atoms/lineItem/header";
@@ -8,6 +9,7 @@ import { OrderOrganismLayout } from "../../layouts/order";
 import { OrderHeader } from "../../molecules/headers/OrderHeader";
 import { HeaderContentProps } from "../../molecules/headers/OrderHeader/HeaderContent";
 import { HeaderLabelProps } from "../../molecules/headers/OrderHeader/HeaderLabel";
+import { LineItemContentProps } from "../../molecules/lineItem/lineItemContent";
 import { ActionType } from "../../molecules/modals/needsAction";
 import { ContentProps, modalType, TimeUpdateModal } from "../../molecules/modals/timeUpdateModal";
 import { OrderContent } from "../../molecules/order";
@@ -21,7 +23,7 @@ interface OrderOrganismProps {
     state: {
       status: OrderStatus;
     }
-  }
+  };
 }
 
 const SEND_TO_KITCHEN = "Send To Kitchen";
@@ -49,7 +51,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const orderStore = OrderStore.getInstance();
   const order = orderStore.getOrder(orderNumber);
 
-  const {customer, lineItems, price, id} = order;
+  const {customer, lineItems, price, id } = order;
 
 
   const customerLabel = `${customer.firstName } ${customer.lastName[0]}.`;
@@ -164,6 +166,8 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
 
 console.log(lineItems)
 
+  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => {return { unavailableOnClick: orderStore.removeLineItem, ...lineItemToLineItemContentProps(l, index)}}) 
+
   return(
     <>
       <OrderOrganismLayout
@@ -173,7 +177,11 @@ console.log(lineItems)
           contentProps={headerContentProps}
         />}
         content={<OrderContent
+<<<<<<< HEAD
           lineItemsContent={lineItems}
+=======
+          lineItemsContent={lineItemsContentProps}
+>>>>>>> 97e0bfcf4fd3d118a3a8e393cb923da87a458d7e
           lineItemHeader={lineItemHeader}
           button={{onClick: headerContentButtonSubmit(orderStatus), label: buttonLabel(orderStatus), onCancel}}
           cancelSubmit={onCancel}

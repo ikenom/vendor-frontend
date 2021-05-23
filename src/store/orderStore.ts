@@ -4,6 +4,7 @@ import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
 import { hashCode } from './mockUtils';
 import { formatPrice } from './utils';
 import { OrdersByDate, partitionOrdersByDate } from '../models/utils';
+
 export default class OrderStore {
   private static instance: OrderStore;
 
@@ -48,7 +49,7 @@ export default class OrderStore {
     subscribeToOrderUpdated(this.orderUpdated)
   }
 
-  getLineItemFromPayload = (node): Product => {
+  getLineItemFromPayload = (node): LineItem => {
     return {
       id: node.id,
       price: node.price,
@@ -200,5 +201,9 @@ export default class OrderStore {
 
   viewedReadyUpdates = () => {
     this._readyUpdated.set(false)
+  }
+
+  removeLineItem = (id: string) => {
+
   }
 }
