@@ -75,7 +75,11 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const headerContentButtonSubmit = (status: OrderStatus) => {
     switch(status) {
       case "Ready" : {
-        return () => { console.log("Completed on submit") };
+        return async () => {
+            await orderStore.completeOrderAsync(id)
+            console.log(`Marking order as complete`)
+            navigate(`/app`, {state: {activeTab}})
+        }
       }
       default: {
         return showModal;
@@ -130,13 +134,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             navigate(`/app`, {state: {activeTab}})
         }
       }
-      case "Ready": {
-        return async () => {
-            await orderStore.completeOrderAsync(id)
-            console.log(`Marking order as complete`)
-            navigate(`/app`, {state: {activeTab}})
-        }
-      }
     }
   }
 
@@ -164,9 +161,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
-console.log(lineItems)
-
-  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => {return { unavailableOnClick: orderStore.removeLineItem, ...lineItemToLineItemContentProps(l, index)}}) 
+  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => {return { unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) }, ...lineItemToLineItemContentProps(l, index)}})
 
   return(
     <>
@@ -177,11 +172,7 @@ console.log(lineItems)
           contentProps={headerContentProps}
         />}
         content={<OrderContent
-<<<<<<< HEAD
-          lineItemsContent={lineItems}
-=======
           lineItemsContent={lineItemsContentProps}
->>>>>>> 97e0bfcf4fd3d118a3a8e393cb923da87a458d7e
           lineItemHeader={lineItemHeader}
           button={{onClick: headerContentButtonSubmit(orderStatus), label: buttonLabel(orderStatus), onCancel}}
           cancelSubmit={onCancel}

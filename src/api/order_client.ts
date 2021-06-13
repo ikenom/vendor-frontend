@@ -57,34 +57,35 @@ export const subscribeToOrderUpdated = (callback: (arg0: any) => void) => {
         orderUpdated {
           order {
             id
-              orderNumber
-              lineItems {
-                id
-                price
-                product {
-                  name
-                }
-                quantity
-                instructions
-                additionalComments
-              }
-              customer {
-                firstName
-                lastName
-              }
+            orderNumber
+            lineItems {
+              id
               price
-              type
-              status
-              timeRemaining
-              createdAt
+              product {
+                name
+              }
+              quantity
+              instructions
+              additionalComments
+            }
+            customer {
+              firstName
+              lastName
+            }
+            price
+            type
+            status
+            timeRemaining
+            createdAt
           }
         }
       }
     `
   }).subscribe({
     next(result) {
-      console.log(result.data.order)
-      callback(result.data)
+      if (result.data.orderUpdated !== undefined) {
+        callback(result.data.orderUpdated.order)
+      }
     },
     error(err) { console.log('err', err); },
   })
@@ -125,6 +126,7 @@ const extendOrderAsync = async (orderId: String, time: Date) => {
 }
 
 const completeOrderAsync = async (orderId: String) => {
+  console.log("dsj")
   const result = await client.mutate({
     mutation: gql`
       mutation completeOrder($orderId: ID!) {
@@ -172,6 +174,22 @@ const pauseOrderAsync = async (orderId: String) => {
   return result.data.pauseOrder
 }
 
+const removeLineItemAsync = async (lineItemId: String) => {
+  const result = await client.mutate({
+    mutation: gql`
+      mutation ($lineItemId: ID!) {
+        removeLineItem(input: {lineItemId: $lineItemId}) {
+          succeeded
+        }
+      }
+    `,
+    variables: {
+      lineItemId: lineItemId
+    }
+  })
+  return result.data.removeLineItem
+}
+
 export default {
   getOrdersAsync,
   sendToKitchenAsync,
@@ -179,5 +197,6 @@ export default {
   completeOrderAsync,
   cancelOrderAsync,
   pauseOrderAsync,
+  removeLineItemAsync,
   subscribeToOrderUpdated
 }

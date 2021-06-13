@@ -37,19 +37,19 @@ const WrappedPanel = styled(Panel)`
 
 const NotesContainer = styled.div`
   padding: 0% 8% 0% .75%;
-  margin: 4% 0% 0% 0%; 
+  margin: 4% 0% 0% 0%;
   overflow-y: scroll;
 `;
 
 const UnavailableButton = styled(Button)`
   align-self: flex-end;
   max-width: 37px;
-  max-height: 33px; 
+  max-height: 33px;
 `;
 
 const UnavailableIcon = styled(CancelOrderIcon)`
   min-width: 37px;
-  min-height: 33px; 
+  min-height: 33px;
 `;
 
 const Container = styled.div`
@@ -86,7 +86,7 @@ export const LineItemCollapse = (props: LineItemCollapseProps) => {
             <LineItemNotes lineItemNote= {lineItemNote}/>
           </NotesContainer>
           <UnavailableButton type={"ghost"} icon={<UnavailableIcon />} onClick={showModal} />
-          <CancelModal isOpen={isModalVisible} onClose={onModalClose} onSubmit={unavailableOnSubmit} lineItemHeader={{mealName}}/>
+          <CancelModal isOpen={isModalVisible} onClose={onModalClose} onSubmit={(unavailableOnSubmit)} lineItemHeader={{mealName}}/>
         </Container>
       </WrappedPanel>
     </WrappedCollapse>

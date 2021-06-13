@@ -22,6 +22,7 @@ export default class OrderStore {
   static init = async () => {
     const orderStore = OrderStore.getInstance()
     await orderStore.updateOrders()
+
     orderStore.subscribeToOrderUpdates()
   }
 
@@ -58,21 +59,23 @@ export default class OrderStore {
     }
   }
 
+  getOrderFromPayload = (node): Order => ({
+    id: node.id,
+    orderNumber: hashCode(node.id).toString(), // TODO: get this value from backend
+    price: formatPrice(node.price),
+    createdAt: node.createdAt,
+    type: "TAKE OUT",
+    lineItems: node.lineItems.map(node => this.getLineItemFromPayload(node)),
+    customer: {
+      firstName: node.customer.firstName,
+      lastName: node.customer.lastName,
+    },
+    status: node.status,
+    timeRemaining: node.timeRemaining // TODO get this from the backend. This is a nullable field
+  })
+
   getOrdersFromPayload = (payload): Order[] => {
-    return payload.edges.map(edge => ({
-      id: edge.node.id,
-      orderNumber: hashCode(edge.node.id).toString(), // TODO: get this value from backend
-      price: formatPrice(edge.node.price),
-      createdAt: edge.node.createdAt,
-      type: "TAKE OUT",
-      lineItems: edge.node.lineItems.map(node => this.getLineItemFromPayload(node)),
-      customer: {
-        firstName: edge.node.customer.firstName,
-        lastName: edge.node.customer.lastName,
-      },
-      status: edge.node.status,
-      timeRemaining: 15 // TODO get this from the backend. This is a nullable field
-    } as Order))
+    return payload.edges.map(edge => this.getOrderFromPayload(edge.node));
   }
 
   getOrders = () => {
@@ -149,14 +152,20 @@ export default class OrderStore {
   updateOrders = async () => {
     // This list is what we use to navigate to orders by id
     await this.getOrdersAsync()
+    this._isInitialLoad.set(false)
+  }
 
-    if(this._isInitialLoad.get()) {
-      this._isInitialLoad.set(false)
+  upsertOrder = order => {
+    const index = this.orders.findIndex(o => o.value.id == order.id)
+    if (index == -1) {
+      this.orders.merge([this.getOrderFromPayload(order)])
+    } else {
+      this.orders[index].set(this.getOrderFromPayload(order))
     }
   }
 
-  orderUpdated = async () => {
-    await this.updateOrders()
+  orderUpdated = async (order) => {
+    this.upsertOrder(order)
   }
 
   sendToKitchenAsync = async (orderId: String, time: Date) => {
@@ -203,7 +212,7 @@ export default class OrderStore {
     this._readyUpdated.set(false)
   }
 
-  removeLineItem = (id: string) => {
-
+  removeLineItemAsync = async (id: string) => {
+    await orderClient.removeLineItemAsync(id)
   }
 }
