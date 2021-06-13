@@ -75,7 +75,11 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const headerContentButtonSubmit = (status: OrderStatus) => {
     switch(status) {
       case "Ready" : {
-        return () => { console.log("Completed on submit") };
+        return async () => {
+            await orderStore.completeOrderAsync(id)
+            console.log(`Marking order as complete`)
+            navigate(`/app`, {state: {activeTab}})
+        }
       }
       default: {
         return showModal;
@@ -130,13 +134,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             navigate(`/app`, {state: {activeTab}})
         }
       }
-      case "Ready": {
-        return async () => {
-            await orderStore.completeOrderAsync(id)
-            console.log(`Marking order as complete`)
-            navigate(`/app`, {state: {activeTab}})
-        }
-      }
     }
   }
 
@@ -164,8 +161,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
-
-  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => {return { unavailableOnClick: orderStore.removeLineItem, ...lineItemToLineItemContentProps(l, index)}}) 
+  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => {return { unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) }, ...lineItemToLineItemContentProps(l, index)}})
 
   return(
     <>
@@ -217,23 +213,23 @@ const buttonLabel = (status: OrderStatus): string | null => {
 }
 
 const getHeaderText = (status: OrderStatus): string => {
-  switch(status) { 
-    case "Needs Action": { 
+  switch(status) {
+    case "Needs Action": {
        return "Needs Action"
-    } 
-    case "In Kitchen": { 
+    }
+    case "In Kitchen": {
        return "In Kitchen"
-    } 
-    case "Ready": { 
+    }
+    case "Ready": {
       return "Ready";
     }
     case "History": {
       return "History"
-    } 
-    default: { 
+    }
+    default: {
        return
-    } 
- } 
+    }
+ }
 }
 
 interface ButtonModalProps {

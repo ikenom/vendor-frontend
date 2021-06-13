@@ -4,14 +4,14 @@ import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
 import { hashCode } from './mockUtils';
 import { formatPrice } from './utils';
 import { OrdersByDate, partitionOrdersByDate } from '../models/utils';
+
 export default class OrderStore {
   private static instance: OrderStore;
 
   private orders: State<Array<Order>>
-  private needsAction: State<Array<Order>>
-  private inKitchen: State<Array<Order>>
-  private ready: State<Array<Order>>
-  private history: State<OrdersByDate>
+  private needsAction: Order[] = []
+  private ready: Order[] = []
+  private inKitchen: Order[] = []
 
   private _needsActionUpdated: State<Boolean>;
   private _inKitchenUpdated: State<Boolean>;
@@ -22,6 +22,7 @@ export default class OrderStore {
   static init = async () => {
     const orderStore = OrderStore.getInstance()
     await orderStore.updateOrders()
+
     orderStore.subscribeToOrderUpdates()
   }
 
@@ -38,10 +39,6 @@ export default class OrderStore {
   }
 
   private constructor() {
-    this.needsAction = createState<Array<Order>>([])
-    this.inKitchen = createState<Array<Order>>([])
-    this.ready = createState<Array<Order>>([])
-    this.history = createState<OrdersByDate>({})
     this.orders = createState<Array<Order>>([])
     this._needsActionUpdated = createState<Boolean>(false)
     this._inKitchenUpdated = createState<Boolean>(false)
@@ -53,20 +50,36 @@ export default class OrderStore {
     subscribeToOrderUpdated(this.orderUpdated)
   }
 
+  getLineItemFromPayload = (node): LineItem => {
+    return {
+      id: node.id,
+      price: node.price,
+      mealName: node.product.name,
+      lineItemNote: node.additionalComments
+    }
+  }
+
+  getOrderFromPayload = (node): Order => ({
+    id: node.id,
+    orderNumber: hashCode(node.id).toString(), // TODO: get this value from backend
+    price: formatPrice(node.price),
+    createdAt: node.createdAt,
+    type: "TAKE OUT",
+    lineItems: node.lineItems.map(node => this.getLineItemFromPayload(node)),
+    customer: {
+      firstName: node.customer.firstName,
+      lastName: node.customer.lastName,
+    },
+    status: node.status,
+    timeRemaining: node.timeRemaining // TODO get this from the backend. This is a nullable field
+  })
+
   getOrdersFromPayload = (payload): Order[] => {
-    return payload.edges.map(edge => ({
-      id: edge.node.id,
-      orderNumber: hashCode(edge.node.id).toString(), // TODO: get this value from backend
-      price: formatPrice(edge.node.price),
-      createdAt: edge.node.createdAt,
-      type: "TAKE OUT",
-      lineItems: edge.node.lineItems.map((lineItem: { id: String; }) => ({ id: lineItem.id })),
-      customer: {
-        firstName: edge.node.customer.firstName,
-        lastName: edge.node.customer.lastName,
-      },
-      timeRemaining: 15 // TODO get this from the backend. This is a nullable field
-    } as Order))
+    return payload.edges.map(edge => this.getOrderFromPayload(edge.node));
+  }
+
+  getOrders = () => {
+    return this.orders;
   }
 
   getOrder = (orderNumber: String) => {
@@ -75,12 +88,24 @@ export default class OrderStore {
     })
   }
 
-  getOrders = () : State<Array<Order>> => {
-    return this.orders
-  }
-
   getIsInitialLoad = (): State<Boolean> => {
     return this._isInitialLoad;
+  }
+
+  static getNeedsAction = (order: Order[]) => {
+    return order.filter(o => o.status === "NEEDS_ACTION")
+  }
+
+  static getInKitchen = (order: Order[]) => {
+    return order.filter(o => o.status === "IN_KITCHEN")
+  }
+
+  static getReady = (order: Order[]) => {
+    return order.filter(o => o.status === "READY")
+  }
+
+  static getHistory = (order: Order[]) => {
+    return order.filter(o => o.status === "HISTORY")
   }
 
   getOrdersAsync = async () => {
@@ -97,31 +122,25 @@ export default class OrderStore {
     }
 
     this.orders.set(orders)
-  }
 
-  getNeedsAction = () : State<Array<Order>> => {
-    return this.needsAction
-  }
+    const needsAction = orders.filter(o => o.status === "NEEDS_ACTION")
+    const inKitchenOrders = orders.filter(o => o.status === "IN_KITCHEN")
+    const readyOrders = orders.filter(o => o.status === "READY")
 
-  getNeedsActionAsync = async () => {
-    let cursor: String = null
-    let hasNext = true
-    const needsAction: Order[] = []
-
-    while(hasNext) {
-      const result = await orderClient.getNeedsActionAsync(cursor)
-      needsAction.push(...this.getOrdersFromPayload(result))
-
-      hasNext = result.pageInfo.hasNextPage
-      cursor = result.pageInfo.endCursor
-    }
-
-    if(!this.isSameList(this.getNeedsAction().value, needsAction) && this.getNeedsAction().value.length < needsAction.length) {
+    if(!this.isSameList(this.needsAction, needsAction) && this.needsAction.length < needsAction.length) {
       this._isInitialLoad.value ? this._needsActionUpdated.set(false) : this._needsActionUpdated.set(true)
+      this.needsAction = needsAction
     }
 
-    this.needsAction.set(needsAction);
-    return
+    if(!this.isSameList(this.inKitchen, inKitchenOrders) && this.inKitchen.length < inKitchenOrders.length) {
+      this._isInitialLoad.value ? this._inKitchenUpdated.set(false) : this._inKitchenUpdated.set(true)
+      this.inKitchen = inKitchenOrders
+    }
+
+    if(!this.isSameList(this.ready, readyOrders) && this.ready.length < readyOrders.length) {
+      this._isInitialLoad.value ? this._readyUpdated.set(false) : this._readyUpdated.set(true)
+      this.ready = readyOrders
+    }
   }
 
   private isSameList(listA: Order[], listB: Order[]): Boolean {
@@ -130,94 +149,23 @@ export default class OrderStore {
     return areSameLength && haveMatchingElements;
   }
 
-  getInKitchen = () => {
-    return this.inKitchen
-  }
-
-  getInKitchenAsync = async () => {
-    let cursor: String = null
-    let hasNext = true
-    const inKitchenOrders: Order[] = []
-
-    while(hasNext) {
-      const result = await orderClient.getInKitchenAsync(cursor)
-      inKitchenOrders.push(...this.getOrdersFromPayload(result))
-
-      hasNext = result.pageInfo.hasNextPage
-      cursor = result.pageInfo.endCursor
-    }
-
-    if(!this.isSameList(this.getInKitchen().value, inKitchenOrders) && this.getInKitchen().value.length < inKitchenOrders.length) {
-      this._isInitialLoad.value ? this._inKitchenUpdated.set(false) : this._inKitchenUpdated.set(true)
-    }
-
-    this.inKitchen.set(inKitchenOrders)
-    return
-  }
-
-  getReady = () => {
-    return this.ready
-  }
-
-  getReadyAsync = async () => {
-    let cursor: String = null
-    let hasNext = true
-    const readyOrders: Order[] = []
-
-    while(hasNext) {
-      const result = await orderClient.getReadyAsync(cursor)
-      readyOrders.push(...this.getOrdersFromPayload(result))
-
-      hasNext = result.pageInfo.hasNextPage
-      cursor = result.pageInfo.endCursor
-    }
-
-    if(!this.isSameList(this.getReady().value, readyOrders) && this.getReady().value.length < readyOrders.length) {
-      this._isInitialLoad.value ? this._readyUpdated.set(false) : this._readyUpdated.set(true)
-    }
-
-    this.ready.set(readyOrders)
-    return
-  }
-
-  getHistory = () => {
-    return this.history
-  }
-
-  getHistoryAsync = async () => {
-    let cursor: String = null
-    let hasNext = true
-    const history = []
-
-    while(hasNext) {
-      const result = await orderClient.getHistoryAsync(cursor)
-      history.push(...this.getOrdersFromPayload(result))
-
-      hasNext = result.pageInfo.hasNextPage
-      cursor = result.pageInfo.endCursor
-    }
-
-    this.history.set(partitionOrdersByDate(history))
-  }
-
   updateOrders = async () => {
-    
     // This list is what we use to navigate to orders by id
     await this.getOrdersAsync()
+    this._isInitialLoad.set(false)
+  }
 
-    // These list are used for the UI to be able to match the domain of the data.
-    await this.getNeedsActionAsync()
-    await this.getInKitchenAsync()
-    await this.getReadyAsync()
-    await this.getHistoryAsync()
-
-    if(this._isInitialLoad.get()) {
-      this._isInitialLoad.set(false)
+  upsertOrder = order => {
+    const index = this.orders.findIndex(o => o.value.id == order.id)
+    if (index == -1) {
+      this.orders.merge([this.getOrderFromPayload(order)])
+    } else {
+      this.orders[index].set(this.getOrderFromPayload(order))
     }
   }
 
-  orderUpdated = async () => {
-    await this.updateOrders()
+  orderUpdated = async (order) => {
+    this.upsertOrder(order)
   }
 
   sendToKitchenAsync = async (orderId: String, time: Date) => {
@@ -264,7 +212,7 @@ export default class OrderStore {
     this._readyUpdated.set(false)
   }
 
-  removeLineItem = (id: string) => {
-    
+  removeLineItemAsync = async (id: string) => {
+    await orderClient.removeLineItemAsync(id)
   }
 }

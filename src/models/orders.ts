@@ -14,4 +14,5 @@ export interface Order {
   type: OrderType;
   status: OrderStatus;
   timeRemaining?: number;
+  status: string;
 }
