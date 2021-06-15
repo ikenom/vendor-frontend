@@ -9,7 +9,7 @@ interface LineItemSummaryProps {
 export interface LineItemSummary {
   price: string;
   mealName: string;
-  position: number
+  occurrences: number
 }
 
 const Container = styled.div`
@@ -67,11 +67,11 @@ const PriceLabel = styled.p`
 `;
 
 export const LineItemSummary = (props: LineItemSummaryProps) => {
-  const { lineItemSummary : { price, mealName, position }} = props
+  const { lineItemSummary : { price, mealName, occurrences }} = props
 
   return (
     <Container>
-      <PositionLabel>{position}</PositionLabel>
+      <PositionLabel>{occurrences}</PositionLabel>
       <MealContainer>
         <MealLabel>{mealName}</MealLabel>
       </MealContainer>

@@ -12,7 +12,6 @@ export interface Order {
   createdAt: string;
   price: string;
   type: OrderType;
-  status: OrderStatus;
   timeRemaining?: number;
   status: string;
 }

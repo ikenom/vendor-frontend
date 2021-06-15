@@ -9,6 +9,7 @@ import { LineItemSummary } from "../lineItemSummary";
 export interface LineItemContentProps {
   lineItemSummary: LineItemSummary;
   lineItemNote: LineItemNotes;
+  occurrences?: number;
   unavailableOnClick: (id: string) => any;
 }
 
@@ -51,7 +52,7 @@ export const LineItemContent = (props: LineItemContentProps) => {
 
   return (
     <Container>
-      <LineItemSummary lineItemSummary={lineItemSummary}/>
+      <LineItemSummary lineItemSummary={{...lineItemSummary, occurrences: props.occurrences}}/>
       <Collapse lineItemNote={lineItemNote} unavailableOnSubmit={unavailableOnClick} mealName={lineItemSummary.mealName}/>
       <BottomDivider />
     </Container>
@@ -64,7 +65,7 @@ export const LineItemListContent = (props: LineItemsContentProps) => {
     <ListContainer>
     {lineItems.map(lineItemContent => {
       return (
-        <LineItemContainer key={lineItemContent.lineItemSummary.position}>
+        <LineItemContainer key={lineItemContent.occurrences}>
           <LineItemContent {...lineItemContent} />
         </LineItemContainer>)
     })}

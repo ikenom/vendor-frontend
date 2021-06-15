@@ -1,7 +1,7 @@
 import { navigate } from "gatsby";
 import React from "react";
 import { OrderStatus } from "../../../models/orders";
-import { lineItemToLineItemContentProps } from "../../../models/product";
+import { LineItem, lineItemToLineItemContentProps } from "../../../models/product";
 import { MOCK_LINE_ITEMS_CONTENT, MOCK_LINE_ITEM_HEADER } from "../../../store/mockUtils/mockOrderUtils";
 import OrderStore from "../../../store/orderStore";
 import { LineItemHeaderProps } from "../../atoms/lineItem/header";
@@ -51,14 +51,20 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const orderStore = OrderStore.getInstance();
   const order = orderStore.getOrder(orderNumber);
 
+  console.log(`Order info is: ${JSON.stringify(order)}`)
+
   const {customer, lineItems, price, id } = order;
 
 
   const customerLabel = `${customer.firstName } ${customer.lastName[0]}.`;
   const contentLabel = `Order #${orderNumber}`;
 
-  // TODO Making sure UI correctly displays mock data. Update to get data from order once it is provided by backend
-  const lineItemHeader: LineItemHeaderProps = MOCK_LINE_ITEM_HEADER
+  const lineItemHeader: LineItemHeaderProps = {
+    lineItemHeader: {
+      numOfItems: lineItems.length,
+      price: order.price
+    }
+  }
 
   const activeTab =  getActiveTabFromOrderStatus(orderStatus);
 
@@ -161,7 +167,10 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
-  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => {return { unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) }, ...lineItemToLineItemContentProps(l, index)}})
+  const countOccurances = (lineItemId: string): number => lineItems.filter(l => l.id === lineItemId).length;
+
+
+  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => { return { unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) }, ...lineItemToLineItemContentProps(l, index), occurrences: countOccurances(l.id)}})
 
   return(
     <>

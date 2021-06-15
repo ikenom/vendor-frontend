@@ -1,4 +1,3 @@
-export const formatPrice = (price: string): string => {
-  const test = +price
-  return test.toFixed(2)
+export const formatPrice = (price: number): string => {
+  return price.toFixed(2)
 }
