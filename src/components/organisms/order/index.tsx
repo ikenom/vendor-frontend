@@ -51,7 +51,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const orderStore = OrderStore.getInstance();
   const order = orderStore.getOrder(orderNumber);
 
-  console.log(`Order info is: ${JSON.stringify(order)}`)
 
   const {customer, lineItems, price, id } = order;
 
@@ -71,7 +70,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const onCancel = async () => {
     try {
       await orderStore.cancelOrderAsync(id)
-      console.log(" Cancel Order");
       navigate(`/app`, {state: {activeTab}})
     } catch(e) {
 
@@ -83,7 +81,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
       case "Ready" : {
         return async () => {
             await orderStore.completeOrderAsync(id)
-            console.log(`Marking order as complete`)
             navigate(`/app`, {state: {activeTab}})
         }
       }
@@ -127,7 +124,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             const time = new Date()
             time.setMinutes(time.getMinutes() + timeInMinutes);
             await orderStore.sendToKitchenAsync(id, time)
-            console.log(`Sending to kitchen with ${timeInMinutes} to prepare`)
             navigate(`/app`, {state: {activeTab}})
         }
       }
@@ -136,7 +132,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             const time = new Date()
             time.setMinutes(time.getMinutes() + timeInMinutes);
             await orderStore.extendOrderAsync(id, time)
-            console.log(`Extending order by ${timeInMinutes}`)
             navigate(`/app`, {state: {activeTab}})
         }
       }
@@ -170,7 +165,14 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const countOccurances = (lineItemId: string): number => lineItems.filter(l => l.id === lineItemId).length;
 
 
-  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => { return { unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) }, ...lineItemToLineItemContentProps(l, index), occurrences: countOccurances(l.id)}})
+  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => { 
+    return { 
+      unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) },
+       ...lineItemToLineItemContentProps(l, index), 
+       occurrences: countOccurances(l.id),
+       canRemove: orderStatus !== "Ready"
+    }
+  })
 
   return(
     <>

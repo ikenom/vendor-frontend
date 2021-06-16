@@ -16,6 +16,8 @@ interface LineItemCollapseProps {
   lineItemNote: LineItemNotes;
   mealName: string;
   unavailableOnSubmit: (id: string) => any;
+  occurrences: number;
+  canRemove?: boolean;
 }
 
 const WrappedCollapse = styled(Collapse)`
@@ -59,7 +61,7 @@ const Container = styled.div`
 
 
 export const LineItemCollapse = (props: LineItemCollapseProps) => {
-  const { lineItemNote, mealName, unavailableOnSubmit } = props;
+  const { lineItemNote, mealName, unavailableOnSubmit, occurrences, canRemove } = props;
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [isModalVisible, setIsModalVisible] = React.useState(false);
@@ -85,8 +87,8 @@ export const LineItemCollapse = (props: LineItemCollapseProps) => {
           <NotesContainer>
             <LineItemNotes lineItemNote= {lineItemNote}/>
           </NotesContainer>
-          <UnavailableButton type={"ghost"} icon={<UnavailableIcon />} onClick={showModal} />
-          <CancelModal isOpen={isModalVisible} onClose={onModalClose} onSubmit={(unavailableOnSubmit)} lineItemHeader={{mealName}}/>
+          {canRemove ? <UnavailableButton type={"ghost"} icon={<UnavailableIcon />} onClick={showModal} /> : <> </>}
+          <CancelModal isOpen={isModalVisible} onClose={onModalClose} onSubmit={(unavailableOnSubmit)} lineItemHeader={{mealName, occurrences}}/>
         </Container>
       </WrappedPanel>
     </WrappedCollapse>

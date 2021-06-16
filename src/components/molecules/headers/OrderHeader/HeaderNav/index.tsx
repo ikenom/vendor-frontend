@@ -38,7 +38,6 @@ export const HeaderNav = (props: HeaderNavProps) => {
   const { text, previousTab } = props;
 
   const onClick = () => {
-    console.log(`Navigating to tab ${previousTab}`)
     navigate("/app")
   }
 
