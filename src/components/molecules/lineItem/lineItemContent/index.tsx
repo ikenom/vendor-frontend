@@ -9,7 +9,9 @@ import { LineItemSummary } from "../lineItemSummary";
 export interface LineItemContentProps {
   lineItemSummary: LineItemSummary;
   lineItemNote: LineItemNotes;
+  occurrences?: number;
   unavailableOnClick: (id: string) => any;
+  canRemove?: boolean;
 }
 
 export interface LineItemsContentProps {
@@ -47,12 +49,12 @@ const BottomDivider = styled(Divider)`
 
 
 export const LineItemContent = (props: LineItemContentProps) => {
-  const { lineItemSummary, lineItemNote, unavailableOnClick } = props;
+  const { lineItemSummary, lineItemNote, unavailableOnClick, canRemove, occurrences } = props;
 
   return (
     <Container>
-      <LineItemSummary lineItemSummary={lineItemSummary}/>
-      <Collapse lineItemNote={lineItemNote} unavailableOnSubmit={unavailableOnClick} mealName={lineItemSummary.mealName}/>
+      <LineItemSummary lineItemSummary={{...lineItemSummary, occurrences: props.occurrences}}/>
+      <Collapse lineItemNote={lineItemNote} unavailableOnSubmit={unavailableOnClick} mealName={lineItemSummary.mealName} canRemove={canRemove} occurrences={occurrences}/>
       <BottomDivider />
     </Container>
   )
@@ -64,7 +66,7 @@ export const LineItemListContent = (props: LineItemsContentProps) => {
     <ListContainer>
     {lineItems.map(lineItemContent => {
       return (
-        <LineItemContainer key={lineItemContent.lineItemSummary.position}>
+        <LineItemContainer key={lineItemContent.occurrences}>
           <LineItemContent {...lineItemContent} />
         </LineItemContainer>)
     })}

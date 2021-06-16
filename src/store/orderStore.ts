@@ -53,7 +53,7 @@ export default class OrderStore {
   getLineItemFromPayload = (node): LineItem => {
     return {
       id: node.id,
-      price: node.price,
+      price: formatPrice(node.price),
       mealName: node.product.name,
       lineItemNote: node.additionalComments
     }
@@ -61,7 +61,7 @@ export default class OrderStore {
 
   getOrderFromPayload = (node): Order => ({
     id: node.id,
-    orderNumber: hashCode(node.id).toString(), // TODO: get this value from backend
+    orderNumber: node.orderNumber.toString(), // TODO: get this value from backend
     price: formatPrice(node.price),
     createdAt: node.createdAt,
     type: "TAKE OUT",

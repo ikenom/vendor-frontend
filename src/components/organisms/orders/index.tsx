@@ -1,5 +1,6 @@
 import { useState } from "@hookstate/core";
 import React from "react";
+import { OrdersByDate, partitionOrdersByDate } from "../../../models/utils";
 import OrderStore from "../../../store/orderStore";
 import { OrdersOrganismLayout } from "../../layouts/orders";
 import { OrdersHeader } from "../../molecules/headers/OrdersHeader";
@@ -64,7 +65,7 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
         needsAction={needsAction}
         inKitchen={inKitchen}
         ready={ready}
-        history={history}
+        history={partitionOrdersByDate(history)}
         tabUpdates={tabUpdates}
         isLoading={isLoadingInitialData}
         activeTab={selectedTab ? selectedTab : undefined}

@@ -1,7 +1,7 @@
 import { navigate } from "gatsby";
 import React from "react";
 import { OrderStatus } from "../../../models/orders";
-import { lineItemToLineItemContentProps } from "../../../models/product";
+import { LineItem, lineItemToLineItemContentProps } from "../../../models/product";
 import { MOCK_LINE_ITEMS_CONTENT, MOCK_LINE_ITEM_HEADER } from "../../../store/mockUtils/mockOrderUtils";
 import OrderStore from "../../../store/orderStore";
 import { LineItemHeaderProps } from "../../atoms/lineItem/header";
@@ -51,21 +51,25 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const orderStore = OrderStore.getInstance();
   const order = orderStore.getOrder(orderNumber);
 
+
   const {customer, lineItems, price, id } = order;
 
 
   const customerLabel = `${customer.firstName } ${customer.lastName[0]}.`;
   const contentLabel = `Order #${orderNumber}`;
 
-  // TODO Making sure UI correctly displays mock data. Update to get data from order once it is provided by backend
-  const lineItemHeader: LineItemHeaderProps = MOCK_LINE_ITEM_HEADER
+  const lineItemHeader: LineItemHeaderProps = {
+    lineItemHeader: {
+      numOfItems: lineItems.length,
+      price: order.price
+    }
+  }
 
   const activeTab =  getActiveTabFromOrderStatus(orderStatus);
 
   const onCancel = async () => {
     try {
       await orderStore.cancelOrderAsync(id)
-      console.log(" Cancel Order");
       navigate(`/app`, {state: {activeTab}})
     } catch(e) {
 
@@ -77,7 +81,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
       case "Ready" : {
         return async () => {
             await orderStore.completeOrderAsync(id)
-            console.log(`Marking order as complete`)
             navigate(`/app`, {state: {activeTab}})
         }
       }
@@ -121,7 +124,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             const time = new Date()
             time.setMinutes(time.getMinutes() + timeInMinutes);
             await orderStore.sendToKitchenAsync(id, time)
-            console.log(`Sending to kitchen with ${timeInMinutes} to prepare`)
             navigate(`/app`, {state: {activeTab}})
         }
       }
@@ -130,7 +132,6 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             const time = new Date()
             time.setMinutes(time.getMinutes() + timeInMinutes);
             await orderStore.extendOrderAsync(id, time)
-            console.log(`Extending order by ${timeInMinutes}`)
             navigate(`/app`, {state: {activeTab}})
         }
       }
@@ -161,7 +162,17 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
-  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => {return { unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) }, ...lineItemToLineItemContentProps(l, index)}})
+  const countOccurances = (lineItemId: string): number => lineItems.filter(l => l.id === lineItemId).length;
+
+
+  const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => { 
+    return { 
+      unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) },
+       ...lineItemToLineItemContentProps(l, index), 
+       occurrences: countOccurances(l.id),
+       canRemove: orderStatus !== "Ready"
+    }
+  })
 
   return(
     <>

@@ -18,7 +18,7 @@ export const lineItemToLineItemContentProps = (lineItem: LineItem, position: num
     lineItemSummary: {
       price: lineItem.price,
       mealName: lineItem.mealName,
-      position
+      occurrences: position
     }
   }
 }
