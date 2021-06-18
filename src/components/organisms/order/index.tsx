@@ -167,7 +167,10 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
 
   const lineItemsContentProps: LineItemContentProps[] = lineItems.map((l, index) => { 
     return { 
-      unavailableOnClick: async () => { await orderStore.removeLineItemAsync(l.id) },
+      unavailableOnClick: async () => { 
+        await orderStore.removeLineItemAsync(l.id)
+        navigate(`/app`, {state: {activeTab}})
+      },
        ...lineItemToLineItemContentProps(l, index), 
        occurrences: countOccurances(l.id),
        canRemove: orderStatus !== "Ready"

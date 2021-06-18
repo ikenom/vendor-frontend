@@ -64,9 +64,9 @@ export const LineItemListContent = (props: LineItemsContentProps) => {
   const { lineItems } = props;
   return(
     <ListContainer>
-    {lineItems.map(lineItemContent => {
+    {lineItems.map((lineItemContent, index) => {
       return (
-        <LineItemContainer key={lineItemContent.occurrences}>
+        <LineItemContainer key={index}>
           <LineItemContent {...lineItemContent} />
         </LineItemContainer>)
     })}

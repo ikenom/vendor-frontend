@@ -14,13 +14,14 @@ export const HistoryCardList = (props: HistoryCardListProps) => {
 
   return (
     <>
-      {Object.keys(ordersByDate).map(key => {
+      {Object.keys(ordersByDate).map((key, index) => {
         const orders = ordersByDate[key];
         return <HistoryCard 
           label={getDateTime(key)}
           orders={orders}
           onClick={onClick}
           isLoading={isLoading}
+          key={index}
         />
       })}
     </>
