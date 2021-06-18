@@ -2,7 +2,7 @@ import { OrderSummaryProps } from "../../components/molecules/orders/orderSummar
 import { Order } from "../orders";
 import { DateTime } from 'luxon';
 import { Customer } from "../customer";
-import { groupBy } from "lodash";
+import { groupBy, sortBy } from "lodash";
 
 export interface OrdersByDate {
   [date: string]: Order[];
@@ -46,7 +46,8 @@ const getTimeSinceOrderCreated = (createdAt: string): number => {
 }
 
 export const partitionOrdersByDate = (orders: Order[]): OrdersByDate => {
-  return groupBy(orders, order => getDateTime(order.createdAt).toISODate())
+  const sortedOrder = sortBy(orders, order => getDateTime(order.createdAt)).reverse()
+  return groupBy(sortedOrder, order => getDateTime(order.createdAt).toISODate())
 }
 
 export const getDateTime = (createdAt: string): DateTime => {
