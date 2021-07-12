@@ -50,12 +50,14 @@ export default class OrderStore {
     subscribeToOrderUpdated(this.orderUpdated)
   }
 
-  getLineItemFromPayload = (node): LineItem => {
+  getLineItemFromPayload = (node) => {
     return {
       id: node.id,
       price: formatPrice(node.price),
       mealName: node.product.name,
-      lineItemNote: node.additionalComments
+      quantity: node.quantity,
+      instructions: node.instructions,
+      additionalComments: node.additionalComments
     }
   }
 
@@ -75,7 +77,9 @@ export default class OrderStore {
   })
 
   getOrdersFromPayload = (payload): Order[] => {
-    return payload.edges.map(edge => this.getOrderFromPayload(edge.node));
+    return payload.edges
+      .filter(edge => edge.node ? true : false)
+      .map(edge => this.getOrderFromPayload(edge.node));
   }
 
   getOrders = () => {
