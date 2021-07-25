@@ -39,7 +39,6 @@ const Details = styled(Paragraph)`
   width: 100%;
   max-width: 100%;
   margin-bottom: 14px;
-  word-wrap: break-word;
 `;
 
 const Container = styled.div`
@@ -51,9 +50,13 @@ const Container = styled.div`
 export const LineItemNotes = (props: LineItemNotesProps) => {
   const { lineItemNote: { additionalComments, instructions }} = props;
 
+  const parsedInstructions = instructions.split('\n');
+
   return (
     <Container>
-      <Details ellipsis={false}>{instructions}</Details>
+      {
+        parsedInstructions.map((instruction, index) => <Details key={index} ellipsis={false}>{instruction}</Details>)
+      }
       <LineItemNote {...additionalComments}/>
     </Container>
   )
