@@ -41,6 +41,7 @@ const NotesContainer = styled.div`
   padding: 0% 8% 0% .75%;
   margin: 4% 0% 0% 0%;
   overflow-y: scroll;
+  width: 80%;
 `;
 
 const UnavailableButton = styled(Button)`
