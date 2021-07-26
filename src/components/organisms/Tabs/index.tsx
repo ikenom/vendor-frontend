@@ -9,6 +9,8 @@ import { navigate } from "gatsby";
 import { OrdersTabView } from '../../molecules/orders/ordersView';
 import { OrdersByDate } from '../../../models/utils';
 import { HistoryCardList } from '../../molecules/history/cardList';
+import PrinterStore from '../../../store/printerStore';
+import OrderStore from '../../../store/orderStore';
 
 const { TabPane } = Tabs;
 

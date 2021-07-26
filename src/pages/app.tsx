@@ -10,17 +10,29 @@ import { OrdersOrganism } from "../components/organisms/orders";
 import { OrderOrganism } from "../components/organisms/order";
 import { defaultTheme } from "../defaultTheme";
 import { startup } from "../startup";
-import { StarPRNT } from '@ionic-native/star-prnt/ngx';
+import { Emulation, StarPRNT } from '@ionic-native/star-prnt/ngx';
 import "./index.css";
+import PrinterStore from "../store/printerStore";
 
-const connectToPrinter = async () => {
-  const printerClient = new StarPRNT();
-  const printers = await printerClient.portDiscovery("ALL");
-  
-  if(printers.length == 0) {
-    console.log("No printers found")
-  } else {
-    printers.forEach(p => console.log(`Printer info ${JSON.stringify(p)}`))
+export const connectToPrinter = async () => {
+    const printerStore = PrinterStore.getInstance();
+
+    setTimeout(() => {printMessage(printerStore)}, 10000);
+}
+
+const printMessage = async (printerStore: PrinterStore) => {
+  const client = printerStore.getPrinterClient();
+  const printerName = printerStore.getPrinter().portName;
+
+  try {
+    
+    console.log(`Printer status ${JSON.stringify(client.getStatus())}`)
+    console.log(`Attempting to print message O_O  with client status: ${printerName}...`);
+    await client.printRasterReceipt(printerName, Emulation.StarGraphic, { text: "Testing order print"})
+  } catch(e) {
+    console.log(`Failed to send message to printer ${printerName}`)
+    console.log(e)
+    throw e
   }
 }
 

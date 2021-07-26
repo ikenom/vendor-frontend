@@ -1,9 +1,10 @@
 import { navigate } from "gatsby";
 import React from "react";
-import { OrderStatus } from "../../../models/orders";
+import { Order, OrderStatus } from "../../../models/orders";
 import { LineItem, lineItemToLineItemContentProps } from "../../../models/product";
 import { MOCK_LINE_ITEMS_CONTENT, MOCK_LINE_ITEM_HEADER } from "../../../store/mockUtils/mockOrderUtils";
 import OrderStore from "../../../store/orderStore";
+import PrinterStore from "../../../store/printerStore";
 import { LineItemHeaderProps } from "../../atoms/lineItem/header";
 import { OrderOrganismLayout } from "../../layouts/order";
 import { OrderHeader } from "../../molecules/headers/OrderHeader";
@@ -49,6 +50,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
 
 
   const orderStore = OrderStore.getInstance();
+  const printerStore = PrinterStore.getInstance();
   const order = orderStore.getOrder(orderNumber);
 
 
@@ -117,14 +119,20 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     }
   }
 
-  const footerButtonSubmit = (status: OrderStatus) => {
-    switch(status) {
+  const footerButtonSubmit = () => {
+
+    switch(orderStatus) {
       case "Needs Action": {
         return async (timeInMinutes: number) => {
-            const time = new Date()
-            time.setMinutes(time.getMinutes() + timeInMinutes);
-            await orderStore.sendToKitchenAsync(id, time)
-            navigate(`/app`, {state: {activeTab}})
+            try {
+              const time = new Date()
+              time.setMinutes(time.getMinutes() + timeInMinutes);
+              //await printerStore.printOrderInKitchen(order);
+              await orderStore.sendToKitchenAsync(id, time);
+              navigate(`/app`, {state: {activeTab}})
+            } catch(e) {
+              console.log(`Failed to submit order to kitchen because: ${JSON.stringify(e)}`)
+            }
         }
       }
       case "In Kitchen": {
