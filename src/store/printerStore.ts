@@ -7,8 +7,6 @@ export default class PrinterStore {
   private static instance: PrinterStore;
 
   private printerClient: StarPRNT;
-
-  private printerConnection: Observable<any>;
   private printer: Printer;
   private isConnected: boolean;
 
@@ -39,24 +37,17 @@ export default class PrinterStore {
       console.log("No printers found")
     } else {
       const printer = printers.filter(printer => printer.modelName.includes('TSP143IIIW'))[0];
-      const connection = printerClient.connect(printer.portName, Emulation.StarLine, false);
 
       this.printer = printer;
-      this.printerConnection = connection;
       this.printerClient = printerClient;
   
       console.log(`Subscribing to printer ...`)
-      connection.subscribe(
-        (value) => {console.log(`Message from printer ${JSON.stringify(value)}`)}, // onNext
-        (error) => {console.log(`Error from printer and something went wrong ${JSON.stringify(error)}`), // onError
-        () => {console.log(`fully completed!`)} // onComplete
-      });
 
       this.isConnected = true;
       console.log(`Connected to Printer: ${printer.modelName}`)
 
       this.printerClient.getStatus().subscribe(
-        (value) => {console.log(`Printer status: ${value}`)},
+        (value) => {console.log(`Printer status: ${JSON.stringify(value)}`)},
         (err) => {console.log(`Printer status error ${err}`)}
       )
 

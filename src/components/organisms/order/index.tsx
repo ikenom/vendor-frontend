@@ -127,7 +127,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             try {
               const time = new Date()
               time.setMinutes(time.getMinutes() + timeInMinutes);
-              //await printerStore.printOrderInKitchen(order);
+              await printerStore.printOrderInKitchen(order);
               await orderStore.sendToKitchenAsync(id, time);
               navigate(`/app`, {state: {activeTab}})
             } catch(e) {

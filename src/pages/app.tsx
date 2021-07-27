@@ -10,31 +10,8 @@ import { OrdersOrganism } from "../components/organisms/orders";
 import { OrderOrganism } from "../components/organisms/order";
 import { defaultTheme } from "../defaultTheme";
 import { startup } from "../startup";
-import { Emulation, StarPRNT } from '@ionic-native/star-prnt/ngx';
 import "./index.css";
-import PrinterStore from "../store/printerStore";
 
-export const connectToPrinter = async () => {
-    const printerStore = PrinterStore.getInstance();
-
-    setTimeout(() => {printMessage(printerStore)}, 10000);
-}
-
-const printMessage = async (printerStore: PrinterStore) => {
-  const client = printerStore.getPrinterClient();
-  const printerName = printerStore.getPrinter().portName;
-
-  try {
-    
-    console.log(`Printer status ${JSON.stringify(client.getStatus())}`)
-    console.log(`Attempting to print message O_O  with client status: ${printerName}...`);
-    await client.printRasterReceipt(printerName, Emulation.StarGraphic, { text: "Testing order print"})
-  } catch(e) {
-    console.log(`Failed to send message to printer ${printerName}`)
-    console.log(e)
-    throw e
-  }
-}
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -56,9 +33,7 @@ const GlobalStyle = createGlobalStyle`
 
 
 const AppPage = () => {
-  useEffect(() => {
-    connectToPrinter();
-  })
+  
   return (
     <App />
   )
