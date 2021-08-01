@@ -66,7 +66,7 @@ export interface ModalProps {
   titleComponent?: JSX.Element;
   content: JSX.Element;
   onSubmit: (data?: any) => any;
-  buttonLabel: string;
+  buttonLabel?: string;
 }
 
 
@@ -93,7 +93,7 @@ export const DefaultModal = (props: ModalProps) => {
     contentLabel={title}>
       <HeaderContainer>{ titleComponent ? titleComponent : <ModalHeader>{title}</ModalHeader>}</HeaderContainer>
       <ContentContainer>{content}</ContentContainer>
-      <ButtonContainer onClick={modalOnClick}>{buttonLabel}</ButtonContainer>
+      {buttonLabel ? (<ButtonContainer onClick={modalOnClick}>{buttonLabel}</ButtonContainer>) : <></>}
   </Modal>
   )
 }

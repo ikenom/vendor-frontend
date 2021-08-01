@@ -42,7 +42,7 @@ export const FooterLayout = styled(Footer)`
   margin-top: 0%;
 `;
 
-export const OrdersOrganismLayout = (props: OrganismLayoutProps) => {
+export const DefaultOrganismLayout = (props: OrganismLayoutProps) => {
   const { header, content, footer } = props;
 
   return (

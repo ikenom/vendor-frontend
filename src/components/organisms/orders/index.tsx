@@ -2,13 +2,17 @@ import { useState } from "@hookstate/core";
 import React from "react";
 import { OrdersByDate, partitionOrdersByDate } from "../../../models/utils";
 import OrderStore from "../../../store/orderStore";
-import { OrdersOrganismLayout } from "../../layouts/orders";
+import { DefaultOrganismLayout } from "../../layouts/orders";
 import { OrdersHeader } from "../../molecules/headers/OrdersHeader";
 import { AppTabs, TabUpdates } from "../Tabs";
 
-interface OrdersOrganismProps {
+export interface DefaultOrganismProps {
   footer: JSX.Element;
   path: string;
+  location?: any;
+}
+
+interface OrderOrganismProps extends DefaultOrganismProps {
   location?: {
     state: {
       activeTab: string;
@@ -16,7 +20,7 @@ interface OrdersOrganismProps {
   }
 }
 
-export const OrdersOrganism = (props: OrdersOrganismProps) => {
+export const OrdersOrganism = (props: OrderOrganismProps) => {
   const orderStore = OrderStore.getInstance();
   const orders = useState(orderStore.getOrders());
 
@@ -57,7 +61,7 @@ export const OrdersOrganism = (props: OrdersOrganismProps) => {
   }
 
   return (
-  <OrdersOrganismLayout
+  <DefaultOrganismLayout
     path={path}
     header={<OrdersHeader text={title}/>}
     content={

@@ -7,8 +7,9 @@ export default class PrinterStore {
   private static instance: PrinterStore;
 
   private printerClient: StarPRNT;
-  private printer: Printer;
+  private printer: Printer | undefined;
   private isConnected: boolean;
+  private isEnabled: boolean;
 
   public static getInstance(): PrinterStore {
     if (!PrinterStore.instance) {
@@ -19,6 +20,7 @@ export default class PrinterStore {
 
   private constructor() {
     this.isConnected = false;
+    this.isEnabled = false;
   }
 
   static init = async () => {
@@ -40,8 +42,6 @@ export default class PrinterStore {
 
       this.printer = printer;
       this.printerClient = printerClient;
-  
-      console.log(`Subscribing to printer ...`)
 
       this.isConnected = true;
       console.log(`Connected to Printer: ${printer.modelName}`)
@@ -65,8 +65,18 @@ export default class PrinterStore {
     }
   }
 
+  enablePrinter = () => {
+    this.isEnabled = true;
+  }
+
+  disablePrinter = () => {
+    this.isEnabled = false;
+  }
+
   getPrinterClient = () => this.printerClient;
   getPrinter = () => this.printer;
+  
+  getIsEnabled = () => this.isEnabled;
 
   private formatKitchenOrder = (order: Order): string => {
     // Convert dto into printer receipt format
