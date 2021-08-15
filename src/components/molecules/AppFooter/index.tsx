@@ -86,7 +86,7 @@ export const FooterIcons = (props: AppFooterProps) => {
   return(
     <FooterIconsContainer>
       <FooterIconContainer>
-        <FooterButton type={"ghost"} onClick={onClicks ? onClicks.ordersOnClick : undefined} icon={<SelectableIcon isSelected={true} type={"order"}/>}/>
+        <FooterButton type={"ghost"} onClick={onClicks ? onClicks.ordersOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "order"} type={"order"}/>}/>
       </FooterIconContainer>
       <SpaceSpan />
       <FooterIconContainer>

@@ -38,7 +38,7 @@ export const HeaderNav = (props: HeaderNavProps) => {
   const { text, previousTab } = props;
 
   const onClick = () => {
-    navigate("/app")
+    navigate("/app/order")
   }
 
   return(

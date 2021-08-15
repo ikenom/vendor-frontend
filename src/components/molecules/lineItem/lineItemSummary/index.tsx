@@ -15,6 +15,7 @@ export interface LineItemSummary {
 const Container = styled.div`
   display: flex;
   flex-direction: row;
+  max-width: 95%;
 `;
 
 const PositionLabel = styled.p`
@@ -37,7 +38,7 @@ const MealContainer = styled.div`
   max-width: 43%;
   height: 100%;
   max-height: 100%;
-  margin: 0% 27% 0% 0%;
+  margin: 0% 24% 0% 0%;
 `;
 
 const MealLabel = styled.p`

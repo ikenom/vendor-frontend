@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { AppFooter } from "../components/molecules/AppFooter";
+import { AppFooter, FooterOnClicks } from "../components/molecules/AppFooter";
 import { Router } from "@reach/router";
 import { disableBodyScroll } from "body-scroll-lock";
+import { useLocation } from "@reach/router"
 
 import styled, { createGlobalStyle } from 'styled-components'
 import { Layout } from "antd";
@@ -11,6 +12,7 @@ import { OrderOrganism } from "../components/organisms/order";
 import { defaultTheme } from "../defaultTheme";
 import { startup } from "../startup";
 import "./index.css";
+import { navigate } from "gatsby";
 
 
 const GlobalStyle = createGlobalStyle`
@@ -30,6 +32,29 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 `
+
+const footerNavigators: FooterOnClicks = {
+  ordersOnClick: () => {
+    const location = useLocation();
+
+    if(location.pathname.includes("order")) {
+      // Do nothing
+      return;
+    }
+    navigate(`/app/order`)
+  },
+  profileOnClick: () => {
+    const location = useLocation();
+
+    if(location.pathname.includes("profile")) {
+      // Do nothing
+      return;
+    }
+    navigate(`/app/profile`)
+  },
+  inventoryOnClick: undefined,
+  supportOnClick: undefined
+}
 
 
 const AppPage = () => {
@@ -97,8 +122,8 @@ const AppComponent = (props: Omit<AppLayoutProps, "content" | "header">) => {
   return (
     <AppLayout>
       <Router basepath="/app">
-          <OrdersOrganism footer={footer}  path={"/"}/>
-          <OrderOrganism path="/:orderNumber" footer={footer}/>
+          <OrdersOrganism footer={footer}  path={"/order"}/>
+          <OrderOrganism path="/order/:orderNumber" footer={footer}/>
       </Router>
     </AppLayout>
   )

@@ -8,7 +8,7 @@ import '@hookstate/devtools';
  */
 const IndexPage = () => {
   React.useEffect(() => {
-    navigate("/app")
+    navigate("/app/order")
   })
   return (
     <>
