@@ -7,6 +7,7 @@ export interface LineItem {
   mealName: string;
   instructions: string;
   additionalComments: string;
+  quantity: number;
 }
 
 export const lineItemToLineItemContentProps = (lineItem: LineItem, position: number): Pick<LineItemContentProps, "lineItemNote" | "lineItemSummary"> => {

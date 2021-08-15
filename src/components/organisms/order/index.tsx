@@ -1,8 +1,9 @@
 import { navigate } from "gatsby";
+import { DateTime } from "luxon";
 import React from "react";
-import { Order, OrderStatus } from "../../../models/orders";
-import { LineItem, lineItemToLineItemContentProps } from "../../../models/product";
-import { MOCK_LINE_ITEMS_CONTENT, MOCK_LINE_ITEM_HEADER } from "../../../store/mockUtils/mockOrderUtils";
+import { OrderStatus } from "../../../models/orders";
+import { lineItemToLineItemContentProps } from "../../../models/product";
+import { Restaurant } from "../../../models/restaurant";
 import OrderStore from "../../../store/orderStore";
 import PrinterStore from "../../../store/printerStore";
 import { LineItemHeaderProps } from "../../atoms/lineItem/header";
@@ -14,6 +15,7 @@ import { LineItemContentProps } from "../../molecules/lineItem/lineItemContent";
 import { ActionType } from "../../molecules/modals/needsAction";
 import { ContentProps, modalType, TimeUpdateModal } from "../../molecules/modals/timeUpdateModal";
 import { OrderContent } from "../../molecules/order";
+import { OrderTicketProps, PrinterOrderTicket } from "../../molecules/reciept";
 import { getActiveTabFromOrderStatus } from "../Tabs";
 
 interface OrderOrganismProps {
@@ -39,6 +41,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const orderStatus = location.state.status;
 
   const [isButtonModalVisible, setIsButtonModalVisible] = React.useState(false);
+  const [showPrintedReceipt, setShowPrintedReceipt] = React.useState(true);
 
   const showModal = () => {
     setIsButtonModalVisible(true);
@@ -72,7 +75,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   const onCancel = async () => {
     try {
       await orderStore.cancelOrderAsync(id)
-      navigate(`/app`, {state: {activeTab}})
+      navigate(`/app/order`, {state: {activeTab}})
     } catch(e) {
 
     }
@@ -83,7 +86,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
       case "Ready" : {
         return async () => {
             await orderStore.completeOrderAsync(id)
-            navigate(`/app`, {state: {activeTab}})
+            navigate(`/app/order`, {state: {activeTab}})
         }
       }
       default: {
@@ -100,7 +103,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             case "pause": {
               try {
                 await orderStore.pauseOrderAsync(id)
-                navigate(`/app`, {state: {activeTab}})
+                navigate(`/app/order`, {state: {activeTab}})
               } catch(e) {
                 console.log("Something went wrong") // Sentry goes here
               }
@@ -129,7 +132,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
               time.setMinutes(time.getMinutes() + timeInMinutes);
               await printerStore.printOrderInKitchen(order);
               await orderStore.sendToKitchenAsync(id, time);
-              navigate(`/app`, {state: {activeTab}})
+              navigate(`/app/order`, {state: {activeTab}})
             } catch(e) {
               console.log(`Failed to submit order to kitchen because: ${JSON.stringify(e)}`)
             }
@@ -140,7 +143,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             const time = new Date()
             time.setMinutes(time.getMinutes() + timeInMinutes);
             await orderStore.extendOrderAsync(id, time)
-            navigate(`/app`, {state: {activeTab}})
+            navigate(`/app/order`, {state: {activeTab}})
         }
       }
     }
@@ -177,7 +180,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
     return { 
       unavailableOnClick: async () => { 
         await orderStore.removeLineItemAsync(l.id)
-        navigate(`/app`, {state: {activeTab}})
+        navigate(`/app/order`, {state: {activeTab}})
       },
        ...lineItemToLineItemContentProps(l, index), 
        occurrences: countOccurances(l.id),
@@ -186,7 +189,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
   })
 
   return(
-    <>
+    <div>
       <OrderOrganismLayout
         path={path}
         header={<OrderHeader
@@ -204,7 +207,7 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
       <ButtonModal
         isOpen={isButtonModalVisible}
         onClose={onClose}
-        onSubmit={footerButtonSubmit(orderStatus)}
+        onSubmit={footerButtonSubmit()}
         type={buttonModalType}
         contentProps={
           {
@@ -213,7 +216,12 @@ export const OrderOrganism = (props: OrderOrganismProps) => {
             timeRemainingInMinutes: buttonModalType === "Extension" ? order.timeRemaining : undefined
           }}
       />
-    </>
+      {
+        showPrintedReceipt 
+        ? <PrinterTicketComponent order={order} restaurant={MOCK_RESTAURANT}/>
+        : <> </>
+      }
+    </div>
   )
 }
 
@@ -267,6 +275,29 @@ const ButtonModal = (props: ButtonModalProps) => {
 
   return(
     <TimeUpdateModal isOpen={isOpen} onClose={onClose} onSubmit={onSubmit} type={type} contentProps={contentProps}/>
+  )
+}
+
+const MOCK_RESTAURANT: Restaurant = {
+  id: "2",
+  name: "Harlem Tavern",
+  description: "New York City’s Neighborhood Bar, Restaurant & Beer Garden",
+  businessHours: {
+    openingTime:  DateTime.fromISO('2020-08-06T09:00:00').toFormat('t'),
+    closingTime: DateTime.fromISO('2020-08-06T22:00:00').toFormat('t'),
+  },
+  location: {
+    state: "NY",
+    zipCode: "10026",
+    street: "2153 Fredrick Douglass Blvd",
+    city: "New York"
+  },
+  phoneNumber: '7702394828',
+}
+
+const PrinterTicketComponent = (props: OrderTicketProps) => {
+  return (
+    <PrinterOrderTicket order={props.order} restaurant={props.restaurant}/>
   )
 }
 

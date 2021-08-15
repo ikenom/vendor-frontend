@@ -1,14 +1,17 @@
 {
-  "appId": "com.fytr.app",
-  "appName": "fytr-dev",
-  "bundledWebRuntime": false,
-  "npmClient": "yarn",
-  "webDir": "public",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0.6
-    }
-  },
-  "cordova": {},
-  "scrollEnabled": true
+	"appId": "com.fytr.app",
+	"appName": "fytr-dev",
+	"bundledWebRuntime": false,
+	"npmClient": "yarn",
+	"webDir": "public",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0.6
+		}
+	},
+	"ios": {
+		"minVersion": 12.1
+	},
+	"cordova": {},
+	"scrollEnabled": true
 }

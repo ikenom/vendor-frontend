@@ -1,7 +1,8 @@
 import { Printer } from "@ionic-native/star-prnt/ngx";
 import { Order } from "../models/orders";
-import { Observable } from 'rxjs';
 import { Emulation, StarPRNT } from '@ionic-native/star-prnt/ngx';
+import { Filesystem, Encoding, Directory} from '@capacitor/filesystem';
+import html2canvas from "html2canvas";
 
 export default class PrinterStore {
   private static instance: PrinterStore;
@@ -37,6 +38,7 @@ export default class PrinterStore {
 
     if(printers.length == 0) {
       console.log("No printers found")
+      this.isConnected = false;
     } else {
       const printer = printers.filter(printer => printer.modelName.includes('TSP143IIIW'))[0];
 
@@ -58,7 +60,35 @@ export default class PrinterStore {
     console.log(`Attempting to print order: ${order.orderNumber}`)
     try{
       console.log(`Printer client is: ${this.printerClient}`)
-      await this.printerClient.printRasterReceipt(this.printer.portName, Emulation.StarGraphic, { text: JSON.stringify(order)})
+      
+      
+      const printedTicketElement = document.getElementById('receipt-paper');
+
+      if(!printedTicketElement) {
+        console.log(`Receipt component is not rendered on DOM. Unable to find component to convert to image`);
+        throw ReferenceError;
+      }
+
+      // Convert react component to image
+      const canvasElement = await html2canvas(printedTicketElement);
+      const data = canvasElement.toDataURL();
+      const base64Image = data.split('base64,')[1];
+
+      const fileName = `${order.id}.jpg`;
+      const path = `fytr/${fileName}`;
+      const directory = Directory.Data;
+
+      await Filesystem.writeFile({
+        path,
+        data: base64Image,
+        directory,
+        recursive: true
+      });
+
+      const uri = (await Filesystem.getUri({path, directory})).uri
+      console.log(`Receipt uri is ${uri}`)
+
+      await this.printerClient.printImage(this.printer.portName, Emulation.StarGraphic, {uri})
     } catch(e) {
       console.log(`Failed to send message to printer ${this.printer.portName} because ${e}`)
       throw e
@@ -77,9 +107,4 @@ export default class PrinterStore {
   getPrinter = () => this.printer;
   
   getIsEnabled = () => this.isEnabled;
-
-  private formatKitchenOrder = (order: Order): string => {
-    // Convert dto into printer receipt format
-    return "";
-  }
 }
