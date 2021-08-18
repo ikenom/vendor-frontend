@@ -21,6 +21,7 @@ const Container = styled.div `
   justify-content: space-between;
   align-items: center;
   margin: 0% 0% 0% 14%;
+  overflow: visible;
 `;
 
 const ButtonContainer = styled(Button)`

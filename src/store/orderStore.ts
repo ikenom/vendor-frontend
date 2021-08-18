@@ -1,9 +1,8 @@
 import { State, createState } from '@hookstate/core';
 import { Order } from '../models/orders';
 import orderClient, { subscribeToOrderUpdated } from '../api/order_client';
-import { hashCode } from './mockUtils';
 import { formatPrice } from './utils';
-import { OrdersByDate, partitionOrdersByDate } from '../models/utils';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 export default class OrderStore {
   private static instance: OrderStore;
@@ -133,6 +132,9 @@ export default class OrderStore {
 
     if(!this.isSameList(this.needsAction, needsAction) && this.needsAction.length < needsAction.length) {
       this._isInitialLoad.value ? this._needsActionUpdated.set(false) : this._needsActionUpdated.set(true)
+      if(this._needsActionUpdated.get()) {
+        await this.notifyNeedsAction()
+      }
       this.needsAction = needsAction
     }
 
@@ -154,12 +156,11 @@ export default class OrderStore {
   }
 
   updateOrders = async () => {
-    // This list is what we use to navigate to orders by id
     await this.getOrdersAsync()
     this._isInitialLoad.set(false)
   }
 
-  upsertOrder = order => {
+  upsertOrder = async (order) => {
     const index = this.orders.findIndex(o => o.value.id == order.id)
     if (index == -1) {
       this.orders.merge([this.getOrderFromPayload(order)])
@@ -168,8 +169,22 @@ export default class OrderStore {
     }
   }
 
+  notifyNeedsAction = async () => {
+    console.log(`New orders received`)
+    await LocalNotifications.schedule({
+      notifications: [{
+        title: "New orders received that needs action",
+        body: "New orders received that needs action",
+        id: Date.now(),
+        schedule: {
+          at: new Date(Date.now() + 1000)
+        }
+      }]
+    })
+  }
+
   orderUpdated = async (order) => {
-    this.upsertOrder(order)
+    await this.upsertOrder(order)
   }
 
   sendToKitchenAsync = async (orderId: String, time: Date) => {

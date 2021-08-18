@@ -1,20 +1,35 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "@reach/router"
 import { defaultTheme } from "../../../defaultTheme";
 import { SelectableIcon, SelectableIcons } from "../../../icons/components";
 import Button from "../../atoms/button";
+import { navigate } from "gatsby";
 import "./index.css";
 
 export interface AppFooterProps {
   selectedIcon: SelectableIcons;
-  onClicks?: FooterOnClicks;
+  onClicks: FooterOnClicks;
 }
 
 export interface FooterOnClicks {
   ordersOnClick: () => any;
-  inventoryOnClick: () => any;
-  supportOnClick: () => any;
+  inventoryOnClick?: () => any;
+  supportOnClick?: () => any;
   profileOnClick: () => any;
+}
+
+export type FooterIcon = "order" | "profile";
+
+export const FooterNavigationOnClicks: FooterOnClicks = {
+  ordersOnClick: () => {
+    navigate(`/app/order`)
+  },
+  profileOnClick: () => {
+    navigate(`/app/profile`)
+  },
+  inventoryOnClick: undefined,
+  supportOnClick: undefined
 }
 
 const AppFooterContainer= styled.div`
@@ -86,7 +101,7 @@ export const FooterIcons = (props: AppFooterProps) => {
   return(
     <FooterIconsContainer>
       <FooterIconContainer>
-        <FooterButton type={"ghost"} onClick={onClicks ? onClicks.ordersOnClick : undefined} icon={<SelectableIcon isSelected={true} type={"order"}/>}/>
+        <FooterButton type={"ghost"} onClick={onClicks ? onClicks.ordersOnClick : undefined} icon={<SelectableIcon isSelected={selectedIcon === "order"} type={"order"}/>}/>
       </FooterIconContainer>
       <SpaceSpan />
       <FooterIconContainer>

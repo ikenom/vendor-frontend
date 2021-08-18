@@ -6,7 +6,7 @@ import { LineItem } from "../../models/product";
 import { MOCK_LINE_ITEMS_ONE, MOCK_LINE_ITEMS_TWO } from "./mockProductUtils";
 
 export const mockOrderPrice = (products: LineItem[]): string => {
-  const totalPrice = products.map(product => parseFloat(product.price))
+  const totalPrice = products.map(product => parseFloat(product.price) * product.quantity)
     .reduce((totalPrice, productPrice) => totalPrice + productPrice)
 
   const dumbTax = totalPrice * .10;

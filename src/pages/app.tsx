@@ -1,18 +1,17 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { AppFooter } from "../components/molecules/AppFooter";
+import { AppFooter, FooterNavigationOnClicks } from "../components/molecules/AppFooter";
 import { Router } from "@reach/router";
 import { disableBodyScroll } from "body-scroll-lock";
-
 import styled, { createGlobalStyle } from 'styled-components'
 import { Layout } from "antd";
 import { OrdersOrganism } from "../components/organisms/orders";
 import { OrderOrganism } from "../components/organisms/order";
 import { defaultTheme } from "../defaultTheme";
 import { startup } from "../startup";
-
 import "./index.css";
-
+import { SelectableIcons } from "../icons/components";
+import { ProfileOrganism } from "../components/organisms/profile";
 
 
 const GlobalStyle = createGlobalStyle`
@@ -35,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
 
 
 const AppPage = () => {
+  
   return (
     <App />
   )
@@ -54,7 +54,6 @@ const App = () => {
   }, []);
 
   // Refresh app every 30 seconds so that data involving time is always fresh
-  
   const [, updateState] = React.useState<any>();
   
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -67,10 +66,23 @@ const App = () => {
     return () => clearInterval(interval);
   }, [])
 
+  const [selectedFooterIcon, setFooterIcon] = React.useState<SelectableIcons>("order");
+
+  const footerOnClick = {
+    ordersOnClick: () => {
+      setFooterIcon("order");
+      FooterNavigationOnClicks.ordersOnClick();
+    },
+    profileOnClick: () => { 
+      setFooterIcon("profile");
+      FooterNavigationOnClicks.profileOnClick();
+    }
+  }
+
   return (
     <>
       <GlobalStyle />
-      <AppComponent footer={<AppFooter selectedIcon="order"/>}
+      <AppComponent footer={<AppFooter selectedIcon={selectedFooterIcon} onClicks={footerOnClick}/>}
     />
     </>
   )
@@ -98,8 +110,9 @@ const AppComponent = (props: Omit<AppLayoutProps, "content" | "header">) => {
   return (
     <AppLayout>
       <Router basepath="/app">
-          <OrdersOrganism footer={footer}  path={"/"}/>
-          <OrderOrganism path="/:orderNumber" footer={footer}/>
+          <OrdersOrganism footer={footer}  path={"/order"}/>
+          <OrderOrganism path="/order/:orderNumber" footer={footer}/>
+          <ProfileOrganism footer={footer} path="/profile" />
       </Router>
     </AppLayout>
   )

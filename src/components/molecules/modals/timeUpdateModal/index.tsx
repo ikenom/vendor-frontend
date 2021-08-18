@@ -80,12 +80,13 @@ export const TimeUpdateContent = (props: ContentProps) => {
 
 interface TimeUpdateModalProps extends Omit<ModalProps, "title" | "content" | "buttonLabel"> {
   onSubmit: (data: any) => any;
+  isLoading?: boolean;
   type: modalType;
   contentProps: Omit<ContentProps, "onUpdate" | "showTimeRemaining" | "initialTime">;
 }
 
 export const TimeUpdateModal = (props: Omit<TimeUpdateModalProps, "title" | "content" | "buttonLabel">) => {
-  const { isOpen, onClose, onSubmit, type, contentProps } = props;
+  const { isOpen, onClose, onSubmit, type, contentProps, isLoading } = props;
 
   const [timeInMinutes, setTimeInMinutes] = React.useState(DEFAULT_TIME_IN_MINUTES);
 
@@ -122,6 +123,7 @@ export const TimeUpdateModal = (props: Omit<TimeUpdateModalProps, "title" | "con
       content={TimeUpdateContent({...contentProps, onUpdate, showTimeRemaining, initialTime: DEFAULT_TIME_IN_MINUTES})} 
       onSubmit={onModalSubmit} 
       buttonLabel={buttonText}
+      isLoading={isLoading}
     />)
 
 }
