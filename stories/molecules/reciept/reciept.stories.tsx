@@ -35,7 +35,7 @@ const MOCK_RESTAURANT: Restaurant = {
 export const PrinterTicket = () => {
   const componentRef = useRef();
   return(
-    <Container width={343} height={547} reference={componentRef} >
+    <Container width={576} height={547} reference={componentRef} >
       <OrderTicket order={MOCK_ORDERS[0]} restaurant={MOCK_RESTAURANT}/>
     </Container>
   )

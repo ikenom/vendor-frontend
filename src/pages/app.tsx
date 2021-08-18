@@ -1,10 +1,8 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { AppFooter, FooterOnClicks } from "../components/molecules/AppFooter";
+import { AppFooter, FooterNavigationOnClicks } from "../components/molecules/AppFooter";
 import { Router } from "@reach/router";
 import { disableBodyScroll } from "body-scroll-lock";
-import { useLocation } from "@reach/router"
-
 import styled, { createGlobalStyle } from 'styled-components'
 import { Layout } from "antd";
 import { OrdersOrganism } from "../components/organisms/orders";
@@ -12,7 +10,8 @@ import { OrderOrganism } from "../components/organisms/order";
 import { defaultTheme } from "../defaultTheme";
 import { startup } from "../startup";
 import "./index.css";
-import { navigate } from "gatsby";
+import { SelectableIcons } from "../icons/components";
+import { ProfileOrganism } from "../components/organisms/profile";
 
 
 const GlobalStyle = createGlobalStyle`
@@ -32,29 +31,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 `
-
-const footerNavigators: FooterOnClicks = {
-  ordersOnClick: () => {
-    const location = useLocation();
-
-    if(location.pathname.includes("order")) {
-      // Do nothing
-      return;
-    }
-    navigate(`/app/order`)
-  },
-  profileOnClick: () => {
-    const location = useLocation();
-
-    if(location.pathname.includes("profile")) {
-      // Do nothing
-      return;
-    }
-    navigate(`/app/profile`)
-  },
-  inventoryOnClick: undefined,
-  supportOnClick: undefined
-}
 
 
 const AppPage = () => {
@@ -78,7 +54,6 @@ const App = () => {
   }, []);
 
   // Refresh app every 30 seconds so that data involving time is always fresh
-  
   const [, updateState] = React.useState<any>();
   
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -91,10 +66,23 @@ const App = () => {
     return () => clearInterval(interval);
   }, [])
 
+  const [selectedFooterIcon, setFooterIcon] = React.useState<SelectableIcons>("order");
+
+  const footerOnClick = {
+    ordersOnClick: () => {
+      setFooterIcon("order");
+      FooterNavigationOnClicks.ordersOnClick();
+    },
+    profileOnClick: () => { 
+      setFooterIcon("profile");
+      FooterNavigationOnClicks.profileOnClick();
+    }
+  }
+
   return (
     <>
       <GlobalStyle />
-      <AppComponent footer={<AppFooter selectedIcon="order"/>}
+      <AppComponent footer={<AppFooter selectedIcon={selectedFooterIcon} onClicks={footerOnClick}/>}
     />
     </>
   )
@@ -124,6 +112,7 @@ const AppComponent = (props: Omit<AppLayoutProps, "content" | "header">) => {
       <Router basepath="/app">
           <OrdersOrganism footer={footer}  path={"/order"}/>
           <OrderOrganism path="/order/:orderNumber" footer={footer}/>
+          <ProfileOrganism footer={footer} path="/profile" />
       </Router>
     </AppLayout>
   )

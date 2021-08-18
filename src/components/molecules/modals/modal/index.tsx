@@ -66,20 +66,22 @@ export interface ModalProps {
   titleComponent?: JSX.Element;
   content: JSX.Element;
   onSubmit: (data?: any) => any;
+  isLoading?: boolean;
+  margin?: string;
   buttonLabel?: string;
 }
 
 
 export const DefaultModal = (props: ModalProps) => {
-  const { isOpen, onClose, onSubmit, title, content, buttonLabel, titleComponent } = props;
+  const { isOpen, onClose, onSubmit, title, content, buttonLabel, titleComponent, isLoading, margin } = props;
 
   // Placeholder for any custom logic we might need
   const onModalClose = () => {
     onClose();
   }
 
-  const modalOnClick = () => {
-    onSubmit();
+  const modalOnClick = async () => {
+    await onSubmit();
     onModalClose();
   }
 
@@ -91,9 +93,9 @@ export const DefaultModal = (props: ModalProps) => {
     shouldCloseOnOverlayClick={true}
     onRequestClose={onModalClose}
     contentLabel={title}>
-      <HeaderContainer>{ titleComponent ? titleComponent : <ModalHeader>{title}</ModalHeader>}</HeaderContainer>
+      <HeaderContainer style={{margin: margin ? margin : ""}}>{ titleComponent ? titleComponent : <ModalHeader>{title}</ModalHeader>}</HeaderContainer>
       <ContentContainer>{content}</ContentContainer>
-      {buttonLabel ? (<ButtonContainer onClick={modalOnClick}>{buttonLabel}</ButtonContainer>) : <></>}
+      {buttonLabel ? (<ButtonContainer onClick={modalOnClick} disabled={isLoading} loading={isLoading}>{buttonLabel}</ButtonContainer>) : <></>}
   </Modal>
   )
 }

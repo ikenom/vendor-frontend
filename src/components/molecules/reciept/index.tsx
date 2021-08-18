@@ -21,9 +21,14 @@ const Container = styled.div`
 `;
 
 const LineItemDivider = styled(Divider)`
-  margin-top: 8px;
+  margin-top: 9px;
   border-top: 1px solid ${defaultTheme.colors.black};
-  margin-bottom: 8px;
+  margin-bottom: 9px;
+`;
+
+const BottomDivider = styled(Divider)`
+  margin-top: 100px;
+  border-top: 1px solid ${defaultTheme.colors.white};
 `;
 
 export const OrderTicket = (props: OrderTicketProps) => {
@@ -43,6 +48,7 @@ export const OrderTicket = (props: OrderTicketProps) => {
       }
       <LineItemDivider />
       <TicketTotal price={order.price}/>
+      <BottomDivider />
     </Container>
   )
 }
@@ -67,13 +73,17 @@ const HeaderRow = styled.div`
 
 const HeaderText = styled.p`
   font-family: ${defaultTheme.fontFamily.hnt};
-  font-size: 36px;
+  font-size: ${defaultTheme.fontSize.xlg};
+`;
+
+const HeaderNormal = styled.p`
+  font-family: ${defaultTheme.fontFamily.hnt};
+  font-size: ${defaultTheme.fontSize.m};
 `;
 
 const HeaderBold = styled.p`
   font-family: ${defaultTheme.fontFamily.hnt_bold};
-  font-size: 36px;
-  font-weight: 700;
+  font-size: ${defaultTheme.fontSize.xlg};
 `;
 
 export const TicketHeader = (props: Omit<OrderTicketProps, "reference">) => {
@@ -92,8 +102,8 @@ export const TicketHeader = (props: Omit<OrderTicketProps, "reference">) => {
           <HeaderBold>{` #${order.orderNumber}`}</HeaderBold>
         </HeaderRow>
         <HeaderRow>
-          <HeaderText>{`Order placed on `} </HeaderText>
-          <HeaderBold>{`${DateTime.fromISO(order.createdAt).toLocaleString(DateTime.DATETIME_FULL)}`}</HeaderBold>
+          <HeaderNormal>{`Order placed on`} </HeaderNormal>
+          <HeaderBold style={{fontSize: defaultTheme.fontSize.m, marginLeft: "4px"}}>{`${DateTime.fromISO(order.createdAt).toLocaleString(DateTime.DATETIME_FULL)}`}</HeaderBold>
         </HeaderRow>
       </HeaderContainer>
     </HeaderContainer>
@@ -142,22 +152,20 @@ const LineItemDetailsContainer = styled.div`
 
 const LineItemDetailHeader = styled.p`
   font-family: ${defaultTheme.fontFamily.hnt_bold};
-  font-size: ${defaultTheme.fontSize.max};
+  font-size: ${defaultTheme.fontSize.m};
   overflow-wrap: break-word;
-  font-weight: 700;
 `;
 
 const LineItemDetailContent = styled.p`
   font-family: ${defaultTheme.fontFamily.hnt};
-  font-size: ${defaultTheme.fontSize.max};
+  font-size: ${defaultTheme.fontSize.m};
   overflow-wrap: break-word;
 `;
 
 const LineItemPrice = styled.p`
   font-family: ${defaultTheme.fontFamily.hnt};
-  font-size: ${defaultTheme.fontSize.max};
+  font-size: ${defaultTheme.fontSize.m};
   white-space: nowrap;
-  font-weight: 700;
 `;
 
 const LineItemPriceContainer = styled.div`
@@ -210,7 +218,7 @@ export const TicketTotal = (props: TicketTotalProps) => {
   return(
     <TotalRow>
       <HeaderText>RESTAURANT TOTAL</HeaderText>
-      <LineItemDetailHeader style={{paddingRight: "4px", marginLeft: "50px"}}>{`$${parseFloat(price).toFixed(2)}`}</LineItemDetailHeader>
+      <LineItemDetailHeader style={{paddingRight: "2.5%", marginLeft: "3%"}}>{`$${parseFloat(price).toFixed(2)}`}</LineItemDetailHeader>
     </TotalRow>
   )
 }

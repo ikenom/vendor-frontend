@@ -1543,6 +1543,21 @@
   resolved "https://registry.npmjs.org/@capacitor/ios/-/ios-3.1.2.tgz#a4323f7903d7b944b80a20c0ba7b458db5c8ea3a"
   integrity sha512-y6wnTLK0I/ckTuofzeRkXK0OPw6vAKOj0I6QXwg2DxDdtiHmed6qP/G8cvwNBiFhZE9xfXAulxRYP8D76TPtNQ==
 
+"@capacitor/local-notifications@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@capacitor/local-notifications/-/local-notifications-1.0.3.tgz#4e3d601723058ca4078284a0f96f7892a610049e"
+  integrity sha512-yr9FXP8U83ULKAl+AZYtYs/azxJDqM0AxVdoZ8t1nTqfsFqrYTXTFCg7eSLx05LbNVYGzPlt5C0JtLsOFzKqIA==
+
+"@capacitor/push-notifications@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@capacitor/push-notifications/-/push-notifications-1.0.3.tgz#448d0b77dbf19c65b831f7f41eca68bcacedae78"
+  integrity sha512-T3XBQH/ZClVaIXfjCuKEEQkk7zfc+ip72Oq+uoq4hbzadQimsu2mrme52dh2UeLV5pfu0NnTwsAxnxOj4gdtpQ==
+
+"@capacitor/toast@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@capacitor/toast/-/toast-1.0.2.tgz#3984960b797a6dc6ac971b0602bf8c363b39394f"
+  integrity sha512-4R4aUP/BeqQ9/CRJpuoE+U+3tO1pmoZE8fNPhmcXZJYNedprX/uZfNzxBDz6kCJ90RETjrF4e/BxtBFXLiXxxQ==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"

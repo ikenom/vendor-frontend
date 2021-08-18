@@ -69,6 +69,12 @@ export const AppTabs = (props: TabProps) => {
     }
   }
 
+  useEffect(() => {
+    if(needsActionIsUpdated) {
+      OrderStore.getInstance().notifyNeedsAction();
+    }
+  }, [needsActionIsUpdated])
+
 
   return(
     <Tabs activeKey={selectedTab ? selectedTab : undefined} onChange={(tab) => updateSelectedTab(tab)}>

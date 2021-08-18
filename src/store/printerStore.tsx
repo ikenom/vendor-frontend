@@ -1,16 +1,21 @@
 import { Printer } from "@ionic-native/star-prnt/ngx";
 import { Order } from "../models/orders";
 import { Emulation, StarPRNT } from '@ionic-native/star-prnt/ngx';
-import { Filesystem, Encoding, Directory} from '@capacitor/filesystem';
+import { Filesystem, Directory} from '@capacitor/filesystem';
+import { Toast } from '@capacitor/toast';
 import html2canvas from "html2canvas";
+import { createState, State } from "@hookstate/core";
+import { ThemeProvider } from "styled-components";
 
 export default class PrinterStore {
   private static instance: PrinterStore;
 
   private printerClient: StarPRNT;
   private printer: Printer | undefined;
-  private isConnected: boolean;
-  private isEnabled: boolean;
+  private isConnected: State<boolean>;
+  private isEnabled: State<boolean>;
+  private isAttemptingToConnect: State<boolean>;
+  private isAttemptingToPrint: State<boolean>;
 
   public static getInstance(): PrinterStore {
     if (!PrinterStore.instance) {
@@ -20,54 +25,72 @@ export default class PrinterStore {
   }
 
   private constructor() {
-    this.isConnected = false;
-    this.isEnabled = false;
+    this.isConnected = createState<boolean>(false);
+    this.isEnabled = createState<boolean>(false);
+    this.isAttemptingToConnect = createState<boolean>(false);
+    this.isAttemptingToPrint = createState<boolean>(false);
   }
 
   static init = async () => {
     const store = PrinterStore.getInstance()
-    if (!store.isConnected) {
-      console.log("Attempting to connect to printer ...")
-      await store.connectToPrinter();
-    }
   }
 
   connectToPrinter = async () => {
-    const printerClient = new StarPRNT();
-    const printers = await printerClient.portDiscovery("LAN");
+    if(!this.isEnabled.get()) {
+      return;
+    }
 
-    if(printers.length == 0) {
-      console.log("No printers found")
-      this.isConnected = false;
-    } else {
-      const printer = printers.filter(printer => printer.modelName.includes('TSP143IIIW'))[0];
+    try {
+      console.log("Attempting to connect to printer ...")
+      this.isAttemptingToConnect.set(true);
+      const printerClient = new StarPRNT();
+      const printers = await printerClient.portDiscovery("LAN");
 
-      this.printer = printer;
-      this.printerClient = printerClient;
+      if(printers.length == 0) {
+        console.log("No printers found")
+        await Toast.show({ text: "Failed to connect to printer, no printer found", duration: 'long'})
+        this.isConnected.set(false);
+        this.isEnabled.set(false);
+        this.isAttemptingToConnect.set(false);
+      } else {
+        const printer = printers.filter(printer => printer.modelName.includes('TSP143IIIW'))[0];
 
-      this.isConnected = true;
-      console.log(`Connected to Printer: ${printer.modelName}`)
+        this.printer = printer;
+        this.printerClient = printerClient;
 
-      this.printerClient.getStatus().subscribe(
-        (value) => {console.log(`Printer status: ${JSON.stringify(value)}`)},
-        (err) => {console.log(`Printer status error ${err}`)}
-      )
+        this.isConnected.set(true);
+        this.isEnabled.set(true);
+        this.isAttemptingToConnect.set(false);
+        console.log(`Connected to Printer: ${printer.modelName}`)
+        await Toast.show({ text: `Connected to printer: ${printer.modelName}!`, duration: 'long'})
 
+        this.printerClient.getStatus().subscribe(
+          (value) => {console.log(`Printer status: ${JSON.stringify(value)}`)},
+          (err) => {console.log(`Printer status error ${err}`)}
+        )
+
+      }
+
+    } catch(err) {
+      console.log(`Error when connecting to printer ${err.message}`)
+      await Toast.show({ text: `Failed to connect to printer due to error ${err.message}`, duration: 'long'})
+      this.isConnected.set(false);
+      this.isEnabled.set(false);
+      this.isAttemptingToConnect.set(false);
     }
   }
 
   printOrderInKitchen = async (order: Order) => {
     console.log(`Attempting to print order: ${order.orderNumber}`)
     try{
-      console.log(`Printer client is: ${this.printerClient}`)
-      
-      
       const printedTicketElement = document.getElementById('receipt-paper');
 
       if(!printedTicketElement) {
         console.log(`Receipt component is not rendered on DOM. Unable to find component to convert to image`);
         throw ReferenceError;
       }
+
+      this.isAttemptingToPrint.set(true);
 
       // Convert react component to image
       const canvasElement = await html2canvas(printedTicketElement);
@@ -85,26 +108,36 @@ export default class PrinterStore {
         recursive: true
       });
 
+      this.isAttemptingToPrint.set(false);
+
       const uri = (await Filesystem.getUri({path, directory})).uri
       console.log(`Receipt uri is ${uri}`)
 
       await this.printerClient.printImage(this.printer.portName, Emulation.StarGraphic, {uri})
+      await Filesystem.deleteFile({path})
     } catch(e) {
+      this.isAttemptingToPrint.set(false)
       console.log(`Failed to send message to printer ${this.printer.portName} because ${e}`)
       throw e
     }
   }
 
-  enablePrinter = () => {
-    this.isEnabled = true;
+  enablePrinter = async () => {
+    this.isEnabled.set(true);
+    await this.connectToPrinter();
   }
 
   disablePrinter = () => {
-    this.isEnabled = false;
+    this.isEnabled.set(false);
   }
 
   getPrinterClient = () => this.printerClient;
-  getPrinter = () => this.printer;
-  
+
+  getPrinter = (): Printer | undefined => this.printer;
+
   getIsEnabled = () => this.isEnabled;
+
+  getIsAttemptingConnection = ()=> this.isAttemptingToConnect;
+
+  getIsAttemptingToPrint = () => this.isAttemptingToPrint;
 }
